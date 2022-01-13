@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637776639961430544
-    m_Hash: 2652980615
+      ticks: 637776893756979551
+    m_Hash: 1622847871
   m_LockFileStatus:
     m_FilePath: D:/UnityProjects/SwordsAndGuns/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637776639961480773
-    m_Hash: 76443498
+      ticks: 637776893756984557
+    m_Hash: 1945671908
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
