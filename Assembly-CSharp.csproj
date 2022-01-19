@@ -63,6 +63,7 @@
     <Compile Include="Assets\_Scripts\Capabilities\Jump.cs" />
     <Compile Include="Assets\_Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\_Scripts\Controllers\Player2DController.cs" />
+    <Compile Include="Assets\_Scripts\GamePreferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
