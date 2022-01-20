@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ground : MonoBehaviour
@@ -40,7 +38,7 @@ public class Ground : MonoBehaviour
 
         friction = 0;
 
-        if(material != null)
+        if (material != null)
         {
             friction = material.friction;
         }
