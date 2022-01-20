@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Controller))]
 public class Jump : MonoBehaviour
 {
-    [SerializeField, Range(0f, 10f)] private float jumpHeight = 3f;
+    [SerializeField, Range(0f, 10f)] private float jumpHeight = 1f; // COMENTAR CÓDIGO
     [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
     [SerializeField, Range(0f, 5f)] private float downwardMovementMultiplier = 3f;
     [SerializeField, Range(0f, 5f)] private float upwardMovementMultiplier = 1.7f;
@@ -17,10 +17,12 @@ public class Jump : MonoBehaviour
     private float defaultGravityScale;
 
     public bool isJumping;
-    public float holdingJumpStart;
-    public float holdingJumpTime = 5f;
     private bool onGround;
 
+    public bool holdingJump;
+    public float holdingJumpStart;
+    public float holdingJumpTime = 0.1f;
+    public float holdForce;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,7 +37,14 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isJumping |= Input.GetKeyDown(KeyCode.Space);
+        isJumping |= controller.input.RetrieveJumpInput();
+        holdingJump |= controller.input.RetrieveJumpInputHold();
+
+        if (controller.input.RetrieveJumpInputRelease())
+        {
+            holdingJumpStart = 0;
+            holdingJump = false;
+        }
     }
 
     private void FixedUpdate()
@@ -51,6 +60,14 @@ public class Jump : MonoBehaviour
         if (isJumping)
         {
             JumpAction();
+            isJumping = false;
+
+        }
+
+        if (holdingJump && holdingJumpStart < holdingJumpTime)
+        {
+            holdingJumpStart += Time.deltaTime;
+            body.AddForce(new Vector2(0, holdForce));
         }
 
         if (body.velocity.y > 0)
@@ -83,8 +100,8 @@ public class Jump : MonoBehaviour
             {
                 jumpSpeed += Mathf.Abs(body.velocity.y);
             }
-            if(Input.GetKeyDown(KeyCode.Space))
-                velocity.y += jumpSpeed;
+
+            velocity.y += jumpSpeed;
         }
     }
 }

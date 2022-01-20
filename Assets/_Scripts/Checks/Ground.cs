@@ -38,7 +38,7 @@ public class Ground : MonoBehaviour
 
         friction = 0;
 
-        if(material != null)
+        if (material != null)
         {
             friction = material.friction;
         }

@@ -1,7 +1,6 @@
 using UnityEngine;
 
-    public class Controller : MonoBehaviour
-    {
-        public GameObject characterObject = null;
-        public InputController input = null;
-    }
+public class Controller : MonoBehaviour
+{
+    public InputController input = null;
+}

@@ -10,6 +10,16 @@ public class AIController : InputController
         return true;
     }
 
+    public override bool RetrieveJumpInputHold()
+    {
+        return true;
+    }
+
+    public override bool RetrieveJumpInputRelease()
+    {
+        return true;
+    }
+
     public override float RetrieveMoveInput()
     {
         return 1f;
