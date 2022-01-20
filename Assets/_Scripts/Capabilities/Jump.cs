@@ -3,23 +3,24 @@ using UnityEngine;
 [RequireComponent(typeof(Controller))]
 public class Jump : MonoBehaviour
 {
-    [SerializeField, Range(0f, 10f)] private float jumpHeight = 1f; // COMENTAR CÓDIGO
-    [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
-    [SerializeField, Range(0f, 5f)] private float downwardMovementMultiplier = 3f;
-    [SerializeField, Range(0f, 5f)] private float upwardMovementMultiplier = 1.7f;
+    [SerializeField, Range(0f, 10f)] private float jumpHeight = 1f; // ALTURA/FUERZA DEL SALTO
+    [SerializeField, Range(0, 5)] private int maxAirJumps = 0; // NÚMERO DE SALTOS EXTRA QUE PUEDE DAR EL PERSONAJE
+    [SerializeField, Range(0f, 5f)] private float downwardMovementMultiplier = 3f; // GRAVEDAD AL CAER
+    [SerializeField, Range(0f, 5f)] private float upwardMovementMultiplier = 1.7f; // GRAVEDAD AL SUBIR
 
+    // DECLARACIÓN VARIABLES
     private Controller controller;
     private Rigidbody2D body;
     private Ground ground;
     private Vector2 velocity;
 
-    private int jumpPhase;
-    private float defaultGravityScale;
+    private int jumpPhase; // NÚMERO DE SALTOS REALIZADOS EN EL AIRE
+    private float defaultGravityScale; // GRAVEDAD POR DEFECTO (inicialización en Awake())
 
-    public bool isJumping;
-    private bool onGround;
+    public bool isJumping; // INDICA SI ESTÁ SALTANDO
+    private bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
 
-    public bool holdingJump;
+    public bool holdingJump; // PRESIONANDO TECLA DE SALTO
     public float holdingJumpStart;
     public float holdingJumpTime = 0.1f;
     public float holdForce;
@@ -40,6 +41,7 @@ public class Jump : MonoBehaviour
         isJumping |= controller.input.RetrieveJumpInput();
         holdingJump |= controller.input.RetrieveJumpInputHold();
 
+        // SI SE SUELTA LA TECLA DE SALTO...
         if (controller.input.RetrieveJumpInputRelease())
         {
             holdingJumpStart = 0;
@@ -52,11 +54,13 @@ public class Jump : MonoBehaviour
         onGround = ground.GetOnGround();
         velocity = body.velocity;
 
+        // SI SE ESTÁ EN EL SUELO...
         if (onGround)
         {
             jumpPhase = 0;
         }
 
+        // SI SE PULSA LA TECLA DE SALTO...
         if (isJumping)
         {
             JumpAction();
@@ -64,20 +68,24 @@ public class Jump : MonoBehaviour
 
         }
 
+        // SI SE MANTIENE PULSADA LA TECLA DE SALTO... SE AÑADE FUERZA PARA IMPULSAR Y REALIZAR UN SALTO MÁS ALTO
         if (holdingJump && holdingJumpStart < holdingJumpTime)
         {
             holdingJumpStart += Time.deltaTime;
             body.AddForce(new Vector2(0, holdForce));
         }
 
+        // APLICAR GRAVEDAD EN LA SUBIDA
         if (body.velocity.y > 0)
         {
             body.gravityScale = upwardMovementMultiplier;
         }
+        // APLICAR GRAVEDAD EN LA BAJADA
         else if (body.velocity.y < 0)
         {
             body.gravityScale = downwardMovementMultiplier;
         }
+        // GRAVEDAD POR DEFECTO SI NO SE ESTÁ SUBIENDO O BAJANDO
         else if (body.velocity.y == 0)
         {
             body.gravityScale = defaultGravityScale;
@@ -85,8 +93,12 @@ public class Jump : MonoBehaviour
 
         body.velocity = velocity;
     }
+    /**
+     * Función de salto
+     */
     private void JumpAction()
     {
+        // SI SE ESTÁ EN EL SUELO O SE TIENEN SALTOS AÉREOS RESTANTES, SE PUEDE SALTAR
         if (onGround || jumpPhase < maxAirJumps)
         {
             jumpPhase += 1;

@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class GamePreferences : MonoBehaviour
 {
-    public int targetFrameRate = 60;
+    // ESTABLECE LA TASA DE FRAMES POR SEGUNDO DE LA APLICACIÓN
+    // ES NECESARIO DESACTIVAR LA SINCRONIZACIÓN VERTICAL (vSync) PARA ELLO
 
+    public int targetFrameRate = 60; // TASA DE FRAMES POR SEGUNDO (FPS)
 
     void Start()
     {
@@ -12,7 +14,7 @@ public class GamePreferences : MonoBehaviour
 
     public void SetTargetFrameRate()
     {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = targetFrameRate;
+        QualitySettings.vSyncCount = 0; // DESACTIVAR SINCRONIZACIÓN VERTICAL
+        Application.targetFrameRate = targetFrameRate; // ESTABLECER TASA DEFRAMES EN LA APP
     }
 }

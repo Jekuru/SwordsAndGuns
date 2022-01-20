@@ -3,9 +3,9 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     [SerializeField] private InputController input = null;
-    [SerializeField, Range(0f, 100f)] private float maxSpeed = 4f;
-    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 35f;
-    [SerializeField, Range(0f, 100f)] private float maxAirAcceleration = 20f;
+    [SerializeField, Range(0f, 100f)] private float maxSpeed = 4f; // VELOCIDAD HORIZONTAL
+    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 35f; // ACCELERACION MÁXIMA
+    [SerializeField, Range(0f, 100f)] private float maxAirAcceleration = 20f; // ACCELERACIÓN MÁXIMA VERTICAL
 
     private Vector2 direction;
     private Vector2 desiredVelocity;
@@ -52,6 +52,9 @@ public class Move : MonoBehaviour
         body.velocity = velocity;
     }
 
+    /**
+     * INVIERTE LA ESCALA DEL PERSONAJE AL DESPLAZRASE HACIA LA IZQUIERDA Y DERECHA
+     */
     private void FaceMoveDirection()
     {
         if (input.RetrieveMoveInput() > 0)
