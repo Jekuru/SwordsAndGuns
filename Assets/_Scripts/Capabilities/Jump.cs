@@ -44,7 +44,6 @@ public class Jump : MonoBehaviour
         // SI SE SUELTA LA TECLA DE SALTO...
         if (controller.input.RetrieveJumpInputRelease())
         {
-            holdingJumpStart = 0;
             holdingJump = false;
         }
     }
@@ -101,6 +100,7 @@ public class Jump : MonoBehaviour
         // SI SE ESTÁ EN EL SUELO O SE TIENEN SALTOS AÉREOS RESTANTES, SE PUEDE SALTAR
         if (onGround || jumpPhase < maxAirJumps)
         {
+            holdingJumpStart = 0;
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
 
