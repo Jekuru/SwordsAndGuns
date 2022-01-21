@@ -9,7 +9,7 @@ public class TeleportBack : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.transform.SetPositionAndRotation(new Vector2(-1.96f, -2.36f), Quaternion.identity);
-            Debug.Log("Trigger");
+            Debug.Log("Te has caido, teletransportando de vuelta...");
         }
     }
 }
