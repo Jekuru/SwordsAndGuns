@@ -35,7 +35,6 @@ public class Move : MonoBehaviour
     {
         direction.x = input.RetrieveMoveInput();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - ground.GetFriction(), 0f);
-
     }
 
     private void FixedUpdate()
@@ -53,18 +52,17 @@ public class Move : MonoBehaviour
     }
 
     /**
-     * INVIERTE LA ESCALA DEL PERSONAJE AL DESPLAZRASE HACIA LA IZQUIERDA Y DERECHA
+     * INVIERTE LA ROTACIÓN DEL PERSONAJE AL DESPLAZARSE HACIA LA IZQUIERDA Y DERECHA
      */
     private void FaceMoveDirection()
     {
-        if (input.RetrieveMoveInput() > 0)
+        if (direction.x > 0f)
         {
-            characterScale.x = characterScaleX;
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (input.RetrieveMoveInput() < 0)
+        else if (direction.x < 0f)
         {
-            characterScale.x = -characterScaleX;
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
-        transform.localScale = characterScale;
     }
 }
