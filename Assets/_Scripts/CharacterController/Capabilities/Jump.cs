@@ -17,8 +17,9 @@ public class Jump : MonoBehaviour
     private int jumpPhase; // NÚMERO DE SALTOS REALIZADOS EN EL AIRE
     private float defaultGravityScale; // GRAVEDAD POR DEFECTO (inicialización en Awake())
 
+    // VARIABLES PUBLICAS PARA USARLAS MAS ADELANTE CON LAS ANIMACIONES
     public bool isJumping; // INDICA SI ESTÁ SALTANDO
-    private bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
+    public bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
 
     public bool holdingJump; // PRESIONANDO TECLA DE SALTO
     public float holdingJumpStart;

@@ -19,6 +19,11 @@ public class AIController : InputController
         return true;
     }
 
+    public override bool RetrieveFireInput()
+    {
+        return true;
+    }
+
     public override float RetrieveMoveInput()
     {
         return 1f;
