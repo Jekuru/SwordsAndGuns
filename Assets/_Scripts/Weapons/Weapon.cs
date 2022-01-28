@@ -6,13 +6,21 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Controller controller;
+    private Controller controller;
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    public enum WeaponTypes
+    {
+        none, pistol, shotgun
+    }
+    public WeaponTypes currentWeapon;
+
+    public GameObject spreadArea;
+
     private void Awake()
     {
-        controller = transform.parent.GetComponent<Controller>();
+        controller = GetComponent<Controller>();
     }
 
     // Update is called once per frame
@@ -20,12 +28,37 @@ public class Weapon : MonoBehaviour
     {
         if (controller.input.RetrieveFireInput())
         {
-            Shoot();
+            switch (currentWeapon)
+            {
+                case WeaponTypes.none:
+                    break;
+                case WeaponTypes.pistol:
+                    Shoot(firePoint.position, firePoint.rotation); // TODO
+                    break;
+                case WeaponTypes.shotgun:
+                    Shotgun();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    void Shoot()
+    void Shotgun()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        int pellets = 10;
+        for (int i = 0; i < pellets; i++)
+        {
+            float randomBullet = Random.Range(-30f, 30f);
+            Quaternion newRotation = firePoint.rotation;
+            newRotation = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+
+            Shoot(firePoint.position, newRotation);
+        }
+    }
+
+    void Shoot(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(bulletPrefab, position, rotation);
     }
 }

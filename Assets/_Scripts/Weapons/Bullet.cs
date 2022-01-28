@@ -16,11 +16,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
-        if(collision.CompareTag("Player"))
+        if(collision.name != "FirePoint" && collision.name != "ProtoBullet(Clone)")
         {
-            collision.GetComponent<PlayerStats>().healthPoints--;
+            Debug.Log(collision.name);
+            if (collision.CompareTag("Player"))
+            {
+                collision.GetComponent<PlayerStats>().healthPoints--;
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

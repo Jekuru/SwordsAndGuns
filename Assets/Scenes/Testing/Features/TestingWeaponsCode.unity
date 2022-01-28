@@ -443,6 +443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 259187673}
+  - component: {fileID: 259187674}
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
@@ -458,12 +459,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259187672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1099, y: 0.0151, z: 0}
+  m_LocalPosition: {x: 0.11, y: 0.015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 563960833}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &259187674
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259187672}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.02
 --- !u!1 &514360527
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,10 +588,8 @@ GameObject:
   m_Component:
   - component: {fileID: 563960833}
   - component: {fileID: 563960832}
-  - component: {fileID: 563960834}
-  - component: {fileID: 563960835}
   m_Layer: 0
-  m_Name: TestGun
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -646,34 +661,6 @@ Transform:
   m_Father: {fileID: 2392283507301023414}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &563960834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563960831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 318c8d4ae7e3bfb499ed58bb86528af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  firePoint: {fileID: 259187673}
-  bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}
---- !u!114 &563960835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563960831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa3e472220988d34c8136bb955880206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 0}
 --- !u!1 &589266849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,6 +4089,7 @@ GameObject:
   - component: {fileID: 7655504717413761499}
   - component: {fileID: 7655504717413761498}
   - component: {fileID: 3144552230254612516}
+  - component: {fileID: 2392283507301023371}
   m_Layer: 0
   m_Name: ProtoPlayer
   m_TagString: Player
@@ -4123,6 +4111,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 1
   isDead: 0
+--- !u!114 &2392283507301023371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392283507301023369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318c8d4ae7e3bfb499ed58bb86528af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 259187673}
+  bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}
+  currentWeapon: 2
+  spreadArea: {fileID: 0}
 --- !u!4 &2392283507301023414
 Transform:
   m_ObjectHideFlags: 0
