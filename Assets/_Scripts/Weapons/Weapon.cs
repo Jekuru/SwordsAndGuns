@@ -16,7 +16,12 @@ public class Weapon : MonoBehaviour
     }
     public WeaponTypes currentWeapon;
 
-    public GameObject spreadArea;
+    public float spreadMin;
+    public float spreadMax;
+
+    public float fireRate;
+    public float cdShoot = 0f;
+    public bool cdBool;
 
     private void Awake()
     {
@@ -26,14 +31,16 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.input.RetrieveFireInput())
+        if (controller.input.RetrieveFireInput() && cdBool)
         {
+            cdBool = false;
             switch (currentWeapon)
             {
                 case WeaponTypes.none:
+                    None();
                     break;
                 case WeaponTypes.pistol:
-                    Shoot(firePoint.position, firePoint.rotation); // TODO
+                    Pistol();
                     break;
                 case WeaponTypes.shotgun:
                     Shotgun();
@@ -42,18 +49,48 @@ public class Weapon : MonoBehaviour
                     break;
             }
         }
+
+        if (!cdBool)
+            cdShoot += Time.deltaTime;
+
+        if(cdShoot > fireRate)
+        {
+            cdShoot = 0f;
+            cdBool = true;
+        }
+    }
+
+    void None()
+    {
+        spreadMin = 0;
+        spreadMax = 0;
+        fireRate = 0;
+    }
+
+    void Pistol()
+    {
+        spreadMin = -2.5f;
+        spreadMax = 2.5f;
+        fireRate = 0.5f;
+
+        float randomBullet = Random.Range(spreadMin, spreadMax);
+        Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+        Shoot(firePoint.position, firePoint.rotation * spread);
     }
 
     void Shotgun()
     {
         int pellets = 10;
+        spreadMin = -30f;
+        spreadMax = 30f;
+        fireRate = 1f;
+
         for (int i = 0; i < pellets; i++)
         {
-            float randomBullet = Random.Range(-30f, 30f);
-            Quaternion newRotation = firePoint.rotation;
-            newRotation = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+            float randomBullet = Random.Range(spreadMin, spreadMax);
+            Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
 
-            Shoot(firePoint.position, newRotation);
+            Shoot(firePoint.position, firePoint.rotation * spread);
         }
     }
 
