@@ -21,6 +21,10 @@ public class Player2DController : InputController
     {
         return Input.GetAxisRaw("Horizontal");
     }
+    public override float RetrieveVerticalInput()
+    {
+        return Input.GetAxisRaw("Vertical");
+    }
 
     public override bool RetrieveFireInput()
     {

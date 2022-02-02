@@ -1,36 +1,35 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AIController", menuName = "InputController/AIController")]
-public class AIController : InputController
+[CreateAssetMenu(fileName = "DeadController", menuName = "InputController/DeadController")]
+public class DeadController : InputController
 {
-    // SCRIPT PRUEBAS CON IA
     public override bool RetrieveJumpInput()
     {
-        return true;
+        return false;
     }
 
     public override bool RetrieveJumpInputHold()
     {
-        return true;
+        return false;
     }
 
     public override bool RetrieveJumpInputRelease()
     {
-        return true;
+        return false;
     }
 
     public override bool RetrieveFireInput()
     {
-        return true;
+        return false;
     }
 
     public override float RetrieveMoveInput()
     {
-        return 1f;
+        return 0;
     }
 
     public override float RetrieveVerticalInput()
     {
-        return 1f;
+        return 0;
     }
 }
