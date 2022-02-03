@@ -4066,7 +4066,7 @@ GameObject:
   - component: {fileID: 7655504717311110452}
   - component: {fileID: 7655504717311110453}
   - component: {fileID: 3144552230416071883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ProtoDummy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4110,7 +4110,7 @@ GameObject:
   - component: {fileID: 2392283507301023371}
   - component: {fileID: 2392283507301023372}
   - component: {fileID: 2392283507301023373}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ProtoPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4185,8 +4185,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0193429, y: 0.12697512}
-  m_Size: {x: 0.24378633, y: 0.9339503}
+  m_Offset: {x: -0.019087493, y: 0.12697512}
+  m_Size: {x: 0.3245412, y: 0.9339503}
   m_Direction: 0
 --- !u!4 &2392283507301023414
 Transform:
