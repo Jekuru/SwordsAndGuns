@@ -530,7 +530,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 53.36819
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -572,9 +572,10 @@ GameObject:
   m_Component:
   - component: {fileID: 563960833}
   - component: {fileID: 563960832}
+  - component: {fileID: 563960834}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Melee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -619,12 +620,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 35a2d954e64ba1d42a31481bb3136f64, type: 3}
+  m_Sprite: {fileID: 2248177538716262146, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.26, y: 0.17}
+  m_Size: {x: 0.22, y: 0.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -645,6 +646,32 @@ Transform:
   m_Father: {fileID: 2392283507301023414}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &563960834
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563960831}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00027409196, y: 0.00084120035}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.22, y: 0.23}
+    newSize: {x: 0.22, y: 0.23}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.22077006, y: 0.23120248}
+  m_EdgeRadius: 0
 --- !u!1 &589266849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4101,15 +4128,17 @@ GameObject:
   m_Component:
   - component: {fileID: 2392283507301023414}
   - component: {fileID: 7655504717413761488}
+  - component: {fileID: 2392283507301023373}
   - component: {fileID: 7655504717413761490}
+  - component: {fileID: 2392283507301023374}
+  - component: {fileID: 2392283507301023375}
+  - component: {fileID: 7655504717413761498}
+  - component: {fileID: 7655504717413761499}
+  - component: {fileID: 2392283507301023372}
   - component: {fileID: 2392283507301023370}
   - component: {fileID: 7655504717413761493}
   - component: {fileID: 7655504717413761494}
-  - component: {fileID: 7655504717413761499}
-  - component: {fileID: 7655504717413761498}
   - component: {fileID: 2392283507301023371}
-  - component: {fileID: 2392283507301023372}
-  - component: {fileID: 2392283507301023373}
   m_Layer: 6
   m_Name: ProtoPlayer
   m_TagString: Player
@@ -4155,11 +4184,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 35a2d954e64ba1d42a31481bb3136f64, type: 3}
   - {fileID: 2248177538716262146, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
   - {fileID: 21300000, guid: 4911cb82e4c500d42a1ae4c0827a8cf6, type: 3}
-  currentWeapon: 1
+  meleeCollider: {fileID: 0}
+  currentWeapon: 0
   spread: 0
   fireRate: 0
   cdShoot: 0
   cdBool: 0
+  meleeAttack: 0
 --- !u!114 &2392283507301023372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4188,6 +4219,40 @@ CapsuleCollider2D:
   m_Offset: {x: -0.019087493, y: 0.12697512}
   m_Size: {x: 0.3245412, y: 0.9339503}
   m_Direction: 0
+--- !u!95 &2392283507301023374
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392283507301023369}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e2cb46fad2cc994cba1042d9d7bd7ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2392283507301023375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392283507301023369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52406e6ff358794ca1f103db0c46a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 0}
+  weaponController: {fileID: 0}
+  input: {fileID: 11400000, guid: ddf7c675e591677419f83b3e4bb71dae, type: 2}
 --- !u!4 &2392283507301023414
 Transform:
   m_ObjectHideFlags: 0
@@ -4266,8 +4331,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3042b019b052942a1baf7aa49d7ca6bb, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: a3b9eb59c8d54784ea903ee04af5f52f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4454,6 +4519,7 @@ MonoBehaviour:
   maxSpeed: 4
   maxAcceleration: 35
   maxAirAcceleration: 20
+  onGround: 0
 --- !u!50 &7655504717311110461
 Rigidbody2D:
   serializedVersion: 4
@@ -4640,6 +4706,7 @@ MonoBehaviour:
   maxSpeed: 4
   maxAcceleration: 35
   maxAirAcceleration: 20
+  onGround: 0
 --- !u!114 &7655504717413761494
 MonoBehaviour:
   m_ObjectHideFlags: 0

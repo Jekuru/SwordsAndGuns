@@ -12,10 +12,15 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
     public SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
     public Sprite[] spriteArray; // Array de sprites, añadir desde el inspector
+    public Collider2D meleeCollider;
 
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
-        none, pistol, shotgun
+        none,                                       // Nada
+        sword,                                      // Melee
+        pistol, shotgun,                            // Distancia físicas
+                                                    // Distancia raycast
+                                                    // Proyectil AoE
     }
     public WeaponTypes currentWeapon; // Arma actual
 
@@ -25,10 +30,15 @@ public class Weapon : MonoBehaviour
     public float cdShoot = 0f; // Cooldown de disparo;
     public bool cdBool; // Booleana cooldown de disparo;
 
+    public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
+
+    // TODO: Falta por implementar MUNICIÓN
+
     private void Awake()
     {
         controller = GetComponent<Controller>();
         currentWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>();
+        meleeCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -48,6 +58,9 @@ public class Weapon : MonoBehaviour
                     break;
                 case WeaponTypes.shotgun:
                     Shotgun();
+                    break;
+                case WeaponTypes.sword:
+                    Melee();
                     break;
                 default:
                     break;
@@ -76,6 +89,11 @@ public class Weapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentWeapon = WeaponTypes.shotgun;
+            RenderSprite();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            currentWeapon = WeaponTypes.sword;
             RenderSprite();
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -112,7 +130,7 @@ public class Weapon : MonoBehaviour
      */
     void Shotgun()
     {
-        int pellets = 10;
+        int pellets = 10; // Número de proyectiles que se instanciarán
         spread = 5f; // Dispersión reducida de 30 a 5 para que no sea tan facil acertar objetivos con este arma, (¿crear arma "Trabuco" de un solo disparo con dispersión 30?).
         fireRate = 1f;
 
@@ -123,6 +141,14 @@ public class Weapon : MonoBehaviour
 
             Shoot(firePoint.position, firePoint.rotation * spread);
         }
+    }
+
+    void Melee()
+    {
+        fireRate = 0.5f;
+        spread = 0;
+
+        meleeAttack = true;
     }
 
     /**
@@ -147,6 +173,9 @@ public class Weapon : MonoBehaviour
                 currentWeaponSprite.sprite = spriteArray[0];
                 break;
             case WeaponTypes.shotgun:
+                currentWeaponSprite.sprite = spriteArray[1];
+                break;
+            case WeaponTypes.sword:
                 currentWeaponSprite.sprite = spriteArray[1];
                 break;
             default:

@@ -15,10 +15,7 @@ public class Move : MonoBehaviour
 
     private float maxSpeedChange;
     private float acceleration;
-    private bool onGround;
-
-    private Vector3 characterScale;
-    private float characterScaleX;
+    public bool onGround;
 
 
     // Start is called before the first frame update
@@ -26,8 +23,6 @@ public class Move : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<Ground>();
-        characterScale = transform.localScale;
-        characterScaleX = characterScale.x;
     }
 
     // Update is called once per frame

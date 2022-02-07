@@ -26,16 +26,27 @@ public class PlayerStats : MonoBehaviour
 
     public void IsDead()
     {
-        if(healthPoints <= 0)
+        if (healthPoints <= 0)
         {
             isDead = true;
             characterController.input = deadInput;
             moveController.enabled = false;
-        } else
+        }
+        else
         {
             isDead = false;
             characterController.input = characterInput;
             moveController.enabled = true;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Melee")
+        {
+            healthPoints--;
+            Debug.Log("Jugador golpeado melee");
+        }
+        Debug.Log(collision.gameObject.name);
     }
 }
