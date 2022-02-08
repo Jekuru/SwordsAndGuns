@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Melee")
+        if (collision.gameObject.CompareTag("Melee"))
         {
             healthPoints--;
             Debug.Log("Jugador golpeado melee");
