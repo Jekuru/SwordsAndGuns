@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawner: {fileID: 5261547025153135206}
-  spawnTime: 3
+  spawnTime: 20
   spawnedWeapon: greatsword
   avaliableWeapons:
   - raygun

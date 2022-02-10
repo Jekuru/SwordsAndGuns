@@ -18,6 +18,8 @@ public class SpawnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
+
         if (isActive == false)
         {
             Time.timeScale = 1.0f;
@@ -33,6 +35,8 @@ public class SpawnerController : MonoBehaviour
             }
 
         }
+
+        //Cambia el sprite del arma segun el arma elegida aleatoriamente
 
         switch (spawnedWeapon)
         {
@@ -79,19 +83,13 @@ public class SpawnerController : MonoBehaviour
             case "grenade":
                 weaponSpawner.GetComponent<SpriteRenderer>().sprite = spriteList[10];
                 break;
-
-
-
-
         }
-
-
-
-
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        //Apaga el arma al detectar que un jugador toca el spawner
+
         if (col.collider.gameObject.CompareTag("Player"))
         {
             weaponSpawner.SetActive(false);
