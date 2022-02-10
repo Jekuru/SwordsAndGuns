@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     private Controller controller; // Inputs del jugador
     public GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
     public SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
+    public GameObject throwedWeapon; // Arma duplicada que se lanzará
 
     public int ammo; // Munición actual del arma.
     public int maxAmmo; // Munición máxima del arma.
@@ -20,6 +21,12 @@ public class Weapon : MonoBehaviour
     public float cdShoot = 0f; // Cooldown de disparo;
     public bool cdBool; // Booleana cooldown de disparo;
     public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
+
+    public GameObject clonedWeapon;
+    public bool destroyThrowedWeapon; // Booleana que activa el tiempo hasta que se destruya el arma
+    public float throwTimer; // Tiempo hasta que se destruya el arma arrojada
+    public float throwTimerMax = 10f; // Tiempo establecido para que se destruya el arma arrojada
+
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
         none,                                       // Nada
@@ -30,8 +37,8 @@ public class Weapon : MonoBehaviour
     }
     public WeaponTypes currentWeapon; // Arma actual
 
-    // TODO: Falta por implementar MUNICIÓN
-    // TODO: Botón para tirar arma.
+    // TODO: Falta por PROBAR MUNICIÓN.
+    // TODO: Solventar problema al tirar el arma.
 
     private void Awake()
     {
@@ -86,6 +93,16 @@ public class Weapon : MonoBehaviour
             cdShoot = 0f;
             cdBool = true;
         }
+
+        if (destroyThrowedWeapon)
+        {
+            throwTimer += Time.deltaTime;
+            if(throwTimer >= throwTimerMax)
+            {
+                Destroy(clonedWeapon);
+                destroyThrowedWeapon = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -120,6 +137,10 @@ public class Weapon : MonoBehaviour
             currentWeapon = WeaponTypes.none;
             RenderSprite();
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ThrowGun();
+        }
     }
 
     #region Comportamiento armas
@@ -149,12 +170,16 @@ public class Weapon : MonoBehaviour
     void Pistol()
     {
         maxAmmo = 7;
+        ammo++;
         this.spread = 2.5f; // Dispersión en la pistola para simular disparos de poca precisión
         fireRate = 0.5f;
 
         float randomBullet = Random.Range(this.spread * -1, this.spread);
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
         Shoot(firePoint.position, firePoint.rotation * spread);
+        if(ammo >= maxAmmo){
+            ThrowGun();
+        }
     }
 
     /**
@@ -163,6 +188,7 @@ public class Weapon : MonoBehaviour
     void Shotgun()
     {
         maxAmmo = 2;
+        ammo++;
         int pellets = 10; // Número de proyectiles que se instanciarán
         spread = 5f; // Dispersión reducida de 30 a 5 para que no sea tan facil acertar objetivos con este arma, (¿crear arma "Trabuco" de un solo disparo con dispersión 30?).
         fireRate = 1f;
@@ -174,6 +200,10 @@ public class Weapon : MonoBehaviour
 
             Shoot(firePoint.position, firePoint.rotation * spread);
         }
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
     }
 
      /**
@@ -182,6 +212,7 @@ public class Weapon : MonoBehaviour
     void Sniper()
     {
         maxAmmo = 5;
+        ammo++;
         this.spread = 0.1f;
         fireRate = 1.5f;
 
@@ -189,6 +220,10 @@ public class Weapon : MonoBehaviour
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
 
         Shoot(firePoint.position, firePoint.rotation * spread);
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
     }
 
     /**
@@ -198,10 +233,16 @@ public class Weapon : MonoBehaviour
     void Raygun()
     {
         maxAmmo = 1;
+        ammo++;
         spread = 0;
         fireRate = 2f;
 
         // TODO: Crear o instanciar el rayo.
+
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
     }
 
     #endregion
@@ -247,5 +288,22 @@ public class Weapon : MonoBehaviour
     void Shoot(Vector3 position, Quaternion rotation)
     {
         Instantiate(bulletPrefab, position, rotation);
+    }
+
+    /*
+     * Tirar arma
+     */
+    void ThrowGun()
+    {
+        if (currentWeapon == WeaponTypes.none)
+            return;
+
+        throwedWeapon.GetComponent<SpriteRenderer>().sprite = currentWeaponSprite.sprite;
+        clonedWeapon = Instantiate(throwedWeapon, weapon.transform.position, weapon.transform.rotation);
+        clonedWeapon.GetComponent<Rigidbody2D>().AddForce(clonedWeapon.transform.right * 1.8f, ForceMode2D.Impulse);
+        currentWeapon = WeaponTypes.none;
+        RenderSprite();
+
+        destroyThrowedWeapon = true;
     }
 }

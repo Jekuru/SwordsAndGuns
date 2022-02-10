@@ -40,13 +40,12 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Melee"))
+        if (collision.transform.tag == "Melee")
         {
             healthPoints--;
             Debug.Log("Jugador golpeado melee");
         }
-        Debug.Log(collision.gameObject.name);
     }
 }
