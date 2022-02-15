@@ -21,11 +21,9 @@ public class Weapon : MonoBehaviour
     public float cdShoot = 0f; // Cooldown de disparo;
     public bool cdBool; // Booleana cooldown de disparo;
     public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
+    public LineRenderer laserLineRenderer;
 
     public GameObject clonedWeapon;
-    public bool destroyThrowedWeapon; // Booleana que activa el tiempo hasta que se destruya el arma
-    public float throwTimer; // Tiempo hasta que se destruya el arma arrojada
-    public float throwTimerMax = 10f; // Tiempo establecido para que se destruya el arma arrojada
 
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
@@ -37,13 +35,15 @@ public class Weapon : MonoBehaviour
     }
     public WeaponTypes currentWeapon; // Arma actual
 
-    // TODO: Falta por PROBAR MUNICIÓN.
-    // TODO: Solventar problema al tirar el arma.
-
     private void Awake()
     {
         controller = GetComponent<Controller>();
         currentWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>();
+        Vector3[] initLaserPositions = new Vector3[2] { Vector2.zero, Vector2.zero };
+
+
+        laserLineRenderer.SetPositions( initLaserPositions );
+        laserLineRenderer.SetWidth(10, 10);
     }
 
     // Update is called once per frame
@@ -93,16 +93,6 @@ public class Weapon : MonoBehaviour
             cdShoot = 0f;
             cdBool = true;
         }
-
-        if (destroyThrowedWeapon)
-        {
-            throwTimer += Time.deltaTime;
-            if(throwTimer >= throwTimerMax)
-            {
-                Destroy(clonedWeapon);
-                destroyThrowedWeapon = false;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -127,11 +117,11 @@ public class Weapon : MonoBehaviour
             currentWeapon = WeaponTypes.sniper;
             RenderSprite();
         }
-        /*if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             currentWeapon = WeaponTypes.raygun;
             RenderSprite();
-        }*/
+        }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             currentWeapon = WeaponTypes.none;
@@ -177,6 +167,7 @@ public class Weapon : MonoBehaviour
         float randomBullet = Random.Range(this.spread * -1, this.spread);
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
         Shoot(firePoint.position, firePoint.rotation * spread);
+
         if(ammo >= maxAmmo){
             ThrowGun();
         }
@@ -200,6 +191,7 @@ public class Weapon : MonoBehaviour
 
             Shoot(firePoint.position, firePoint.rotation * spread);
         }
+
         if (ammo >= maxAmmo)
         {
             ThrowGun();
@@ -220,6 +212,7 @@ public class Weapon : MonoBehaviour
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
 
         Shoot(firePoint.position, firePoint.rotation * spread);
+
         if (ammo >= maxAmmo)
         {
             ThrowGun();
@@ -229,7 +222,6 @@ public class Weapon : MonoBehaviour
     /**
      * Raygun/arma láser equipada
      */
-
     void Raygun()
     {
         maxAmmo = 1;
@@ -237,7 +229,22 @@ public class Weapon : MonoBehaviour
         spread = 0;
         fireRate = 2f;
 
-        // TODO: Crear o instanciar el rayo.
+        // TODO: DIBUJAR el rayo, el rayo ya está funcionando. Pista: Line Renderer??
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin: firePoint.transform.position, direction: firePoint.transform.right, distance: 100F);
+
+        laserLineRenderer.enabled = true;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit2D hit = hits[i];
+            if (hit.collider.CompareTag("Player"))
+            {
+                PlayerStats playerStats = hit.transform.GetComponent<PlayerStats>();
+                playerStats.healthPoints--;
+                Debug.Log(hit.collider.gameObject.name + " impactado por raygun.");
+            }
+        }
 
         if (ammo >= maxAmmo)
         {
@@ -274,7 +281,7 @@ public class Weapon : MonoBehaviour
                 break;
             // PROYECTIL RAYCAST
             case WeaponTypes.raygun:
-                currentWeaponSprite.sprite = null;
+                currentWeaponSprite.sprite = spriteArray[0];
                 break;
             // PROYECTIL AoE
             default:
@@ -298,12 +305,12 @@ public class Weapon : MonoBehaviour
         if (currentWeapon == WeaponTypes.none)
             return;
 
+        ammo = 0;
         throwedWeapon.GetComponent<SpriteRenderer>().sprite = currentWeaponSprite.sprite;
         clonedWeapon = Instantiate(throwedWeapon, weapon.transform.position, weapon.transform.rotation);
         clonedWeapon.GetComponent<Rigidbody2D>().AddForce(clonedWeapon.transform.right * 1.8f, ForceMode2D.Impulse);
+        clonedWeapon.GetComponent<Rigidbody2D>().AddTorque(0.5f);
         currentWeapon = WeaponTypes.none;
         RenderSprite();
-
-        destroyThrowedWeapon = true;
     }
 }

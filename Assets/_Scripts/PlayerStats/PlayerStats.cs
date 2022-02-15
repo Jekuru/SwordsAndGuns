@@ -31,6 +31,7 @@ public class PlayerStats : MonoBehaviour
             isDead = true;
             characterController.input = deadInput;
             moveController.enabled = false;
+            gameObject.transform.localScale = -gameObject.transform.localScale;
         }
         else
         {

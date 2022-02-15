@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1650190328927625330}
   - component: {fileID: 1650190328927625329}
   - component: {fileID: 435905364794507604}
+  - component: {fileID: -8483684875185279639}
   m_Layer: 7
   m_Name: ThrowedWeapon
   m_TagString: Untagged
@@ -121,3 +122,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.31639245, y: 0.1248007}
   m_Direction: 1
+--- !u!114 &-8483684875185279639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650190328927625335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac46a984e77ba6147a76e3dc401fd6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
