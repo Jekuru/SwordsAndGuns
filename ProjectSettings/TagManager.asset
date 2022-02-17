@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Death
+  - Platform
+  - Melee
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -12,8 +15,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Throwables
   - 
   - 
   - 

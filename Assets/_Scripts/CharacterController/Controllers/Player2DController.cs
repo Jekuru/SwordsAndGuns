@@ -8,18 +8,26 @@ public class Player2DController : InputController
     {
         return Input.GetButtonDown("Jump");
     }
-
     public override bool RetrieveJumpInputHold()
     {
         return Input.GetButton("Jump");
     }
-
     public override bool RetrieveJumpInputRelease()
     {
         return Input.GetButtonUp("Jump");
     }
+
     public override float RetrieveMoveInput()
     {
         return Input.GetAxisRaw("Horizontal");
+    }
+    public override float RetrieveVerticalInput()
+    {
+        return Input.GetAxisRaw("Vertical");
+    }
+
+    public override bool RetrieveFireInput()
+    {
+        return Input.GetButtonDown("Fire1");
     }
 }
