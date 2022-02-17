@@ -9,6 +9,9 @@ public class Weapon : MonoBehaviour
     // Controlador del jugador
     private Controller controller; // Inputs del jugador
 
+    // Controlador spawner
+    private SpawnerController spawnerController; // Spawner de armas
+
     // Variables a introducir manualmente desde el inspector
     [SerializeField] private GameObject weapon; // GameObject del arma
     [SerializeField] private Transform firePoint; // Desde donde sale el proyectil
@@ -181,21 +184,21 @@ public class Weapon : MonoBehaviour
                 break;
             // CUERPO A CUERPO
             case WeaponTypes.sword:
-                currentWeaponSprite.sprite = spriteArray[1];
+                currentWeaponSprite.sprite = spriteArray[0];
                 break;
             // PROYECTIL CON FÍSICA
             case WeaponTypes.pistol:
-                currentWeaponSprite.sprite = spriteArray[0];
+                currentWeaponSprite.sprite = spriteArray[1];
                 break;
             case WeaponTypes.shotgun:
-                currentWeaponSprite.sprite = spriteArray[0];
+                currentWeaponSprite.sprite = spriteArray[2];
                 break;
             case WeaponTypes.sniper:
-                currentWeaponSprite.sprite = spriteArray[0];
+                currentWeaponSprite.sprite = spriteArray[3];
                 break;
             // PROYECTIL RAYCAST
             case WeaponTypes.raygun:
-                currentWeaponSprite.sprite = spriteArray[0];
+                currentWeaponSprite.sprite = spriteArray[4];
                 break;
             // PROYECTIL AoE
             default:
@@ -208,10 +211,10 @@ public class Weapon : MonoBehaviour
      */
     void ThrowGun()
     {
+        ammo = 0;
         if (currentWeapon == WeaponTypes.none)
             return;
 
-        ammo = 0;
         throwedWeapon.GetComponent<SpriteRenderer>().sprite = currentWeaponSprite.sprite;
         clonedWeapon = Instantiate(throwedWeapon, weapon.transform.position, weapon.transform.rotation);
         clonedWeapon.GetComponent<Rigidbody2D>().AddForce(clonedWeapon.transform.right * 1.8f, ForceMode2D.Impulse);
@@ -345,4 +348,47 @@ public class Weapon : MonoBehaviour
     }
 
     #endregion
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<SpawnerController>())
+        {
+            ThrowGun();
+            spawnerController = collision.gameObject.GetComponent<SpawnerController>();
+
+            string spawnedWeapon = spawnerController.spawnedWeapon.ToString();
+
+            switch (spawnedWeapon)
+            {
+                // CUERPO A CUERPO
+                case "sword":
+                    currentWeapon = WeaponTypes.sword;
+                    currentWeaponSprite.sprite = spriteArray[0];
+                    break;
+                // PROYECTIL CON FÍSICA
+                case "pistol":
+                    currentWeapon = WeaponTypes.pistol;
+                    currentWeaponSprite.sprite = spriteArray[1];
+                    break;
+                case "shotgun":
+                    currentWeapon = WeaponTypes.shotgun;
+                    currentWeaponSprite.sprite = spriteArray[2];
+                    break;
+                case "sniper":
+                    currentWeapon = WeaponTypes.sniper;
+                    currentWeaponSprite.sprite = spriteArray[3];
+                    break;
+                // PROYECTIL RAYCAST
+                case "raygun":
+                    currentWeapon = WeaponTypes.raygun;
+                    currentWeaponSprite.sprite = spriteArray[4];
+                    break;
+                // PROYECTIL AoE
+                default:
+                    break;
+
+            }
+        }
+    }
 }
