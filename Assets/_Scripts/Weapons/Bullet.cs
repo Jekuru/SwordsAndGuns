@@ -31,11 +31,17 @@ public class Bullet : MonoBehaviour
 
     private void Detection()
     {
-        LayerMask layers = LayerMask.GetMask("Player");
+        LayerMask layers = LayerMask.GetMask("Player", "Ground");
 
         RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: rBody.velocity, distance: rBody.velocity.magnitude * Time.deltaTime, layerMask: layers);
         
-        if (hit.collider != null)
+        if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(gameObject);
+            Debug.Log("Hit Ground");
+            return;
+        }
+        else if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("Impact " + hit.collider.name);
             Debug.DrawRay(start: transform.position, dir: rBody.velocity, color: Color.green);
@@ -43,7 +49,8 @@ public class Bullet : MonoBehaviour
             hit.collider.GetComponent<PlayerStats>().healthPoints--;
 
             Destroy(gameObject);
-        } else
+        }
+        else
         {
             Debug.Log("Not hit");
             Debug.DrawRay(transform.position, rBody.velocity, Color.red);

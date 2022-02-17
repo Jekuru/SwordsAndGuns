@@ -7,6 +7,7 @@ TagManager:
   - Death
   - Platform
   - Melee
+  - Map
   layers:
   - Default
   - TransparentFX

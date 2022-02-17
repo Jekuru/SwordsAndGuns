@@ -6,25 +6,39 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 { 
-    public GameObject weapon; // GameObject del arma
-    public Transform firePoint; // Desde donde sale el proyectil
-    public Sprite[] spriteArray; // Array de sprites, añadir desde el inspector
+    // Controlador del jugador
     private Controller controller; // Inputs del jugador
-    public GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
-    public SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
-    public GameObject throwedWeapon; // Arma duplicada que se lanzará
 
-    public int ammo; // Munición actual del arma.
-    public int maxAmmo; // Munición máxima del arma.
-    public float spread; // Dispersión para las armas con físicas
-    public float fireRate; // Cadencia de disparo, cuanto menor el número, más rápido se puede disparar.
-    public float cdShoot = 0f; // Cooldown de disparo;
-    public bool cdBool; // Booleana cooldown de disparo;
+    // Variables a introducir manualmente desde el inspector
+    [SerializeField] private GameObject weapon; // GameObject del arma
+    [SerializeField] private Transform firePoint; // Desde donde sale el proyectil
+    [SerializeField] private Sprite[] spriteArray; // Array de sprites, añadir desde el inspector
+    [SerializeField] private GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
+    [SerializeField] private GameObject laserBeamPrefab; // Proyectil con Line Renderer para la raygun
+    [SerializeField] private GameObject throwedWeapon; // Arma duplicada que se lanzará
+
+    // Sprite del arma catual
+    private SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
+
+    // Munición
+    [SerializeField] private int ammo; // Munición actual del arma.
+    [SerializeField] private int maxAmmo; // Munición máxima del arma.
+
+    // Cadencia y dispersión
+    private float fireRate; // Cadencia de disparo, cuanto menor el número, más rápido se puede disparar.
+    private float spread; // Dispersión para las armas con físicas
+    
+    // Cooldowns
+    private bool cdBool; // Booleana cooldown de disparo;
+    private float cdShoot = 0f; // Cooldown de disparo;
+    
+    // Arma clonada
+    private GameObject clonedWeapon;
+
+    // A partir de aquí, variables públicas. ¡No cambiar a private!
     public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
-    public LineRenderer laserLineRenderer;
 
-    public GameObject clonedWeapon;
-
+    // Armas
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
         none,                                       // Nada
@@ -33,66 +47,23 @@ public class Weapon : MonoBehaviour
         raygun,                                     // Distancia raycast
                                                     // Proyectil AoE
     }
+    // Arma equipada actualmente
     public WeaponTypes currentWeapon; // Arma actual
 
     private void Awake()
     {
         controller = GetComponent<Controller>();
         currentWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>();
-        Vector3[] initLaserPositions = new Vector3[2] { Vector2.zero, Vector2.zero };
-
-
-        laserLineRenderer.SetPositions( initLaserPositions );
-        laserLineRenderer.SetWidth(10, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
         // TRIGGER para disparar el arma
-        if (controller.input.RetrieveFireInput() && cdBool)
-        {
-            cdBool = false;
-            switch (currentWeapon)
-            {
-                // NINGUNA
-                case WeaponTypes.none:
-                    None();
-                    break;
-                // CUERPO A CUERPO
-                case WeaponTypes.sword:
-                    Melee();
-                    break;
-                // PROYECTIL CON FÍSICA
-                case WeaponTypes.pistol:
-                    Pistol();
-                    break;
-                case WeaponTypes.shotgun:
-                    Shotgun();
-                    break;
-                case WeaponTypes.sniper:
-                    Sniper();
-                    break;
-                // PROYECTIL RAYCAST
-                case WeaponTypes.raygun:
-                    Raygun();
-                    break;
-                // PROYECTIL AoE
-                default:
-                    break;
-            }
-        }
+        WeaponTrigger();
 
-        // Inicio cooldown entre disparos
-        if (!cdBool)
-            cdShoot += Time.deltaTime;
-
-        // Reset cooldown entre disparos
-        if(cdShoot > fireRate)
-        {
-            cdShoot = 0f;
-            cdBool = true;
-        }
+        // COOLDOWN entre disparos, frecuencia de disparo
+        WeaponCooldown();
     }
 
     private void FixedUpdate()
@@ -133,126 +104,69 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    #region Comportamiento armas
     /**
-     * Ningún arma equipada
-     */
-    void None()
+    * Ejecuta el comportamiento de un arma u otra al pulsar el botón de disparo
+    */
+    void WeaponTrigger()
     {
-        spread = 0;
-        fireRate = 0;
-    }
-
-    /**
-     * Arma melee equipada
-     */
-    void Melee()
-    {
-        fireRate = 0.5f;
-        spread = 0;
-
-        meleeAttack = true;
-    }
-
-    /**
-     * Pistola equipada
-     */
-    void Pistol()
-    {
-        maxAmmo = 7;
-        ammo++;
-        this.spread = 2.5f; // Dispersión en la pistola para simular disparos de poca precisión
-        fireRate = 0.5f;
-
-        float randomBullet = Random.Range(this.spread * -1, this.spread);
-        Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
-        Shoot(firePoint.position, firePoint.rotation * spread);
-
-        if(ammo >= maxAmmo){
-            ThrowGun();
-        }
-    }
-
-    /**
-     * Escopeta equipada
-     */
-    void Shotgun()
-    {
-        maxAmmo = 2;
-        ammo++;
-        int pellets = 10; // Número de proyectiles que se instanciarán
-        spread = 5f; // Dispersión reducida de 30 a 5 para que no sea tan facil acertar objetivos con este arma, (¿crear arma "Trabuco" de un solo disparo con dispersión 30?).
-        fireRate = 1f;
-
-        for (int i = 0; i < pellets; i++)
+        if (controller.input.RetrieveFireInput() && cdBool)
         {
-            float randomBullet = Random.Range(this.spread * -1, this.spread);
-            Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
-
-            Shoot(firePoint.position, firePoint.rotation * spread);
-        }
-
-        if (ammo >= maxAmmo)
-        {
-            ThrowGun();
-        }
-    }
-
-     /**
-     * Sniper equipado
-     */
-    void Sniper()
-    {
-        maxAmmo = 5;
-        ammo++;
-        this.spread = 0.1f;
-        fireRate = 1.5f;
-
-        float randomBullet = Random.Range(this.spread * -1, this.spread);
-        Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
-
-        Shoot(firePoint.position, firePoint.rotation * spread);
-
-        if (ammo >= maxAmmo)
-        {
-            ThrowGun();
-        }
-    }
-
-    /**
-     * Raygun/arma láser equipada
-     */
-    void Raygun()
-    {
-        maxAmmo = 1;
-        ammo++;
-        spread = 0;
-        fireRate = 2f;
-
-        // TODO: DIBUJAR el rayo, el rayo ya está funcionando. Pista: Line Renderer??
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin: firePoint.transform.position, direction: firePoint.transform.right, distance: 100F);
-
-        laserLineRenderer.enabled = true;
-
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit2D hit = hits[i];
-            if (hit.collider.CompareTag("Player"))
+            cdBool = false;
+            switch (currentWeapon)
             {
-                PlayerStats playerStats = hit.transform.GetComponent<PlayerStats>();
-                playerStats.healthPoints--;
-                Debug.Log(hit.collider.gameObject.name + " impactado por raygun.");
+                // NINGUNA
+                case WeaponTypes.none:
+                    None();
+                    break;
+                // CUERPO A CUERPO
+                case WeaponTypes.sword:
+                    Melee();
+                    break;
+                // PROYECTIL CON FÍSICA
+                case WeaponTypes.pistol:
+                    Pistol();
+                    break;
+                case WeaponTypes.shotgun:
+                    Shotgun();
+                    break;
+                case WeaponTypes.sniper:
+                    Sniper();
+                    break;
+                // PROYECTIL RAYCAST
+                case WeaponTypes.raygun:
+                    Raygun();
+                    break;
+                // PROYECTIL AoE
+                default:
+                    break;
             }
         }
-
-        if (ammo >= maxAmmo)
-        {
-            ThrowGun();
-        }
     }
 
-    #endregion
+    /**
+    * Disparo, requiere que se introduzca la posición 'position' y rotación 'rotation' del proyectil
+    */
+    void Shoot(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(bulletPrefab, position, rotation);
+    }
+
+    /**
+     * Controla la frecuencia con la que se puede disparar el arma
+     */
+    void WeaponCooldown()
+    {
+        // Inicio cooldown entre disparos
+        if (!cdBool)
+            cdShoot += Time.deltaTime;
+
+        // Reset cooldown entre disparos
+        if (cdShoot > fireRate)
+        {
+            cdShoot = 0f;
+            cdBool = true;
+        }
+    }
 
     /**
      * Método que controla el cambio de sprite del arma
@@ -289,14 +203,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    /**
-     * Disparo, requiere que se introduzca la posición 'position' y rotación 'rotation' del proyectil
-     */
-    void Shoot(Vector3 position, Quaternion rotation)
-    {
-        Instantiate(bulletPrefab, position, rotation);
-    }
-
     /*
      * Tirar arma
      */
@@ -313,4 +219,130 @@ public class Weapon : MonoBehaviour
         currentWeapon = WeaponTypes.none;
         RenderSprite();
     }
+
+    #region Comportamiento armas
+    /**
+     * Ningún arma equipada
+     */
+    void None()
+    {
+        spread = 0;
+        fireRate = 0;
+    }
+
+    /**
+     * Arma melee equipada
+     */
+    void Melee()
+    {
+        fireRate = 0.5f;
+        spread = 0;
+
+        meleeAttack = true;
+    }
+
+    /**
+     * Pistola equipada
+     */
+    void Pistol()
+    {
+        maxAmmo = 7;
+        ammo++;
+        this.spread = 2.5f; // Dispersión en la pistola para simular disparos de poca precisión
+        fireRate = 0.5f;
+
+        float randomBullet = Random.Range(this.spread * -1, this.spread);
+        Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+        Shoot(firePoint.position, firePoint.rotation * spread);
+
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
+    }
+
+    /**
+     * Escopeta equipada
+     */
+    void Shotgun()
+    {
+        maxAmmo = 2;
+        ammo++;
+        int pellets = 10; // Número de proyectiles que se instanciarán
+        spread = 5f; // Dispersión reducida de 30 a 5 para que no sea tan facil acertar objetivos con este arma, (¿crear arma "Trabuco" de un solo disparo con dispersión 30?).
+        fireRate = 1f;
+
+        for (int i = 0; i < pellets; i++)
+        {
+            float randomBullet = Random.Range(this.spread * -1, this.spread);
+            Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+
+            Shoot(firePoint.position, firePoint.rotation * spread);
+        }
+
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
+    }
+
+    /**
+    * Sniper equipado
+    */
+    void Sniper()
+    {
+        maxAmmo = 5;
+        ammo++;
+        this.spread = 0.1f;
+        fireRate = 1.5f;
+
+        float randomBullet = Random.Range(this.spread * -1, this.spread);
+        Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
+
+        Shoot(firePoint.position, firePoint.rotation * spread);
+
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
+    }
+
+    /**
+     * Raygun/arma láser equipada
+     */
+    void Raygun()
+    {
+        maxAmmo = 1;
+        ammo++;
+        spread = 0;
+        fireRate = 2f;
+
+        Instantiate(laserBeamPrefab, firePoint.position, firePoint.rotation);
+
+        if (ammo >= maxAmmo)
+        {
+            ThrowGun();
+        }
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin: firePoint.transform.position, direction: firePoint.transform.right, distance: 100F);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit2D hit = hits[i];
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                Debug.Log("Raygun hit ground");
+                return;
+            }
+
+            if (hit.collider.CompareTag("Player"))
+            {
+                PlayerStats playerStats = hit.transform.GetComponent<PlayerStats>();
+                playerStats.healthPoints--;
+                Debug.Log(hit.collider.gameObject.name + " impactado por raygun.");
+            }
+        }
+    }
+
+    #endregion
 }
