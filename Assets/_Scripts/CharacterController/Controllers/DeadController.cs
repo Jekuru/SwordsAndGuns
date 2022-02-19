@@ -32,4 +32,9 @@ public class DeadController : InputController
     {
         return 0;
     }
+
+    public override bool RetrieveThrowInput()
+    {
+        return true;
+    }
 }

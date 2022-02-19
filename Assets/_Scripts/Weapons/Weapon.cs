@@ -101,7 +101,7 @@ public class Weapon : MonoBehaviour
             currentWeapon = WeaponTypes.none;
             RenderSprite();
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (controller.input.RetrieveThrowInput())
         {
             ThrowGun();
         }
@@ -350,6 +350,10 @@ public class Weapon : MonoBehaviour
     #endregion
 
 
+    /**
+     * Colision para recoger armas
+     *
+     */
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<SpawnerController>())

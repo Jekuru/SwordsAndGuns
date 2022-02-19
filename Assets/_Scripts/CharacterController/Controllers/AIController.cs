@@ -33,4 +33,9 @@ public class AIController : InputController
     {
         return 1f;
     }
+
+    public override bool RetrieveThrowInput()
+    {
+        return false;
+    }
 }
