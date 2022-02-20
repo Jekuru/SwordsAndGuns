@@ -10,10 +10,19 @@ public class SpawnerController : MonoBehaviour
     public string spawnedWeapon;
     public string[] avaliableWeapons;
     public bool isActive = true;
+    public bool startRandom; // Indica si el primer spawn del arma es aleatorio o no.
     int index;
     public Sprite[] spriteList;
 
 
+    private void Start()
+    {
+        if (isActive && startRandom)
+        {
+            index = Random.Range(0, avaliableWeapons.Length);
+            spawnedWeapon = avaliableWeapons[index];
+        }
+    }
 
     // Update is called once per frame
     void Update()

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawner: {fileID: 4175469429452667427}
-  spawnTime: 5
+  spawnTime: 15
   spawnedWeapon: sword
   avaliableWeapons:
   - sword
@@ -108,6 +108,7 @@ MonoBehaviour:
   - sniper
   - raygun
   isActive: 1
+  startRandom: 1
   spriteList:
   - {fileID: 4764737797138176100, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
   - {fileID: 2248177538716262146, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
