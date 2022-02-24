@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
             if(hit.collider.GetComponent<PlayerStats>().healthPoints <= 0)
             {
                 hit.collider.GetComponent<Rigidbody2D>().AddForce(rBody.velocity * 0.4f, ForceMode2D.Impulse);
-                hit.collider.GetComponent<Rigidbody2D>().AddTorque(Random.Range(0, 2) == 0 ? -100 : 100);
+                hit.collider.GetComponent<Rigidbody2D>().AddTorque(-rBody.velocity.x * 8);
                 hit.collider.GetComponent<Rigidbody2D>().freezeRotation = false;
 
                 //hit.collider.GetComponent<CapsuleCollider2D>().enabled = false;

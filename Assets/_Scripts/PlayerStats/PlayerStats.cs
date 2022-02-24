@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public Controller characterController;
+    public Animator animatiorController;
     public InputController characterInput;
     public InputController deadInput;
     private float timeDead = 0;
@@ -18,11 +19,12 @@ public class PlayerStats : MonoBehaviour
     {
         characterController = GetComponent<Controller>();
         moveController = GetComponent<Move>();
+        animatiorController = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         IsDead();
     }
 
@@ -34,7 +36,10 @@ public class PlayerStats : MonoBehaviour
             characterController.input = deadInput;
             moveController.enabled = false;
             timeDead += Time.deltaTime;
-            if(timeDead >= despawnTime)
+
+            animatiorController.SetTrigger("Die");
+
+            if (timeDead >= despawnTime)
             {
                 Destroy(gameObject);
             }
