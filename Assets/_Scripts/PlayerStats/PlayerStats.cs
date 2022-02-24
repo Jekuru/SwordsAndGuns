@@ -5,6 +5,8 @@ public class PlayerStats : MonoBehaviour
     public Controller characterController;
     public InputController characterInput;
     public InputController deadInput;
+    private float timeDead = 0;
+    [SerializeField] private float despawnTime;
 
     public Move moveController;
 
@@ -31,7 +33,11 @@ public class PlayerStats : MonoBehaviour
             isDead = true;
             characterController.input = deadInput;
             moveController.enabled = false;
-            gameObject.transform.localScale = -gameObject.transform.localScale;
+            timeDead += Time.deltaTime;
+            if(timeDead >= despawnTime)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {

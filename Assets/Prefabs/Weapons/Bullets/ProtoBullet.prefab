@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518b241ab70161646be13835ea3f4097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  bulletSpeed: 20
   rBody: {fileID: 8905631052356210115}
   travelTime: 0
+  stickyMat: {fileID: 6200000, guid: b86879b17549de941863fcd2a42cc5f9, type: 2}

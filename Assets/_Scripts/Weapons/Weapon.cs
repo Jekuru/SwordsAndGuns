@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     private SpawnerController spawnerController; // Spawner de armas
 
     // Variables a introducir manualmente desde el inspector
-    [SerializeField] private GameObject weapon; // GameObject del arma
+    [SerializeField] public GameObject weapon; // GameObject del arma TODO: Cambiado a public
     [SerializeField] private Transform firePoint; // Desde donde sale el proyectil
     [SerializeField] private Sprite[] spriteArray; // Array de sprites, añadir desde el inspector
     [SerializeField] private GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
@@ -349,50 +349,4 @@ public class Weapon : MonoBehaviour
 
     #endregion
 
-
-    /**
-     * Colision para recoger armas
-     *
-     */
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<SpawnerController>())
-        {
-            ThrowGun();
-            spawnerController = collision.gameObject.GetComponent<SpawnerController>();
-
-            string spawnedWeapon = spawnerController.spawnedWeapon.ToString();
-
-            switch (spawnedWeapon)
-            {
-                // CUERPO A CUERPO
-                case "sword":
-                    currentWeapon = WeaponTypes.sword;
-                    currentWeaponSprite.sprite = spriteArray[0];
-                    break;
-                // PROYECTIL CON FÍSICA
-                case "pistol":
-                    currentWeapon = WeaponTypes.pistol;
-                    currentWeaponSprite.sprite = spriteArray[1];
-                    break;
-                case "shotgun":
-                    currentWeapon = WeaponTypes.shotgun;
-                    currentWeaponSprite.sprite = spriteArray[2];
-                    break;
-                case "sniper":
-                    currentWeapon = WeaponTypes.sniper;
-                    currentWeaponSprite.sprite = spriteArray[3];
-                    break;
-                // PROYECTIL RAYCAST
-                case "raygun":
-                    currentWeapon = WeaponTypes.raygun;
-                    currentWeaponSprite.sprite = spriteArray[4];
-                    break;
-                // PROYECTIL AoE
-                default:
-                    break;
-
-            }
-        }
-    }
 }

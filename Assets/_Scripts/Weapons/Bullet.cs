@@ -5,14 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public float speed = 20f;
-    public Rigidbody2D rBody;
-    public float travelTime;
+    [SerializeField] private float bulletSpeed = 20f;
+    [SerializeField] private Rigidbody2D rBody;
+    [SerializeField] private float travelTime;
+    public PhysicsMaterial2D stickyMat;
 
     // Start is called before the first frame update
     void Start()
     {
-        rBody.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        rBody.AddForce(transform.right * bulletSpeed, ForceMode2D.Impulse);
     }
 
     void Update()
@@ -47,6 +48,15 @@ public class Bullet : MonoBehaviour
             Debug.DrawRay(start: transform.position, dir: rBody.velocity, color: Color.green);
 
             hit.collider.GetComponent<PlayerStats>().healthPoints--;
+            if(hit.collider.GetComponent<PlayerStats>().healthPoints <= 0)
+            {
+                hit.collider.GetComponent<Rigidbody2D>().AddForce(rBody.velocity * 0.4f, ForceMode2D.Impulse);
+                hit.collider.GetComponent<Rigidbody2D>().AddTorque(Random.Range(0, 2) == 0 ? -100 : 100);
+                hit.collider.GetComponent<Rigidbody2D>().freezeRotation = false;
+
+                //hit.collider.GetComponent<CapsuleCollider2D>().enabled = false;
+                hit.collider.tag = "Death";
+            }
 
             Destroy(gameObject);
         }
