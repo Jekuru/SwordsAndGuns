@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public Controller characterController;
-    public Animator animatiorController;
-    public InputController characterInput;
-    public InputController deadInput;
+    private InputController characterInput;
+    private Controller characterController;
+    private Animator animatiorController;
+    public InputController deadInput; // Se establece desde el inspector
     private float timeDead = 0;
     [SerializeField] private float despawnTime;
 
-    public Move moveController;
+    private Move moveController;
 
     public int healthPoints = 1;
     public bool isDead;
+    public bool isDesintegration;
 
     // Start is called before the first frame update
     void Start()
     {
+        characterInput = GetComponent<Controller>().input;
         characterController = GetComponent<Controller>();
         moveController = GetComponent<Move>();
         animatiorController = GetComponent<Animator>();
@@ -37,7 +39,15 @@ public class PlayerStats : MonoBehaviour
             moveController.enabled = false;
             timeDead += Time.deltaTime;
 
-            animatiorController.SetTrigger("Die");
+            if (isDesintegration)
+            {
+                animatiorController.SetTrigger("Desintegration");
+            }
+            else
+            {
+                animatiorController.SetTrigger("Die");
+            }
+            
 
             if (timeDead >= despawnTime)
             {
@@ -54,10 +64,18 @@ public class PlayerStats : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Melee")
+        if (collision.transform.CompareTag("Melee"))
         {
             healthPoints--;
-            Debug.Log("Jugador golpeado melee");
+            if (healthPoints <= 0)
+            {
+                gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+                gameObject.GetComponent<Rigidbody2D>().AddTorque(-collision.GetComponentInParent<Rigidbody2D>().velocity.x * 8);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(collision.GetComponentInParent<Rigidbody2D>().velocity * 3, ForceMode2D.Impulse);
+
+                //gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+                gameObject.tag = "Death";
+            }
         }
     }
 }

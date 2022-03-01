@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField] private InputController input = null;
+    private InputController input = null;
     [SerializeField, Range(0f, 100f)] private float maxSpeed = 4f; // VELOCIDAD HORIZONTAL
     [SerializeField, Range(0f, 100f)] private float maxAcceleration = 35f; // ACCELERACION MÁXIMA
     [SerializeField, Range(0f, 100f)] private float maxAirAcceleration = 20f; // ACCELERACIÓN MÁXIMA VERTICAL
@@ -21,6 +21,7 @@ public class Move : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        input = GetComponent<Controller>().input;
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<Ground>();
     }

@@ -12,6 +12,7 @@ public class AnimationController : MonoBehaviour
     {
         animatorController = GetComponent<Animator>();
         weaponController = GetComponent<Weapon>();
+        input = GetComponent<Controller>().input;
     }
 
     // Update is called once per frame

@@ -39,14 +39,10 @@ public class Bullet : MonoBehaviour
         if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
-            Debug.Log("Hit Ground");
             return;
         }
         else if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("Impact " + hit.collider.name);
-            Debug.DrawRay(start: transform.position, dir: rBody.velocity, color: Color.green);
-
             hit.collider.GetComponent<PlayerStats>().healthPoints--;
             if(hit.collider.GetComponent<PlayerStats>().healthPoints <= 0)
             {
@@ -59,11 +55,6 @@ public class Bullet : MonoBehaviour
             }
 
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("Not hit");
-            Debug.DrawRay(transform.position, rBody.velocity, Color.red);
         }
     }
 }

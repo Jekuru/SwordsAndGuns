@@ -9,9 +9,6 @@ public class Weapon : MonoBehaviour
     // Controlador del jugador
     private Controller controller; // Inputs del jugador
 
-    // Controlador spawner
-    private SpawnerController spawnerController; // Spawner de armas
-
     // Variables a introducir manualmente desde el inspector
     [SerializeField] public GameObject weapon; // GameObject del arma TODO: Cambiado a public
     [SerializeField] private Transform firePoint; // Desde donde sale el proyectil
@@ -342,6 +339,10 @@ public class Weapon : MonoBehaviour
             {
                 PlayerStats playerStats = hit.transform.GetComponent<PlayerStats>();
                 playerStats.healthPoints--;
+                if (hit.transform.GetComponent<PlayerStats>())
+                {
+                    hit.transform.GetComponent<PlayerStats>().isDesintegration = true;
+                }
                 Debug.Log(hit.collider.gameObject.name + " impactado por raygun.");
             }
         }

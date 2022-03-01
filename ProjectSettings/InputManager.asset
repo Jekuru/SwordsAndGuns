@@ -534,11 +534,43 @@ InputManager:
     axis: 6
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Debug Horizontal
+    m_Name: P3_Horizontal
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P3_Vertical
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P3_Attack
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 3 button 1
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -546,6 +578,150 @@ InputManager:
     sensitivity: 1000
     snap: 0
     invert: 0
+    type: 0
+    axis: 0
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P3_Drop
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 3 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P3_Interact(Unused)
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P3_Jump
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 3 button 0
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: P4_Horizontal
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.2
+    sensitivity: 3
+    snap: 0
+    invert: 0
     type: 2
-    axis: 5
-    joyNum: 0
+    axis: 0
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P4_Vertical
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P4_Attack
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 4 button 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P4_Drop
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 4 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P4_Interact(Unused)
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: P4_Jump
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 4 button 0
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 4
