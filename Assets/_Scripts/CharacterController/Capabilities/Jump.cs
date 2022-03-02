@@ -18,13 +18,13 @@ public class Jump : MonoBehaviour
     private float defaultGravityScale; // GRAVEDAD POR DEFECTO (inicialización en Awake())
 
     // VARIABLES PUBLICAS PARA USARLAS MAS ADELANTE CON LAS ANIMACIONES
-    private bool isJumping; // INDICA SI ESTÁ SALTANDO
-    private bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
+    public bool isJumping; // INDICA SI ESTÁ SALTANDO
+    public bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
 
-    private bool holdingJump; // PRESIONANDO TECLA DE SALTO
-    private float holdingJumpStart;
-    private float holdingJumpTime = 0.1f;
-    private float holdForce;
+    public bool holdingJump; // PRESIONANDO TECLA DE SALTO
+    public float holdingJumpStart;
+    public float holdingJumpTime = 0.1f;
+    public float holdForce;
 
     // Start is called before the first frame update
     void Awake()

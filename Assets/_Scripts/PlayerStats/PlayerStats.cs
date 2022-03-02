@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
     private Controller characterController;
     private Animator animatiorController;
     public InputController deadInput; // Se establece desde el inspector
+    public GameObject shieldSprite; // Se establece desde el inspector
     private float timeDead = 0;
     [SerializeField] private float despawnTime;
 
@@ -28,6 +29,17 @@ public class PlayerStats : MonoBehaviour
     void Update()
     { 
         IsDead();
+    }
+
+    private void FixedUpdate()
+    {
+        if(healthPoints == 2)
+        {
+            shieldSprite.SetActive(true);
+        } else
+        {
+            shieldSprite.SetActive(false);
+        }
     }
 
     public void IsDead()
