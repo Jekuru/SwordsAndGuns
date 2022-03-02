@@ -4,7 +4,7 @@ using UnityEngine;
 public class Jump : MonoBehaviour
 {
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 1f; // ALTURA/FUERZA DEL SALTO
-    [SerializeField, Range(0, 5)] private int maxAirJumps = 0; // NÚMERO DE SALTOS EXTRA QUE PUEDE DAR EL PERSONAJE
+    [SerializeField, Range(0, 5)] public int maxAirJumps = 0; // NÚMERO DE SALTOS EXTRA QUE PUEDE DAR EL PERSONAJE
     [SerializeField, Range(0f, 5f)] private float downwardMovementMultiplier = 3f; // GRAVEDAD AL CAER
     [SerializeField, Range(0f, 5f)] private float upwardMovementMultiplier = 1.7f; // GRAVEDAD AL SUBIR
 
@@ -18,13 +18,13 @@ public class Jump : MonoBehaviour
     private float defaultGravityScale; // GRAVEDAD POR DEFECTO (inicialización en Awake())
 
     // VARIABLES PUBLICAS PARA USARLAS MAS ADELANTE CON LAS ANIMACIONES
-    public bool isJumping; // INDICA SI ESTÁ SALTANDO
-    public bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
+    private bool isJumping; // INDICA SI ESTÁ SALTANDO
+    private bool onGround; // INDICA SI ESTÁ TOCANDO EL SUELO
 
-    public bool holdingJump; // PRESIONANDO TECLA DE SALTO
-    public float holdingJumpStart;
-    public float holdingJumpTime = 0.1f;
-    public float holdForce;
+    private bool holdingJump; // PRESIONANDO TECLA DE SALTO
+    private float holdingJumpStart;
+    private float holdingJumpTime = 0.1f;
+    private float holdForce;
 
     // Start is called before the first frame update
     void Awake()
