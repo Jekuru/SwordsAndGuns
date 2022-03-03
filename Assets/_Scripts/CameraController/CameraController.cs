@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] private List<Transform> players; // Establecer desde el inspector
+    [SerializeField] private List<Transform> players;
 
     [SerializeField] private Vector3 offset;
     [SerializeField] private float smoothTime = 0.5f;
@@ -26,18 +26,28 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         RemoveDead();
+        AddPlayers();
     }
 
     private void LateUpdate()
     {
         if (players.Count == 0)
         {
-            Debug.LogError("Añadir jugadores desde el inspector!");
             return;
         }
 
         CameraMovement();
         CameraZoom();
+    }
+
+    private void AddPlayers()
+    {
+        PlayerStats[] playerStats = FindObjectsOfType<PlayerStats>();
+        foreach (var player in playerStats)
+        {
+            if(!player.isDead && !players.Contains(player.transform))
+                players.Add(player.transform);
+        }
     }
 
     /**
