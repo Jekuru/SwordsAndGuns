@@ -8,22 +8,29 @@ using UnityEngine.UI;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private ClientState UserStatus;
     // *** Asignar desde el inspector ***
     [SerializeField] private PlayerPreferences playerPreferences;
 
     // *** UI *** //
+    [Header("Lobby elements")]
+    [SerializeField] private GameObject playOnlineMenu;
+    [SerializeField] private TMP_Text serverText;
     [SerializeField] private TMP_InputField roomNumberInput;
+    [SerializeField] private Button joinRoomButton;
+    [Header("Room elements")]
+    [SerializeField] private GameObject lobby;
     [SerializeField] private TMP_Text roomNumber;
+    [SerializeField] private int randomRoomNumber;
+    [SerializeField] private Transform playersContainer;
+    [SerializeField] private GameObject playerListingPrefab;
     [SerializeField] private Button commenceButton;
 
     // *** Fin UI *** ///
 
     // *** Fin Inspector *** //
 
-    [SerializeField] private int randomRoomNumber;
 
-    [SerializeField] private Transform playersContainer;
-    [SerializeField] private GameObject playerListingPrefab;
 
     private void Update()
     {
@@ -31,7 +38,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             Debug.Log("In room");
             Debug.Log("Jugadores en la sala: " + PhotonNetwork.PlayerList.Length);
-            Debug.Log(PhotonNetwork.MasterClient.NickName); 
 
             if (PhotonNetwork.CurrentRoom.PlayerCount >= 1) // TODO: 1 por testeo, 2 es el valor que debería tener...
             {
@@ -42,12 +48,39 @@ public class NetworkController : MonoBehaviourPunCallbacks
                 commenceButton.interactable = false;
             }
         }
+        UserStatus = PhotonNetwork.NetworkClientState;
     }
 
     #region Botones
-    public void ButtonQuickPlay()
+    public void ButtonConnectOnline()
     {
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public void ButtonQuickPlay()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            PhotonNetwork.JoinRandomRoom();
+            playOnlineMenu.SetActive(false);
+        }
+    }
+
+    public void ButtonCreateRoom()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            playOnlineMenu.SetActive(false);
+            HostRoom();
+        }   
+    }
+
+    public void ButtonJoinRoom()
+    { 
+        if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            PhotonNetwork.JoinRoom(roomNumberInput.text);
+        }
     }
 
     public void ButtonBack()
@@ -59,7 +92,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ButtonDisconnect()
     {
-        OnLeftRoom();
+        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
     }
 
     public void ButtonCommence()
@@ -89,14 +123,29 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         Debug.Log("Conectado al servidor " + PhotonNetwork.CloudRegion);
 
+        PhotonNetwork.JoinLobby();
+        serverText.text = PhotonNetwork.CloudRegion;
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = playerPreferences.nickName;
-        PhotonNetwork.JoinRandomRoom();
+
+        if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            playOnlineMenu.SetActive(true);
+        }
     }
 
     public override void OnLeftRoom()
     {
-        PhotonNetwork.Disconnect();
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " left the room");
+
+        roomNumber.text = "";
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " disconnected from server " + cause);
+
+        serverText.text = "Conectando...";
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -109,22 +158,29 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             Debug.LogError("Error: " + message);
         }
-        
-        Debug.Log("Creando nueva sala...");
-        RoomOptions r = new RoomOptions
-        {
-            MaxPlayers = 4,
-            IsVisible = true,
-            IsOpen = true
-        };
-        randomRoomNumber = Random.Range(100000, 999999);
-        PhotonNetwork.JoinOrCreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
-        roomNumber.text = randomRoomNumber.ToString();
+
+        QuickPlay();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("No se pudo crear una nueva sala.\n" + returnCode + " - " + message);
+        PhotonNetwork.JoinLobby();
+        if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            playOnlineMenu.SetActive(true);
+        }
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("No se pudo unir a la sala especificada");
+        PhotonNetwork.JoinLobby();
+        if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            playOnlineMenu.SetActive(true);
+        }
+        
     }
 
     public override void OnJoinedRoom()
@@ -133,6 +189,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+
+        lobby.SetActive(true);
 
         ClearPlayerListings();
         ListPlayers();
@@ -153,7 +211,39 @@ public class NetworkController : MonoBehaviourPunCallbacks
         ListPlayers();
         if (PhotonNetwork.IsMasterClient)
             commenceButton.gameObject.SetActive(true);
+    }
 
+    public override void OnJoinedLobby()
+    {
+        playOnlineMenu.SetActive(true);
+    }
+
+    void HostRoom()
+    {
+        Debug.Log("Creando nueva sala...");
+        RoomOptions r = new RoomOptions
+        {
+            MaxPlayers = 4,
+            IsVisible = true,
+            IsOpen = true
+        };
+        randomRoomNumber = Random.Range(100000, 999999);
+        PhotonNetwork.CreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
+        roomNumber.text = randomRoomNumber.ToString();
+    }
+
+    void QuickPlay()
+    {
+        Debug.Log("Creando nueva sala...");
+        RoomOptions r = new RoomOptions
+        {
+            MaxPlayers = 4,
+            IsVisible = true,
+            IsOpen = true
+        };
+        randomRoomNumber = Random.Range(100000, 999999);
+        PhotonNetwork.JoinOrCreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
+        roomNumber.text = randomRoomNumber.ToString();
     }
 
     void ClearPlayerListings()
@@ -171,6 +261,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
             GameObject tempListing = Instantiate(playerListingPrefab, playersContainer);
             TMP_Text tempText = tempListing.transform.GetChild(0).GetComponent<TMP_Text>();
             tempText.text = player.NickName;
+        }
+    }
+
+    public void RoomNumberChecker()
+    {
+        if(roomNumberInput.text.Length == 6)
+        {
+            joinRoomButton.interactable = true;   
+        }
+        else
+        {
+            joinRoomButton.interactable = false;
         }
     }
 }
