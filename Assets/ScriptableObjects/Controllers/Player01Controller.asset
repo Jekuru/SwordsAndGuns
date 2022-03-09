@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player01Controller
   m_EditorClassIdentifier: 
   selectedPlayer: 0
+  playerView: {fileID: 7734061984431717658, guid: c4d278373908ff14d8927223171656c8, type: 3}

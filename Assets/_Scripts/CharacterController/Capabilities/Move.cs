@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class Move : MonoBehaviour
 {
@@ -17,23 +18,45 @@ public class Move : MonoBehaviour
     private float acceleration;
     public bool onGround;
 
+    private bool isMine;
 
     // Start is called before the first frame update
     void Awake()
     {
-        input = GetComponent<Controller>().input;
-        body = GetComponent<Rigidbody2D>();
-        ground = GetComponent<Ground>();
+        isMine = gameObject.GetComponent<PhotonView>().IsMine;
+        if (isMine)
+        {
+            input = GetComponent<Controller>().input;
+            body = GetComponent<Rigidbody2D>();
+            ground = GetComponent<Ground>();
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isMine)
+        {
+            MoveInputs();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isMine)
+        {
+            MoveChecks();
+        }
+    }
+
+    private void MoveInputs()
+    {
         direction.x = input.RetrieveMoveInput();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - ground.GetFriction(), 0f);
     }
 
-    private void FixedUpdate()
+    private void MoveChecks()
     {
         FaceMoveDirection();
 

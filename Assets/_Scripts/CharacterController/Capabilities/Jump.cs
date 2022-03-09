@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(Controller))]
 public class Jump : MonoBehaviour
@@ -26,18 +27,42 @@ public class Jump : MonoBehaviour
     public float holdingJumpTime = 0.1f;
     public float holdForce;
 
+    private bool isMine;
+
     // Start is called before the first frame update
     void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
-        ground = GetComponent<Ground>();
-        controller = GetComponent<Controller>();
+        isMine = gameObject.GetComponent<PhotonView>().IsMine;
 
-        defaultGravityScale = 1f;
+        if (isMine)
+        {
+            body = GetComponent<Rigidbody2D>();
+            ground = GetComponent<Ground>();
+            controller = GetComponent<Controller>();
+
+            defaultGravityScale = 1f;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (isMine)
+        {
+            JumpInputs();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isMine)
+        {
+            JumpChecks();
+        }
+    }
+
+    private void JumpInputs()
     {
         isJumping |= controller.input.RetrieveJumpInput();
         holdingJump |= controller.input.RetrieveJumpInputHold();
@@ -49,7 +74,7 @@ public class Jump : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void JumpChecks()
     {
         onGround = ground.GetOnGround();
         velocity = body.velocity;
@@ -93,6 +118,7 @@ public class Jump : MonoBehaviour
 
         body.velocity = velocity;
     }
+
     /**
      * Función de salto
      */

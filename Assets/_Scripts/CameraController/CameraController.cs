@@ -57,12 +57,18 @@ public class CameraController : MonoBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
+            if (players[i] == null)
+            {
+                players.Remove(players[i]);
+                break;
+            }
             if (players[i].GetComponent<PlayerStats>().isDead)
             {
                 players.Remove(players[i]);
             }
         }
     }
+
 
     /**
      * Controla el FOV de la cámera según la posición del jugador que está más a la izquierda de la pantalla y más a la derecha

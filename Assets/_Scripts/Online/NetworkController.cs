@@ -34,6 +34,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+
         if (PhotonNetwork.InRoom)
         {
             Debug.Log("In room");
