@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(Controller))]
 
@@ -50,8 +51,14 @@ public class Weapon : MonoBehaviour
     // Arma equipada actualmente
     public WeaponTypes currentWeapon; // Arma actual
 
+    public bool isMine;
+    public PhotonView weaponView;
+
     private void Awake()
     {
+        weaponView = gameObject.GetComponent<PhotonView>();
+        isMine = weaponView.IsMine;
+
         controller = GetComponent<Controller>();
         currentWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>();
     }
@@ -349,5 +356,11 @@ public class Weapon : MonoBehaviour
     }
 
     #endregion
+
+    [PunRPC]
+    public void WeaponChange()
+    {
+        Debug.Log(gameObject.name + " Arma actual: " + currentWeapon);
+    }
 
 }

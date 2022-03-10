@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -38,7 +39,12 @@ public class SpawnerController : MonoBehaviour
     void Update()
     {
         //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
+        WeaponSpawner();
+    }
 
+    [PunRPC]
+    public void WeaponSpawner()
+    {
         if (isActive == false)
         {
             Time.timeScale = 1.0f;
@@ -51,11 +57,13 @@ public class SpawnerController : MonoBehaviour
 
                 currentWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
             }
-
         }
-
         //Cambia el sprite del arma segun el arma elegida aleatoriamente
+        ChangeWeaponSprite();
+    }
 
+    private void ChangeWeaponSprite()
+    {
         switch (currentWeapon)
         {
             case WeaponTypes.sword:
@@ -120,9 +128,9 @@ public class SpawnerController : MonoBehaviour
                     // PROYECTIL AoE
                     default:
                         break;
-
                 }
 
+                weaponController.weaponView.RPC("WeaponChange", Photon.Pun.RpcTarget.All);
                 currentWeapon = WeaponTypes.none;
                 weaponSpawner.SetActive(false);
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;

@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17aa7343cab6bc44beec6db248d1bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickName: Diego
+  nickName: C
   score: 0
 --- !u!4 &285611678
 Transform:
