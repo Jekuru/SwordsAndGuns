@@ -32,8 +32,12 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (players.Count == 0)
-        {
             return;
+
+        if (players.Count == 1)
+        {
+            minZoom = 40f;
+            maxZoom = 10f;
         }
 
         CameraMovement();

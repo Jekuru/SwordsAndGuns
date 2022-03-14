@@ -51,13 +51,13 @@ public class Weapon : MonoBehaviour
     // Arma equipada actualmente
     public WeaponTypes currentWeapon; // Arma actual
 
-    public bool isMine;
-    public PhotonView weaponView;
+    public PhotonView photonView;
 
     private void Awake()
     {
-        weaponView = gameObject.GetComponent<PhotonView>();
-        isMine = weaponView.IsMine;
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
 
         controller = GetComponent<Controller>();
         currentWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>();
@@ -66,6 +66,9 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
+
         // TRIGGER para disparar el arma
         WeaponTrigger();
 
@@ -75,6 +78,9 @@ public class Weapon : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!photonView.IsMine)
+            return;
+
         // TODO: PRUEBAS CAMBIO DE ARMA Y SPRITE, ELIMINAR CUANDO HAYA INTERACCIONES CON EL SPAWNER
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             currentWeapon = WeaponTypes.sword;
@@ -155,7 +161,9 @@ public class Weapon : MonoBehaviour
     */
     void Shoot(Vector3 position, Quaternion rotation)
     {
-        Instantiate(bulletPrefab, position, rotation);
+        PhotonNetwork.Instantiate("BulletOnline", position, rotation);
+
+        //  Instantiate(bulletPrefab, position, rotation);
     }
 
     /**
@@ -324,7 +332,9 @@ public class Weapon : MonoBehaviour
         spread = 0;
         fireRate = 2f;
 
-        Instantiate(laserBeamPrefab, firePoint.position, firePoint.rotation);
+        PhotonNetwork.Instantiate("LaserBeamOnline", firePoint.position, firePoint.rotation);
+            
+        //Instantiate(laserBeamPrefab, firePoint.position, firePoint.rotation);
 
         if (ammo >= maxAmmo)
         {

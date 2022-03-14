@@ -9,27 +9,26 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Weapon weaponController;
     [SerializeField] private InputController input = null;
 
-    private bool isMine;
+    private PhotonView photonView;
 
     private void Awake()
     {
-        isMine = gameObject.GetComponent<PhotonView>().IsMine;
-        if (isMine)
-        {
-            animatorController = GetComponent<Animator>();
-            weaponController = GetComponent<Weapon>();
-            input = GetComponent<Controller>().input;
-        }
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
+
+        animatorController = GetComponent<Animator>();
+        weaponController = GetComponent<Weapon>();
+        input = GetComponent<Controller>().input;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isMine)
-        {
-            walkAnimation();
-            meleeAnimation();
-        }
+        if (!photonView.IsMine)
+            return;
+        walkAnimation();
+        meleeAnimation();
     }
 
     private void walkAnimation()

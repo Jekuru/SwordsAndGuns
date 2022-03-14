@@ -34,7 +34,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-
         if (PhotonNetwork.InRoom)
         {
             Debug.Log("In room");
@@ -53,8 +52,15 @@ public class NetworkController : MonoBehaviourPunCallbacks
     }
 
     #region Botones
+    public void ButtonPlayLocale()
+    {
+        PhotonNetwork.OfflineMode = true;
+        PhotonNetwork.LoadLevel("MainTestingScene");
+    }
+
     public void ButtonConnectOnline()
     {
+        PhotonNetwork.OfflineMode = false;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -111,7 +117,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Cargando escena...");
-        PhotonNetwork.LoadLevel("Map2");
+        PhotonNetwork.LoadLevel("Map3");
     }
 
     IEnumerator rejoinLobby()

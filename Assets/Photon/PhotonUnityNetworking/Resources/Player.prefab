@@ -368,14 +368,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41394b809b501044b8165036d8511cba, type: 3}
   - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
   bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}
-  laserBeamPrefab: {fileID: 8299364619420285242, guid: bd5d369e7b9ef2b4aa7f50c8547dc2ce, type: 3}
+  laserBeamPrefab: {fileID: 1440034502145663631, guid: b419bea6184f0c341b68989c3c25f0fe, type: 3}
   throwedWeapon: {fileID: 1650190328927625335, guid: 73d0abcfefd189744b8f88f7c5607584, type: 3}
   ammo: 0
   maxAmmo: 0
   meleeAttack: 0
   currentWeapon: 0
-  isMine: 0
-  weaponView: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &7734061984431717658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d67bf82c0bf5c46a888b07460be5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpawners: []
+  spawnedWeapons: 
+  itemSpawners: []
+  spawnedItems: 
 --- !u!1 &1812184007143538181
 GameObject:
   m_ObjectHideFlags: 0

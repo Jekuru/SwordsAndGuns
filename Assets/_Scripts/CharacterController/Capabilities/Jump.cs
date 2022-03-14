@@ -27,39 +27,39 @@ public class Jump : MonoBehaviour
     public float holdingJumpTime = 0.1f;
     public float holdForce;
 
-    private bool isMine;
+    private PhotonView photonView;
 
     // Start is called before the first frame update
     void Awake()
     {
-        isMine = gameObject.GetComponent<PhotonView>().IsMine;
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
 
-        if (isMine)
-        {
-            body = GetComponent<Rigidbody2D>();
-            ground = GetComponent<Ground>();
-            controller = GetComponent<Controller>();
+        body = GetComponent<Rigidbody2D>();
+        ground = GetComponent<Ground>();
+        controller = GetComponent<Controller>();
 
-            defaultGravityScale = 1f;
-        }
+        defaultGravityScale = 1f;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isMine)
-        {
-            JumpInputs();
-        }
+        if (!photonView.IsMine)
+            return;
+
+        JumpInputs();
     }
 
     private void FixedUpdate()
     {
-        if (isMine)
-        {
-            JumpChecks();
-        }
+        if (!photonView.IsMine)
+            return;
+
+         JumpChecks();
+
     }
 
     private void JumpInputs()

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using Photon.Pun;
 
 public class Platforms : MonoBehaviour
 {
@@ -8,12 +9,18 @@ public class Platforms : MonoBehaviour
     private GameObject platform; // Plataforma
     private CapsuleCollider2D playerCollider; // Collider2D del jugador
 
+    private PhotonView photonView;
+
     /**
      * El script identifica la plataforma y al pulsar "Abajo" se deshabilita la colisión entre la plataforma y el jugador
      */
 
     private void Awake()
     {
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
+
         controller = GetComponent<Controller>();
         playerCollider = GetComponent<CapsuleCollider2D>();
     }
@@ -21,6 +28,8 @@ public class Platforms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
         if (controller.input.RetrieveVerticalInput() == -1)
         {
             if (platform != null)

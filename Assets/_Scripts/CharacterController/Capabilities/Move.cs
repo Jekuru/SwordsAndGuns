@@ -18,36 +18,35 @@ public class Move : MonoBehaviour
     private float acceleration;
     public bool onGround;
 
-    private bool isMine;
+    private PhotonView photonView;
 
     // Start is called before the first frame update
     void Awake()
     {
-        isMine = gameObject.GetComponent<PhotonView>().IsMine;
-        if (isMine)
-        {
-            input = GetComponent<Controller>().input;
-            body = GetComponent<Rigidbody2D>();
-            ground = GetComponent<Ground>();
-        }
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
 
+        input = GetComponent<Controller>().input;
+        body = GetComponent<Rigidbody2D>();
+        ground = GetComponent<Ground>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isMine)
-        {
-            MoveInputs();
-        }
+        if (!photonView.IsMine)
+            return;
+
+        MoveInputs();
     }
 
     private void FixedUpdate()
     {
-        if (isMine)
-        {
-            MoveChecks();
-        }
+        if (!photonView.IsMine)
+            return;
+
+        MoveChecks();
     }
 
     private void MoveInputs()

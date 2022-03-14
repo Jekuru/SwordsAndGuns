@@ -31,7 +31,7 @@ public class SpawnerController : MonoBehaviour
     {
         if (isActive && startRandom)
         {
-            currentWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+            //currentWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
         }
     }
 
@@ -39,10 +39,9 @@ public class SpawnerController : MonoBehaviour
     void Update()
     {
         //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
-        WeaponSpawner();
+        //WeaponSpawner();
     }
 
-    [PunRPC]
     public void WeaponSpawner()
     {
         if (isActive == false)
@@ -130,7 +129,6 @@ public class SpawnerController : MonoBehaviour
                         break;
                 }
 
-                weaponController.weaponView.RPC("WeaponChange", Photon.Pun.RpcTarget.All);
                 currentWeapon = WeaponTypes.none;
                 weaponSpawner.SetActive(false);
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;

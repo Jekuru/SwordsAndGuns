@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -16,9 +17,19 @@ public class PlayerStats : MonoBehaviour
     public bool isDead;
     public bool isDesintegration;
 
+    private PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        if (!photonView.IsMine)
+            return;
+
         characterInput = GetComponent<Controller>().input;
         characterController = GetComponent<Controller>();
         moveController = GetComponent<Move>();
@@ -27,7 +38,10 @@ public class PlayerStats : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        if (!photonView.IsMine)
+            return;
+
         IsDead();
     }
 
@@ -76,6 +90,8 @@ public class PlayerStats : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!photonView.IsMine)
+            return;
         if (collision.transform.CompareTag("Melee"))
         {
             healthPoints--;

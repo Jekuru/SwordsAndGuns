@@ -3,35 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class WeaponSpawnerSync : MonoBehaviour
+public class SpawnerSync : MonoBehaviour
 {
+    [Header("Spawner ARMAS")]
     [SerializeField] private List<Transform> weaponSpawners;
     [SerializeField] private List<SpawnerController.WeaponTypes> spawnedWeapons;
+
+    [Header("Spawner OBJETOS")]
+    [SerializeField] private List<Transform> itemSpawners;
+    [SerializeField] private List<ItemSpawnerController.ItemTypes> spawnedItems;
 
     private PhotonView playerView;
 
     private void Awake()
     {
-        if (PhotonNetwork.IsMasterClient)
-            playerView = gameObject.GetComponent<PhotonView>();
+        playerView = GetComponent<PhotonView>();            
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
+        if (!playerView.IsMine && !PhotonNetwork.IsMasterClient)
+            return;
 
+        GenerateWeaponTypeNumber();
+        SyncWeaponSpawners();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            AddMapSpawns();
+        if (!playerView.IsMine && !PhotonNetwork.IsMasterClient)
+            return;
 
-            playerView.RPC("WeaponSpawner", RpcTarget.All);
-        }
+        AddMapSpawns();
+        
     }
 
     private void AddMapSpawns()
@@ -42,17 +47,25 @@ public class WeaponSpawnerSync : MonoBehaviour
             if (!weaponSpawners.Contains(spawn.transform))
                 weaponSpawners.Add(spawn.transform);
         }
+
+        ItemSpawnerController[] itemSpawnerControllers = FindObjectsOfType<ItemSpawnerController>();
+        foreach (var spawn in itemSpawnerControllers)
+        {
+            if (!itemSpawners.Contains(spawn.transform))
+                itemSpawners.Add(spawn.transform);
+        }
     }
 
-    void GenerateWeaponTypeNumber()
+    List<SpawnerController.WeaponTypes> GenerateWeaponTypeNumber()
     {
         for (int i = 0; i < weaponSpawners.Count; i++)
         {
             spawnedWeapons[i] = (SpawnerController.WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(SpawnerController.WeaponTypes)).Length);
         }
+        return spawnedWeapons;
     }
 
-    void SyncWeaponSpawners()
+    public void SyncWeaponSpawners()
     {
         playerView.RPC("GenerateWeapon", RpcTarget.All, spawnedWeapons);
     }

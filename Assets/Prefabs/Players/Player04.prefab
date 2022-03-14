@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 8782930044043480980}
   - component: {fileID: 8782930044043480979}
   - component: {fileID: 8782930044043480978}
+  - component: {fileID: 1266582472852892012}
   m_Layer: 6
   m_Name: Player04
   m_TagString: Player
@@ -658,9 +659,33 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41394b809b501044b8165036d8511cba, type: 3}
   - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
   bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}
-  laserBeamPrefab: {fileID: 8299364619420285242, guid: bd5d369e7b9ef2b4aa7f50c8547dc2ce, type: 3}
+  laserBeamPrefab: {fileID: 1440034502145663631, guid: b419bea6184f0c341b68989c3c25f0fe, type: 3}
   throwedWeapon: {fileID: 1650190328927625335, guid: 73d0abcfefd189744b8f88f7c5607584, type: 3}
   ammo: 0
   maxAmmo: 0
   meleeAttack: 0
   currentWeapon: 0
+  photonView: {fileID: 0}
+--- !u!114 &1266582472852892012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782930044043480977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 0}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

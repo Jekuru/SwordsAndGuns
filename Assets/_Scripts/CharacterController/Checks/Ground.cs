@@ -1,24 +1,40 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class Ground : MonoBehaviour
 {
     private bool onGround;
     private float friction;
 
+    private PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+        if (!photonView.IsMine)
+            return;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!photonView.IsMine)
+            return;
         EvaluateCollision(collision);
         RetrieveFriction(collision);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (!photonView.IsMine)
+            return;
         EvaluateCollision(collision);
         RetrieveFriction(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (!photonView.IsMine)
+            return;
         onGround = false;
         friction = 0;
     }
