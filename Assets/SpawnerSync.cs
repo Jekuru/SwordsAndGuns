@@ -36,7 +36,6 @@ public class SpawnerSync : MonoBehaviour
             return;
 
         AddMapSpawns();
-        
     }
 
     private void AddMapSpawns()
@@ -56,18 +55,17 @@ public class SpawnerSync : MonoBehaviour
         }
     }
 
-    List<SpawnerController.WeaponTypes> GenerateWeaponTypeNumber()
+    void GenerateWeaponTypeNumber()
     {
         for (int i = 0; i < weaponSpawners.Count; i++)
         {
             spawnedWeapons[i] = (SpawnerController.WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(SpawnerController.WeaponTypes)).Length);
         }
-        return spawnedWeapons;
     }
 
     public void SyncWeaponSpawners()
     {
-        playerView.RPC("GenerateWeapon", RpcTarget.All, spawnedWeapons);
+        playerView.RPC("GenerateWeapon", RpcTarget.All);
     }
 
     [PunRPC]

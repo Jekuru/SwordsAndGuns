@@ -10,6 +10,9 @@ public class SpawnerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public float spawnTime;
     private float timer = 0.0f;
+
+    private PhotonView photonView;
+
     // Armas
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
@@ -27,36 +30,58 @@ public class SpawnerController : MonoBehaviour
 
     public Sprite[] spriteList;
 
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
     private void Start()
     {
+        if (!PhotonNetwork.IsMasterClient && !photonView.IsMine)
+            return;
+
         if (isActive && startRandom)
         {
-            //currentWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+            WeaponTypes randomWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+            photonView.RPC("StartRandom", RpcTarget.All, randomWeapon);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
-        //WeaponSpawner();
-    }
+        if (!PhotonNetwork.IsMasterClient && !photonView.IsMine)
+            return;
 
-    public void WeaponSpawner()
-    {
+        //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
         if (isActive == false)
         {
             Time.timeScale = 1.0f;
             timer += Time.deltaTime;
             if (timer > spawnTime)
             {
-                weaponSpawner.SetActive(true);
-                gameObject.GetComponent<BoxCollider2D>().enabled = true;
-                isActive = true;
-
-                currentWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+                WeaponTypes randomWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+                photonView.RPC("WeaponSpawner", RpcTarget.All, randomWeapon);
             }
         }
+    }
+
+    [PunRPC]
+    void StartRandom(WeaponTypes randomWeapon)
+    {
+        currentWeapon = randomWeapon;
+        ChangeWeaponSprite();
+    }
+
+    [PunRPC]
+    public void WeaponSpawner(WeaponTypes randomWeapon)
+    {
+        weaponSpawner.SetActive(true);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        isActive = true;
+
+        currentWeapon = randomWeapon;
+
         //Cambia el sprite del arma segun el arma elegida aleatoriamente
         ChangeWeaponSprite();
     }

@@ -47,7 +47,10 @@ public class PlayerStats : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(healthPoints == 2)
+        if (!photonView.IsMine)
+            return;
+
+        if (healthPoints == 2)
         {
             shieldSprite.SetActive(true);
         } else
@@ -77,7 +80,7 @@ public class PlayerStats : MonoBehaviour
 
             if (timeDead >= despawnTime)
             {
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
         else
