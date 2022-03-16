@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &261997927
 MonoBehaviour:
@@ -246,9 +246,13 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629987, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: m_Name
+      value: WeaponSpawner (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -321,11 +325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629987, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_Name
-      value: WeaponSpawner
+      value: WeaponSpawner (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -352,7 +356,7 @@ GameObject:
   - component: {fileID: 624306199}
   - component: {fileID: 624306197}
   m_Layer: 0
-  m_Name: platform
+  m_Name: Map - Platforms
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +664,7 @@ Transform:
   - {fileID: 1364075649}
   - {fileID: 624306194}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &983492788
 GameObject:
@@ -691,7 +695,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &983492790
 MonoBehaviour:
@@ -706,49 +710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
---- !u!1 &1090358616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1090358618}
-  - component: {fileID: 1090358617}
-  m_Layer: 0
-  m_Name: LevelNetworking
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1090358617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090358616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24b93ff0e8e006458f2c1b8ba221ffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1090358618
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090358616}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.646266, y: 2.1649024, z: 188.51036}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257579097
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +739,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1257579099
 MonoBehaviour:
@@ -905,7 +866,7 @@ GameObject:
   - component: {fileID: 1364075651}
   - component: {fileID: 1364075650}
   m_Layer: 0
-  m_Name: backdeco
+  m_Name: Map - Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1454,7 +1415,7 @@ GameObject:
   - component: {fileID: 1491076134}
   - component: {fileID: 1491076133}
   m_Layer: 3
-  m_Name: ground
+  m_Name: Map - Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2911,7 +2872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3027,7 +2988,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1730429934
 MonoBehaviour:
@@ -3071,7 +3032,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1927477321
 MonoBehaviour:
@@ -3100,7 +3061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5425506027855284259, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
       propertyPath: m_Name
-      value: Main Camera 2.0
+      value: Game Camera
       objectReference: {fileID: 0}
     - target: {fileID: 5425506027855284287, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
       propertyPath: m_RootOrder

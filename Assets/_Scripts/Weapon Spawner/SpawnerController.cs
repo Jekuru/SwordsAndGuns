@@ -66,6 +66,9 @@ public class SpawnerController : MonoBehaviour
         }
     }
 
+    void testEnum() { 
+    }
+
     [PunRPC]
     void StartRandom(WeaponTypes randomWeapon)
     {

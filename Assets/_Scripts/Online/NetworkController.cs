@@ -25,12 +25,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playersContainer;
     [SerializeField] private GameObject playerListingPrefab;
     [SerializeField] private Button commenceButton;
+    [SerializeField] private TMP_Dropdown mapSelector;
 
     // *** Fin UI *** ///
 
     // *** Fin Inspector *** //
-
-
 
     private void Update()
     {
@@ -117,7 +116,25 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Cargando escena...");
-        PhotonNetwork.LoadLevel("Map3");
+        string map = "";
+
+        switch (mapSelector.value)
+        {
+            case 0:
+                map = "Map2";
+                break;
+            case 1:
+                map = "Map3";
+                break;
+            case 2:
+                map = "Map4";
+                break;
+            default:
+                map = "Map2";
+                break;
+        }
+
+        PhotonNetwork.LoadLevel(map);
     }
 
     IEnumerator rejoinLobby()
@@ -196,6 +213,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        mapSelector.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
         lobby.SetActive(true);
 
