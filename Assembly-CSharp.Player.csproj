@@ -74,10 +74,12 @@
     <Compile Include="Assets\_Scripts\Online\NetworkController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\InputController.cs" />
     <Compile Include="Assets\_Scripts\Weapons\Bullet.cs" />
+    <Compile Include="Assets\_Scripts\TimerController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\Player2DController.cs" />
     <Compile Include="Assets\_Scripts\Weapons\LaserBeamController.cs" />
     <Compile Include="Assets\UI Assets\MainMenu.cs" />
     <Compile Include="Assets\_Scripts\Weapon Spawner\SpawnerController.cs" />
+    <Compile Include="Assets\_Scripts\UIAmmoController.cs" />
     <Compile Include="Assets\_Scripts\PlayerStats\PlayerStats.cs" />
     <Compile Include="Assets\_Scripts\TeleportBack.cs" />
     <Compile Include="Assets\_Scripts\SpawnPoints.cs" />

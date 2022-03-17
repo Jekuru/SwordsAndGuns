@@ -48,6 +48,8 @@ MonoBehaviour:
   - RenderSprite
   - ThrowGunRagdoll
   - WeaponChangeOnline
+  - LoadSelectionView
+  - SendLoadSelectionView
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

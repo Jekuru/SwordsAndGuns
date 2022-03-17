@@ -25,7 +25,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playersContainer;
     [SerializeField] private GameObject playerListingPrefab;
     [SerializeField] private Button commenceButton;
-    [SerializeField] private TMP_Dropdown mapSelector;
+    [Header("Selection elements")]
+    [SerializeField] private GameObject selection;
+
+    [Header("Loading screen")]
+    [SerializeField] private GameObject loadingScreen;
 
     // *** Fin UI *** ///
 
@@ -70,6 +74,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinRandomRoom();
             playOnlineMenu.SetActive(false);
+            loadingScreen.SetActive(true);
         }
     }
 
@@ -78,6 +83,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
         {
             playOnlineMenu.SetActive(false);
+            loadingScreen.SetActive(true);
             HostRoom();
         }   
     }
@@ -86,12 +92,14 @@ public class NetworkController : MonoBehaviourPunCallbacks
     { 
         if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
         {
+            loadingScreen.SetActive(true);
             PhotonNetwork.JoinRoom(roomNumberInput.text);
         }
     }
 
     public void ButtonBack()
     {
+        loadingScreen.SetActive(true);
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LeaveLobby();
         StartCoroutine(rejoinLobby());
@@ -105,6 +113,21 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ButtonCommence()
     {
+        LoadScene();
+        PhotonNetwork.LoadLevel("CharSelection");
+    }
+
+    [PunRPC]
+    void SendLoadSelectionView()
+    {
+        lobby.SetActive(false);
+        selection.SetActive(true);
+        //PhotonView.Find(101).gameObject.SetActive(false); // Lobby menu
+        //PhotonView.Find(102).gameObject.SetActive(true); // Selection menu
+    }
+
+    public void ButtonStartOnlineGame()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -115,27 +138,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     IEnumerator LoadScene()
     {
+        Debug.Log("Cargando escena de selección...");
         yield return new WaitForSeconds(2);
-        Debug.Log("Cargando escena...");
-        string map = "";
 
-        switch (mapSelector.value)
-        {
-            case 0:
-                map = "Map2";
-                break;
-            case 1:
-                map = "Map3";
-                break;
-            case 2:
-                map = "Map5";
-                break;
-            default:
-                map = "Map2";
-                break;
-        }
-
-        PhotonNetwork.LoadLevel(map);
+        PhotonNetwork.LoadLevel("CharSelection");
     }
 
     IEnumerator rejoinLobby()
@@ -156,6 +162,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
         {
             playOnlineMenu.SetActive(true);
+            loadingScreen.SetActive(false);
         }
     }
 
@@ -194,6 +201,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
         {
             playOnlineMenu.SetActive(true);
+            loadingScreen.SetActive(false);
         }
     }
 
@@ -204,6 +212,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
         {
             playOnlineMenu.SetActive(true);
+            loadingScreen.SetActive(false);
         }
         
     }
@@ -214,9 +223,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        mapSelector.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
         lobby.SetActive(true);
+        loadingScreen.SetActive(false);
 
         ClearPlayerListings();
         ListPlayers();
@@ -242,6 +251,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         playOnlineMenu.SetActive(true);
+        loadingScreen.SetActive(false);
     }
 
     void HostRoom()
