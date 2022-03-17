@@ -368,6 +368,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
   bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}
   laserBeamPrefab: {fileID: 1440034502145663631, guid: b419bea6184f0c341b68989c3c25f0fe, type: 3}
+  ThrowedWeapon: {fileID: 521871092494695539, guid: c41341c337f16b445bb64f74b0d4bd8b, type: 3}
+  currentWeaponSprite: {fileID: 1812184007143538176}
   ammo: 0
   maxAmmo: 0
   meleeAttack: 0
@@ -388,7 +390,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:

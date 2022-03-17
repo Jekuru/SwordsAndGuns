@@ -16,9 +16,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Sprite[] spriteArray; // Array de sprites, añadir desde el inspector
     [SerializeField] private GameObject bulletPrefab; // Proyectil para las armas a distancia que utlizan físicas
     [SerializeField] private GameObject laserBeamPrefab; // Proyectil con Line Renderer para la raygun
+    [SerializeField] private GameObject ThrowedWeapon;
+    public SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
 
     // Sprite del arma catual
-    private SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
+
 
     // Munición
     [SerializeField] private int ammo; // Munición actual del arma.
@@ -86,11 +88,9 @@ public class Weapon : MonoBehaviour
             if (currentWeapon == WeaponTypes.none)
                 return;
 
-            ammo = 0;
-            photonView.RPC("ThrowGun", RpcTarget.All);
+            Debug.Log("Soltando arma");
 
-            currentWeapon = WeaponTypes.none;
-            photonView.RPC("RenderSprite", RpcTarget.All);
+            photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
         // TODO: PRUEBAS CAMBIO DE ARMA Y SPRITE, ELIMINAR CUANDO HAYA INTERACCIONES CON EL SPAWNER
@@ -123,6 +123,18 @@ public class Weapon : MonoBehaviour
             currentWeapon = WeaponTypes.none;
             RenderSprite();
         }
+    }
+
+    public void WeaponChange(int weapon)
+    {
+        photonView.RPC("WeaponChangeOnline", RpcTarget.All, weapon);
+    }
+
+    [PunRPC]
+    void WeaponChangeOnline(int weapon)
+    {
+        currentWeapon = (WeaponTypes)weapon;
+        RenderSprite();
     }
 
     /**
@@ -170,8 +182,6 @@ public class Weapon : MonoBehaviour
     void Shoot(Vector3 position, Quaternion rotation)
     {
         PhotonNetwork.Instantiate("BulletOnline", position, rotation);
-
-        //  Instantiate(bulletPrefab, position, rotation);
     }
 
     /**
@@ -232,18 +242,9 @@ public class Weapon : MonoBehaviour
      */
     [PunRPC]
     void ThrowGun()
-    {          
-        
-
-        //RenderSprite();
-    }
-
-    [PunRPC]
-    void ThrowGunRagdoll()
     {
-        clonedWeapon = PhotonNetwork.Instantiate("ThrowedWeaponOnline", weapon.transform.position, weapon.transform.rotation);
-        clonedWeapon.GetComponent<SpriteRenderer>().sprite = currentWeaponSprite.sprite;
-    }
+        ThrowGunOnline();
+    }   
 
     #region Comportamiento armas
     /**
@@ -282,7 +283,7 @@ public class Weapon : MonoBehaviour
 
         if (ammo >= maxAmmo)
         {
-            ThrowGun();
+            photonView.RPC("ThrowGun", RpcTarget.All);
         }
     }
 
@@ -307,7 +308,7 @@ public class Weapon : MonoBehaviour
 
         if (ammo >= maxAmmo)
         {
-            ThrowGun();
+            photonView.RPC("ThrowGun", RpcTarget.All);
         }
     }
 
@@ -328,7 +329,7 @@ public class Weapon : MonoBehaviour
 
         if (ammo >= maxAmmo)
         {
-            ThrowGun();
+            photonView.RPC("ThrowGun", RpcTarget.All);
         }
     }
 
@@ -348,7 +349,7 @@ public class Weapon : MonoBehaviour
 
         if (ammo >= maxAmmo)
         {
-            ThrowGun();
+            photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin: firePoint.transform.position, direction: firePoint.transform.right, distance: 100F);
@@ -377,5 +378,11 @@ public class Weapon : MonoBehaviour
 
     #endregion
 
-
+    void ThrowGunOnline()
+    {
+        clonedWeapon = Instantiate(ThrowedWeapon, weapon.transform.position, weapon.transform.rotation);
+        clonedWeapon.GetComponent<SpriteRenderer>().sprite = currentWeaponSprite.sprite;
+        currentWeapon = WeaponTypes.none;
+        currentWeaponSprite.sprite = null;
+    }
 }

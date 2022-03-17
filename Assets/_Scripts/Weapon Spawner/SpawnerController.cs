@@ -127,6 +127,8 @@ public class SpawnerController : MonoBehaviour
 
             if (collision.gameObject.GetComponent<Weapon>().currentWeapon == Weapon.WeaponTypes.none)
             {
+                weaponController.WeaponChange((int)currentWeapon);
+                /*
                 switch (currentWeapon)
                 {
                     // CUERPO A CUERPO
@@ -155,7 +157,7 @@ public class SpawnerController : MonoBehaviour
                     // PROYECTIL AoE
                     default:
                         break;
-                }
+                }*/
 
                 currentWeapon = WeaponTypes.none;
                 weaponSpawner.SetActive(false);

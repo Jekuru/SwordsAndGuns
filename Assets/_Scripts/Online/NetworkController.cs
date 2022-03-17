@@ -53,6 +53,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     #region Botones
     public void ButtonPlayLocale()
     {
+        PhotonNetwork.Disconnect();
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.LoadLevel("MainTestingScene");
     }
@@ -127,7 +128,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
                 map = "Map3";
                 break;
             case 2:
-                map = "Map4";
+                map = "Map5";
                 break;
             default:
                 map = "Map2";
