@@ -363,7 +363,7 @@ MonoBehaviour:
   spriteArray:
   - {fileID: 4764737797138176100, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
   - {fileID: -3809089164003652969, guid: 2a0d5bd70be2ff8478c219bcb6c89e35, type: 3}
-  - {fileID: 21300000, guid: e1298b98a14d3c24b8f7c615939cd926, type: 3}
+  - {fileID: 21300000, guid: 36e8662f01be7104f8bd499d728eb5ca, type: 3}
   - {fileID: 21300000, guid: 41394b809b501044b8165036d8511cba, type: 3}
   - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
   bulletPrefab: {fileID: 8905631052356210118, guid: e8b2534e22004b942865c5d7aae716e7, type: 3}

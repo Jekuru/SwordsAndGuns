@@ -35,6 +35,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     // *** Fin Inspector *** //
 
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     private void Update()
     {
         if (PhotonNetwork.InRoom)
@@ -64,6 +69,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ButtonConnectOnline()
     {
+        if(playerPreferences.nickName.Length < 3)
+            playerPreferences.nickName = "Player" + Random.Range(1, 999999);
+
         PhotonNetwork.OfflineMode = false;
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -113,6 +121,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ButtonCommence()
     {
+        //playerPreferences.NameSave();
         LoadScene();
         PhotonNetwork.LoadLevel("CharSelection");
     }

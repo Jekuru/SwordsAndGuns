@@ -68,7 +68,6 @@
     <Compile Include="Assets\_Scripts\CharacterController\Checks\Ground.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\Controller.cs" />
     <Compile Include="Assets\_Scripts\LevelManager.cs" />
-    <Compile Include="Assets\SpawnerSync.cs" />
     <Compile Include="Assets\_Scripts\ItemSpawnerController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Capabilities\Jump.cs" />
     <Compile Include="Assets\_Scripts\Online\NetworkController.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Assets\_Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Scripts\CameraController\CameraController.cs" />
     <Compile Include="Assets\_Scripts\GamePreferences.cs" />
+    <Compile Include="Assets\SelectionController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
