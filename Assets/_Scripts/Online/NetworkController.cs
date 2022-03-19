@@ -293,6 +293,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     void ClearPlayerListings()
     {
+        if (playersContainer == null)
+            return;
+
         for (int i = playersContainer.childCount - 1; i >= 0; i--)
         {
             Destroy(playersContainer.GetChild(i).gameObject);

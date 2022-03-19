@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SelectionController : MonoBehaviour
 {
-    [SerializeField] private PlayerPreferences playerPreferences;
+    //[SerializeField] private PlayerPreferences playerPreferences;
 
     [Header("Player01")]
     [SerializeField] private GameObject playerOne_LeftHelmetButton;
@@ -30,8 +30,9 @@ public class SelectionController : MonoBehaviour
     [SerializeField] private TMP_Text[] playerNames;
 
     [Header("Player helmets")]
+    [SerializeField] private PhotonView[] helmetPhotonViews;
     [SerializeField] private int[] playerHelmetPos;
-    [SerializeField] private Image[] playerHelmets;
+    [SerializeField] private List<GameObject> playerHelmets; // Posición donde se van a instanciar los "cascos" de cada jugador. Asignado desde el inspector
     [SerializeField] private Sprite[] helmetStorage;
 
     private void Awake()
@@ -47,7 +48,41 @@ public class SelectionController : MonoBehaviour
             playerNames[i].text = PhotonNetwork.PlayerList[i].NickName;
         }
 
-        RandomHelmets(Random.Range(0, helmetStorage.Length));
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if(PhotonNetwork.LocalPlayer == PhotonNetwork.PlayerList[i])
+                if(PhotonNetwork.PlayerList[i] == PhotonNetwork.PlayerList[0])
+                {
+                    playerHelmets[0] = PhotonNetwork.Instantiate("HelmetSelection", playerHelmets[0].gameObject.transform.position, playerHelmets[0].gameObject.transform.rotation);
+                    helmetPhotonViews[0] = playerHelmets[0].GetComponent<PhotonView>();
+                }
+                else if (PhotonNetwork.PlayerList[i] == PhotonNetwork.PlayerList[1])
+                {
+                    playerHelmets[1] = PhotonNetwork.Instantiate("HelmetSelection", playerHelmets[1].gameObject.transform.position, playerHelmets[1].gameObject.transform.rotation);
+                    helmetPhotonViews[1] = playerHelmets[1].GetComponent<PhotonView>();
+                }
+                else if (PhotonNetwork.PlayerList[i] == PhotonNetwork.PlayerList[2])
+                {
+                    playerHelmets[2] = PhotonNetwork.Instantiate("HelmetSelection", playerHelmets[2].gameObject.transform.position, playerHelmets[2].gameObject.transform.rotation);
+                    helmetPhotonViews[2] = playerHelmets[2].GetComponent<PhotonView>();
+                }
+                else if (PhotonNetwork.PlayerList[i] == PhotonNetwork.PlayerList[3])
+                {
+                    playerHelmets[3] = PhotonNetwork.Instantiate("HelmetSelection", playerHelmets[3].gameObject.transform.position, playerHelmets[3].gameObject.transform.rotation);
+                    helmetPhotonViews[3] = playerHelmets[3].GetComponent<PhotonView>();
+                }
+        }
+
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        
+        helmetPhotonViews[0].RPC("RandomHelmets", RpcTarget.All, Random.Range(0, helmetStorage.Length));
+    }
+
+    void SetPlayerHelmet(Player player, int helmet)
+    {
+        ExitGames.Client.Photon.Hashtable customProperties = new ExitGames.Client.Photon.Hashtable() { { "helmet", helmet } };
+        player.SetCustomProperties(customProperties);
     }
 
     [PunRPC]
@@ -56,13 +91,14 @@ public class SelectionController : MonoBehaviour
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             playerHelmetPos[i] = randomNumber;
-            playerHelmets[i].sprite = helmetStorage[randomNumber];
+            playerHelmets[i].GetComponent<SpriteRenderer>().sprite = helmetStorage[randomNumber];
         }
     }
 
-    void SyncHelmet()
+    [PunRPC]
+    void SyncHelmet(int player, int helmetPos)
     {
-        
+        playerHelmets[player].GetComponent<SpriteRenderer>().sprite = helmetStorage[playerHelmetPos[helmetPos]];
     }
 
     #region Botones
@@ -71,18 +107,20 @@ public class SelectionController : MonoBehaviour
     {
         if(playerHelmetPos[0] == 0)
         {
-            playerHelmetPos[0] = helmetStorage.Length;
-        } else
+            playerHelmetPos[0] = helmetStorage.Length-1;
+        }
+        else
         {
             playerHelmetPos[0]--;
         }
-        
-        playerHelmets[0].sprite = helmetStorage[playerHelmetPos[0]];
+
+        SyncHelmet(0, playerHelmetPos[0]);
+        //playerHelmets[0].sprite = helmetStorage[playerHelmetPos[0]];
     }
 
     public void Player01Right()
     {
-        if (playerHelmetPos[0] == 0)
+        if (playerHelmetPos[0] == helmetStorage.Length-1)
         {
             playerHelmetPos[0] = 0;
         }
@@ -90,27 +128,28 @@ public class SelectionController : MonoBehaviour
         {
             playerHelmetPos[0]++;
         }
-
-        playerHelmets[0].sprite = helmetStorage[playerHelmetPos[0]];
+        SyncHelmet(0, playerHelmetPos[0]);
+        //playerHelmets[0].sprite = helmetStorage[playerHelmetPos[0]];
     }
 
     public void Player02Left()
     {
         if (playerHelmetPos[1] == 0)
         {
-            playerHelmetPos[1] = helmetStorage.Length;
+            playerHelmetPos[1] = helmetStorage.Length-1;
         }
         else
         {
             playerHelmetPos[1]--;
         }
 
-        playerHelmets[1].sprite = helmetStorage[playerHelmetPos[1]];
+        SyncHelmet(1, playerHelmetPos[1]);
+        //playerHelmets[1].sprite = helmetStorage[playerHelmetPos[1]];
     }
 
     public void Player02Right()
     {
-        if (playerHelmetPos[1] == 0)
+        if (playerHelmetPos[1] == helmetStorage.Length-1)
         {
             playerHelmetPos[1] = 0;
         }
@@ -119,26 +158,28 @@ public class SelectionController : MonoBehaviour
             playerHelmetPos[1]++;
         }
 
-        playerHelmets[1].sprite = helmetStorage[playerHelmetPos[1]];
+        SyncHelmet(1, playerHelmetPos[1]);
+        //playerHelmets[1].sprite = helmetStorage[playerHelmetPos[1]];
     }
 
     public void Player03Left()
     {
         if (playerHelmetPos[2] == 0)
         {
-            playerHelmetPos[2] = helmetStorage.Length;
+            playerHelmetPos[2] = helmetStorage.Length-1;
         }
         else
         {
             playerHelmetPos[2]--;
         }
 
-        playerHelmets[2].sprite = helmetStorage[playerHelmetPos[2]];
+        SyncHelmet(2, playerHelmetPos[2]);
+        //playerHelmets[2].sprite = helmetStorage[playerHelmetPos[2]];
     }
 
     public void Player03Right()
     {
-        if (playerHelmetPos[2] == 0)
+        if (playerHelmetPos[2] == helmetStorage.Length-1)
         {
             playerHelmetPos[2] = 0;
         }
@@ -147,26 +188,28 @@ public class SelectionController : MonoBehaviour
             playerHelmetPos[2]++;
         }
 
-        playerHelmets[2].sprite = helmetStorage[playerHelmetPos[2]];
+        SyncHelmet(2, playerHelmetPos[2]);
+        //playerHelmets[2].sprite = helmetStorage[playerHelmetPos[2]];
     }
 
     public void Player04Left()
     {
         if (playerHelmetPos[3] == 0)
         {
-            playerHelmetPos[3] = helmetStorage.Length;
+            playerHelmetPos[3] = helmetStorage.Length-1;
         }
         else
         {
             playerHelmetPos[3]--;
         }
 
-        playerHelmets[3].sprite = helmetStorage[playerHelmetPos[3]];
+        SyncHelmet(3, playerHelmetPos[3]);
+        //playerHelmets[3].sprite = helmetStorage[playerHelmetPos[3]];
     }
 
     public void Player04Right()
     {
-        if (playerHelmetPos[3] == 0)
+        if (playerHelmetPos[3] == helmetStorage.Length-1)
         {
             playerHelmetPos[3] = 0;
         }
@@ -175,7 +218,8 @@ public class SelectionController : MonoBehaviour
             playerHelmetPos[3]++;
         }
 
-        playerHelmets[3].sprite = helmetStorage[playerHelmetPos[3]];
+        SyncHelmet(3, playerHelmetPos[3]);
+        //playerHelmets[3].sprite = helmetStorage[playerHelmetPos[3]];
     }
 
     // TODO: 1. Asignar botones. 2. Realizar notificación por Photon.Pun. 3. Que solo los jugadores puedan ver SUS botones.

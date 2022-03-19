@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 70487492}
   - component: {fileID: 70487494}
-  - component: {fileID: 70487493}
   m_Layer: 5
   m_Name: Helmet2
   m_TagString: Untagged
@@ -160,36 +159,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &70487493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70487491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 25f1832318e2fb949a76d6b01539c499, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &70487494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -354,7 +323,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 115982768}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player04Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &115982768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +384,6 @@ GameObject:
   m_Component:
   - component: {fileID: 139371179}
   - component: {fileID: 139371181}
-  - component: {fileID: 139371180}
   m_Layer: 5
   m_Name: Helmet4
   m_TagString: Untagged
@@ -430,36 +410,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &139371180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139371178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e950f3b0ed23a2e44900cb118c830184, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &139371181
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -683,7 +633,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 664930477}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player03Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &664930477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,7 +788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cd530c7bc807c499c147147abb2cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPreferences: {fileID: 0}
   playerOne_LeftHelmetButton: {fileID: 1207669938}
   playerOne_RightHelmetButton: {fileID: 1909920632}
   playerTwo_LeftHelmetButton: {fileID: 1966507559}
@@ -840,11 +801,17 @@ MonoBehaviour:
   - {fileID: 1090350155}
   - {fileID: 1898297761}
   - {fileID: 1427603772}
+  helmetPhotonViews:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerHelmetPos: 00000000000000000000000000000000
   playerHelmets:
-  - {fileID: 1228935502}
-  - {fileID: 70487493}
-  - {fileID: 1862936260}
-  - {fileID: 139371180}
+  - {fileID: 1228935500}
+  - {fileID: 70487491}
+  - {fileID: 1862936258}
+  - {fileID: 139371178}
   helmetStorage:
   - {fileID: 21300000, guid: a3b9eb59c8d54784ea903ee04af5f52f, type: 3}
   - {fileID: 21300000, guid: b11553040c082f74893ce167c8eae756, type: 3}
@@ -1234,7 +1201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1207669941}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player01Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1207669941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,7 +1262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1228935501}
   - component: {fileID: 1228935503}
-  - component: {fileID: 1228935502}
   m_Layer: 5
   m_Name: Helmet1
   m_TagString: Untagged
@@ -1310,36 +1288,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1228935502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228935500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 767ef64d1c38f4d4ab037a79c33f00be, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1228935503
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1757,7 +1705,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1528458615}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player02Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1528458615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,7 +1912,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1604677795}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player04Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1604677795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2177,7 +2149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1862936259}
   - component: {fileID: 1862936261}
-  - component: {fileID: 1862936260}
   m_Layer: 5
   m_Name: Helmet3
   m_TagString: Untagged
@@ -2204,36 +2175,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1862936260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862936258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a3b9eb59c8d54784ea903ee04af5f52f, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1862936261
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2457,7 +2398,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1904854612}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player03Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1904854612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2577,7 +2530,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1909920635}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player01Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1909920635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2833,7 +2798,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1966507562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887389931}
+        m_TargetAssemblyTypeName: SelectionController, Assembly-CSharp
+        m_MethodName: Player02Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1966507562
 MonoBehaviour:
   m_ObjectHideFlags: 0
