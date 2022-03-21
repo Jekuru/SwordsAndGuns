@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public TMPro.TMP_Dropdown resolutionDrop;
     Resolution[] resolutions;
+    public TMPro.TMP_Dropdown fpsDrop;
     public AudioMixer audioMixer;
 
     void Start()
@@ -33,12 +34,23 @@ public class MainMenu : MonoBehaviour
         resolutionDrop.value = currentResolutionIndex;
         resolutionDrop.RefreshShownValue();
 
+        int fpsIndex = fpsDrop.GetComponent<Dropdown>().value;
+
     }
 
     public void setResolution (int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void setFps(int fpsIndex)
+    {
+        List<Dropdown.OptionData> menuOptions = fpsDrop.GetComponent<Dropdown>().options;
+        string value = menuOptions[fpsIndex].text;
+        int fps;
+        int.TryParse(value, out fps);
+        Application.targetFrameRate = fps;
     }
 
     public void setFullScreen(bool isFullScreen)
@@ -49,15 +61,17 @@ public class MainMenu : MonoBehaviour
 
     public void setGeneralVolume (float generalVolume)
     {
-
         audioMixer.SetFloat("volumeGeneral", generalVolume);
-
     }
 
-
-    public void playButton()
+    public void setEffectsVolume (float effectsVolume)
     {
-        
+        audioMixer.SetFloat("volumeEffects", effectsVolume);
+    }
+
+    public void setMusicVolume (float musicVolume)
+    {
+        audioMixer.SetFloat("volumeMusic", musicVolume);
     }
 
     public void exitButton()
