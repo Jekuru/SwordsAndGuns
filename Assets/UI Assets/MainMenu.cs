@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        //obtener resoluciones disponibles, mostrarlas en el dropdown y agregarlas a una lista
         resolutions = Screen.resolutions;
         resolutionDrop.ClearOptions();
         List<string> options = new List<string>();
@@ -38,12 +39,14 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    //cambio de resolucion
     public void setResolution (int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
+    //cambio de tasa de refresco
     public void setFps(int fpsIndex)
     {
         List<Dropdown.OptionData> menuOptions = fpsDrop.GetComponent<Dropdown>().options;
@@ -52,13 +55,14 @@ public class MainMenu : MonoBehaviour
         int.TryParse(value, out fps);
         Application.targetFrameRate = fps;
     }
-
+    
+    //activar y desectivar pantalla completa
     public void setFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
     }
 
-
+    //cambios en los diferentes volumenes
     public void setGeneralVolume (float generalVolume)
     {
         audioMixer.SetFloat("volumeGeneral", generalVolume);
@@ -74,6 +78,8 @@ public class MainMenu : MonoBehaviour
         audioMixer.SetFloat("volumeMusic", musicVolume);
     }
 
+
+    //salida del juego
     public void exitButton()
     {
         Debug.Log("Exit game");
