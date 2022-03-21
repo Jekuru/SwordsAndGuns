@@ -63,6 +63,7 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\AIController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Capabilities\Move.cs" />
+    <Compile Include="Assets\SelectionController.cs" />
     <Compile Include="Assets\_Scripts\Online\PlayerPreferences.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\DeadController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Checks\Ground.cs" />
@@ -85,7 +86,8 @@
     <Compile Include="Assets\_Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Scripts\CameraController\CameraController.cs" />
     <Compile Include="Assets\_Scripts\GamePreferences.cs" />
-    <Compile Include="Assets\SelectionController.cs" />
+    <Compile Include="Assets\PlayerSelection.cs" />
+    <Compile Include="Assets\PlayerCustomization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

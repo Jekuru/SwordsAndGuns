@@ -42,7 +42,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom && SceneManagerHelper.ActiveSceneName == "Menu")
         {
             Debug.Log("In room");
             Debug.Log("Jugadores en la sala: " + PhotonNetwork.PlayerList.Length);
@@ -253,7 +253,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         ClearPlayerListings();
         ListPlayers();
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
             commenceButton.gameObject.SetActive(true);
     }
 

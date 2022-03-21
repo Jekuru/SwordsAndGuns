@@ -52,6 +52,12 @@ MonoBehaviour:
   - SendLoadSelectionView
   - RandomHelmets
   - SyncHelmet
+  - SetSelectionInfoOnline
+  - SetParent
+  - SetCanvas
+  - ChangeHelmet
+  - RandomHelmet
+  - LoadHelmet
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

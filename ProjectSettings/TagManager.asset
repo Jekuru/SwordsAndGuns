@@ -8,6 +8,8 @@ TagManager:
   - Platform
   - Melee
   - Map
+  - Canvas
+  - PlayerPositions
   layers:
   - Default
   - TransparentFX

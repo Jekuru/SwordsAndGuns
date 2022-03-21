@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 1812184006722872546}
   - component: {fileID: 1812184006722872549}
   - component: {fileID: 1812184006722872548}
+  - component: {fileID: 378815402153154279}
   - component: {fileID: 7734061984431717658}
   - component: {fileID: -5166380710075208758}
   - component: {fileID: 6358907793437986252}
@@ -375,6 +376,29 @@ MonoBehaviour:
   meleeAttack: 0
   currentWeapon: 0
   photonView: {fileID: 0}
+--- !u!114 &378815402153154279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812184006722872551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ad76c6401e1f340b287599eb5cc3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helmet: {fileID: 1812184007884786174}
+  helmets:
+  - {fileID: 21300000, guid: a3b9eb59c8d54784ea903ee04af5f52f, type: 3}
+  - {fileID: 21300000, guid: b11553040c082f74893ce167c8eae756, type: 3}
+  - {fileID: 21300000, guid: 767ef64d1c38f4d4ab037a79c33f00be, type: 3}
+  - {fileID: 21300000, guid: 138955ce45b88a54a9eca357f5a40622, type: 3}
+  - {fileID: 21300000, guid: 30b4e342e7a28b44ca70e6d436204b77, type: 3}
+  - {fileID: 21300000, guid: 25f1832318e2fb949a76d6b01539c499, type: 3}
+  - {fileID: 21300000, guid: ba2c2b6a2bdabdd4f93ebeac95289000, type: 3}
+  - {fileID: 21300000, guid: e950f3b0ed23a2e44900cb118c830184, type: 3}
+  helmetPosition: 0
 --- !u!114 &7734061984431717658
 MonoBehaviour:
   m_ObjectHideFlags: 0
