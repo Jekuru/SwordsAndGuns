@@ -35,16 +35,14 @@ public class LevelManager : MonoBehaviour
     {
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            if(PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
+            if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
                 InstatiateSpawn(i);
         }
     }
 
     private void InstatiateSpawn(int position)
     {
-        GameObject player = PhotonNetwork.Instantiate("Player", spawnPoints[position].transform.position, Quaternion.identity, 0);
-        player.name = PhotonNetwork.LocalPlayer.NickName;
-        players.Add(player.GetComponent<PlayerStats>());
+        PhotonNetwork.Instantiate("Player", spawnPoints[position].transform.position, Quaternion.identity);
     }
 
     private void StartTimer()

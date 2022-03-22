@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class ItemSpawnerController : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class ItemSpawnerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public float spawnTime;
     private float timer = 0.0f;
+
+    private PhotonView photonView;
+
+
     // Armas
     public enum ItemTypes // TIPOS DE OBJETOS, INTRODUCIR AQUÍ EL NOMBRE DE LOS NUEVOS OBJETOS
     {
@@ -35,6 +41,8 @@ public class ItemSpawnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient && !photonView.IsMine)
+            return;
         //Vuelve a mostrar un arma aleaoria entre las dadas tras un tiempo
 
         if (isActive == false)

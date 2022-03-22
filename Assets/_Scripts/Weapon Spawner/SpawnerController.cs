@@ -66,9 +66,6 @@ public class SpawnerController : MonoBehaviour
         }
     }
 
-    void testEnum() { 
-    }
-
     [PunRPC]
     void StartRandom(WeaponTypes randomWeapon)
     {
@@ -128,37 +125,6 @@ public class SpawnerController : MonoBehaviour
             if (collision.gameObject.GetComponent<Weapon>().currentWeapon == Weapon.WeaponTypes.none)
             {
                 weaponController.WeaponChange((int)currentWeapon);
-                /*
-                switch (currentWeapon)
-                {
-                    // CUERPO A CUERPO
-                    case WeaponTypes.sword:
-                        weaponController.currentWeapon = (Weapon.WeaponTypes)WeaponTypes.sword;
-                        spriteRenderer.sprite = spriteList[0];
-                        break;
-                    // PROYECTIL CON FÍSICA
-                    case WeaponTypes.pistol:
-                        weaponController.currentWeapon = (Weapon.WeaponTypes)WeaponTypes.pistol;
-                        spriteRenderer.sprite = spriteList[1];
-                        break;
-                    case WeaponTypes.shotgun:
-                        weaponController.currentWeapon = (Weapon.WeaponTypes)WeaponTypes.shotgun;
-                        spriteRenderer.sprite = spriteList[2];
-                        break;
-                    case WeaponTypes.sniper:
-                        weaponController.currentWeapon = (Weapon.WeaponTypes)WeaponTypes.sniper;
-                        spriteRenderer.sprite = spriteList[3];
-                        break;
-                    // PROYECTIL RAYCAST
-                    case WeaponTypes.raygun:
-                        weaponController.currentWeapon = (Weapon.WeaponTypes)WeaponTypes.raygun;
-                        spriteRenderer.sprite = spriteList[4];
-                        break;
-                    // PROYECTIL AoE
-                    default:
-                        break;
-                }*/
-
                 currentWeapon = WeaponTypes.none;
                 weaponSpawner.SetActive(false);
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;

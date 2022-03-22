@@ -37,6 +37,7 @@ public class PlayerStats : MonoBehaviour
         characterController = GetComponent<Controller>();
         moveController = GetComponent<Move>();
         animatiorController = GetComponent<Animator>();
+        photonView.RPC("ShareName", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
     }
 
     // Update is called once per frame
@@ -92,6 +93,12 @@ public class PlayerStats : MonoBehaviour
             characterController.input = characterInput;
             moveController.enabled = true;
         }
+    }
+
+    [PunRPC]
+    private void ShareName(string nickname)
+    {
+        gameObject.name = nickname;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

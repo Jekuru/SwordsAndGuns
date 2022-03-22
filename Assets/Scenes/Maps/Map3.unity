@@ -6961,6 +6961,18 @@ PrefabInstance:
       propertyPath: maxZoom
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5425506027855284286, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425506027855284286, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425506027855284286, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5425506027855284287, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
       propertyPath: m_RootOrder
       value: 0

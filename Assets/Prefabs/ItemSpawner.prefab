@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658996539321026770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000025412, y: -0.043, z: 0}
-  m_LocalScale: {x: 1.3324, y: 1.3324, z: 1.3324}
+  m_LocalPosition: {x: -0.009, y: 0.026, z: 0}
+  m_LocalScale: {x: 0.98616976, y: 0.98616976, z: 0.98616976}
   m_Children: []
   m_Father: {fileID: 6658996539661631456}
   m_RootOrder: 0
@@ -72,15 +72,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e0155105a0e97f4419839c465989afb8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.33, y: 0.5}
+  m_Size: {x: 0.17, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6658996539321026771
@@ -249,9 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner: {fileID: 6658996539321026770}
   spawnTime: 5
-  currentItem: 0
+  currentItem: 1
   isActive: 1
-  startRandom: 0
+  startRandom: 1
   spriteList:
   - {fileID: 21300000, guid: e0155105a0e97f4419839c465989afb8, type: 3}
-  - {fileID: 21300000, guid: e0d68b075cafd5a45b12d48f28bc478a, type: 3}
+  - {fileID: 21300000, guid: 8191f3cb193f4534788d72c18fdb62a2, type: 3}
