@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerStats : MonoBehaviour
     public bool isDesintegration;
 
     private PhotonView photonView;
+
+    private int position; // Posición del spawn que elegirá el host para el resto de jugadores (aleatorio)
 
     private void Awake()
     {

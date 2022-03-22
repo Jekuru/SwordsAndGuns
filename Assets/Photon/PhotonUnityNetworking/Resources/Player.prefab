@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 1812184006722872474}
   - component: {fileID: 1812184006722872477}
   - component: {fileID: 1812184006722872476}
-  - component: {fileID: 1812184006722872479}
   - component: {fileID: 1812184006722872478}
+  - component: {fileID: 1812184006722872547}
+  - component: {fileID: 1812184006722872479}
   - component: {fileID: 1812184006722872545}
   - component: {fileID: 1812184006722872544}
-  - component: {fileID: 1812184006722872547}
   - component: {fileID: 1812184006722872546}
   - component: {fileID: 1812184006722872549}
   - component: {fileID: 1812184006722872548}
@@ -239,6 +239,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1812184006722872478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812184006722872551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3e472220988d34c8136bb955880206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: ddf7c675e591677419f83b3e4bb71dae, type: 2}
+--- !u!114 &1812184006722872547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812184006722872551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61910f40d559aff47b3c0726ccfddbe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadInput: {fileID: 11400000, guid: 61d4f4d300b3dae47ba998bdd20c08f9, type: 2}
+  shieldSprite: {fileID: 4827512427631639561}
+  despawnTime: 10
+  healthPoints: 1
+  isDead: 0
+  isDesintegration: 0
 --- !u!114 &1812184006722872479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,19 +285,6 @@ MonoBehaviour:
   animatorController: {fileID: 0}
   weaponController: {fileID: 0}
   input: {fileID: 0}
---- !u!114 &1812184006722872478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812184006722872551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa3e472220988d34c8136bb955880206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: ddf7c675e591677419f83b3e4bb71dae, type: 2}
 --- !u!114 &1812184006722872545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,24 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2b5fd8322b0944d9dd17e98db5020f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1812184006722872547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812184006722872551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61910f40d559aff47b3c0726ccfddbe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deadInput: {fileID: 11400000, guid: 61d4f4d300b3dae47ba998bdd20c08f9, type: 2}
-  shieldSprite: {fileID: 4827512427631639561}
-  despawnTime: 10
-  healthPoints: 1
-  isDead: 0
-  isDesintegration: 0
 --- !u!114 &1812184006722872546
 MonoBehaviour:
   m_ObjectHideFlags: 0

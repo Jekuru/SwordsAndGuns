@@ -179,7 +179,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " left the room");
 
-        roomNumber.text = "";
+        if(SceneManagerHelper.ActiveSceneName == "Menu")
+            roomNumber.text = "";
     }
 
     public override void OnDisconnected(DisconnectCause cause)
