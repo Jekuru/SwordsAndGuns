@@ -55,9 +55,11 @@ public class PlayerStats : MonoBehaviour
         if (healthPoints == 2)
         {
             shieldSprite.SetActive(true);
+            photonView.RPC("ShieldOn", RpcTarget.Others);
         } else
         {
             shieldSprite.SetActive(false);
+            photonView.RPC("ShieldOff", RpcTarget.Others);
         }
     }
 
@@ -99,6 +101,18 @@ public class PlayerStats : MonoBehaviour
     {
         healthPoints = hp;
         isDead = true;
+    }
+    
+    [PunRPC]
+    private void ShieldOn()
+    {
+        shieldSprite.SetActive(true);
+    }
+
+    [PunRPC]
+    private void ShieldOff()
+    {
+        shieldSprite.SetActive(false);
     }
 
     [PunRPC]

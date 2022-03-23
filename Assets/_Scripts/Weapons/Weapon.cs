@@ -243,6 +243,7 @@ public class Weapon : MonoBehaviour
     [PunRPC]
     void ThrowGun()
     {
+        ammo = 0;
         ThrowGunOnline();
     }   
 
@@ -344,14 +345,18 @@ public class Weapon : MonoBehaviour
         fireRate = 2f;
 
         PhotonNetwork.Instantiate("LaserBeamOnline", firePoint.position, firePoint.rotation);
-            
-        //Instantiate(laserBeamPrefab, firePoint.position, firePoint.rotation);
 
         if (ammo >= maxAmmo)
         {
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
+        photonView.RPC("RaygunShoot", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void RaygunShoot()
+    {
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin: firePoint.transform.position, direction: firePoint.transform.right, distance: 100F);
 
         for (int i = 0; i < hits.Length; i++)
