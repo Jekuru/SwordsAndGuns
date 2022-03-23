@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 6658996539661631461}
   - component: {fileID: 6658996539661631460}
   - component: {fileID: 6658996539661631457}
+  - component: {fileID: 735609312621221922}
   m_Layer: 0
   m_Name: ItemSpawner
   m_TagString: Untagged
@@ -247,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48100f7400e461c4c8e646c1a389a02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 6658996539321026770}
+  itemSpawner: {fileID: 6658996539321026770}
   spawnTime: 5
   currentItem: 1
   isActive: 1
@@ -255,3 +256,25 @@ MonoBehaviour:
   spriteList:
   - {fileID: 21300000, guid: e0155105a0e97f4419839c465989afb8, type: 3}
   - {fileID: 21300000, guid: 8191f3cb193f4534788d72c18fdb62a2, type: 3}
+--- !u!114 &735609312621221922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658996539661631463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

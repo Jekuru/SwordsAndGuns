@@ -112,9 +112,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7877632206007629988}
   - component: {fileID: 7877632206007629991}
-  - component: {fileID: 7877632206007629990}
   - component: {fileID: 7877632206007629985}
   - component: {fileID: 7877632206007629984}
+  - component: {fileID: 7877632206007629990}
   - component: {fileID: 2508930409698415886}
   m_Layer: 0
   m_Name: WeaponSpawner
@@ -189,29 +189,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7877632206007629990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7877632206007629987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d5cbfba3d596164e8eb9c6bd5337848, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSpawner: {fileID: 7877632205023727510}
-  spawnTime: 1
-  currentWeapon: 0
-  isActive: 1
-  startRandom: 1
-  spriteList:
-  - {fileID: 4764737797138176100, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
-  - {fileID: -3809089164003652969, guid: 2a0d5bd70be2ff8478c219bcb6c89e35, type: 3}
-  - {fileID: 21300000, guid: 36e8662f01be7104f8bd499d728eb5ca, type: 3}
-  - {fileID: 21300000, guid: 41394b809b501044b8165036d8511cba, type: 3}
-  - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
 --- !u!61 &7877632206007629985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -259,6 +236,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &7877632206007629990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877632206007629987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5cbfba3d596164e8eb9c6bd5337848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpawner: {fileID: 7877632205023727510}
+  spawnTime: 1
+  currentWeapon: 0
+  isActive: 1
+  startRandom: 1
+  spriteList:
+  - {fileID: 4764737797138176100, guid: 7de8b450ea88bd248a7aa7f2e3e8e3f4, type: 3}
+  - {fileID: -3809089164003652969, guid: 2a0d5bd70be2ff8478c219bcb6c89e35, type: 3}
+  - {fileID: 21300000, guid: 36e8662f01be7104f8bd499d728eb5ca, type: 3}
+  - {fileID: 21300000, guid: 41394b809b501044b8165036d8511cba, type: 3}
+  - {fileID: 21300000, guid: 66d6017abae5df8478c97dcf2de0aa6b, type: 3}
 --- !u!114 &2508930409698415886
 MonoBehaviour:
   m_ObjectHideFlags: 0

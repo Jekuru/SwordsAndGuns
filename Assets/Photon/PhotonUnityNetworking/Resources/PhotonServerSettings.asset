@@ -61,6 +61,11 @@ MonoBehaviour:
   - InstatiateSpawn
   - FinishRound
   - ShareName
+  - Die
+  - ItemSpawner
+  - StartRandomItem
+  - CountPlayersAlive
+  - DeadCheck
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

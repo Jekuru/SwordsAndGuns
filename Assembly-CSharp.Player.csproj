@@ -63,13 +63,13 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\AIController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Capabilities\Move.cs" />
-    <Compile Include="Assets\SelectionController.cs" />
+    <Compile Include="Assets\_Scripts\Helmet Selection\SelectionController.cs" />
     <Compile Include="Assets\_Scripts\Online\PlayerPreferences.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\DeadController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Checks\Ground.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\Controller.cs" />
-    <Compile Include="Assets\_Scripts\LevelManager.cs" />
-    <Compile Include="Assets\_Scripts\ItemSpawnerController.cs" />
+    <Compile Include="Assets\_Scripts\LevelManagers\LevelManager.cs" />
+    <Compile Include="Assets\_Scripts\Items\ItemSpawnerController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Capabilities\Jump.cs" />
     <Compile Include="Assets\_Scripts\Online\NetworkController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\InputController.cs" />
@@ -77,17 +77,18 @@
     <Compile Include="Assets\_Scripts\TimerController.cs" />
     <Compile Include="Assets\_Scripts\CharacterController\Controllers\Player2DController.cs" />
     <Compile Include="Assets\_Scripts\Weapons\LaserBeamController.cs" />
+    <Compile Include="Assets\_Scripts\Helmet Selection\PlayerSelection.cs" />
     <Compile Include="Assets\UI Assets\MainMenu.cs" />
-    <Compile Include="Assets\_Scripts\Weapon Spawner\SpawnerController.cs" />
+    <Compile Include="Assets\_Scripts\Weapons\SpawnerController.cs" />
     <Compile Include="Assets\_Scripts\UIAmmoController.cs" />
-    <Compile Include="Assets\_Scripts\PlayerStats\PlayerStats.cs" />
+    <Compile Include="Assets\_Scripts\CharacterController\PlayerStats.cs" />
+    <Compile Include="Assets\_Scripts\PlayerCustomization.cs" />
     <Compile Include="Assets\_Scripts\TeleportBack.cs" />
-    <Compile Include="Assets\_Scripts\SpawnPoints.cs" />
+    <Compile Include="Assets\_Scripts\LevelManagers\SpawnPoints.cs" />
     <Compile Include="Assets\_Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\_Scripts\CameraController\CameraController.cs" />
     <Compile Include="Assets\_Scripts\GamePreferences.cs" />
-    <Compile Include="Assets\PlayerSelection.cs" />
-    <Compile Include="Assets\PlayerCustomization.cs" />
+    <Compile Include="Assets\KillingWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
