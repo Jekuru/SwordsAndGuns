@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Pun;
-using Photon.Realtime;
 using System.Linq;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MatchEndController : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class MatchEndController : MonoBehaviour
     [SerializeField] private Image[] playersHelmet;
     [SerializeField] private TMP_Text[] playersNickName;
     [SerializeField] private TMP_Text[] playersVictories;
+    [SerializeField] private GameObject[] playersPositionText;
     [SerializeField] private List<UserScore> userScore = new List<UserScore>();
 
     [SerializeField] private Sprite[] helmets;
@@ -37,6 +38,9 @@ public class MatchEndController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+            rematchButton.SetActive(true);
+
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             userScore.Add(new UserScore(PhotonNetwork.PlayerList[i], (int)PhotonNetwork.PlayerList[i].CustomProperties["Score"]));
@@ -47,7 +51,42 @@ public class MatchEndController : MonoBehaviour
         {
             playersHelmet[i].sprite = helmets[(int)userScore[i].player.CustomProperties["Helmet"]];
             playersNickName[i].text = userScore[i].player.NickName;
+            if (userScore[i].player.UserId == PhotonNetwork.PlayerList[0].UserId)
+            {
+                playersNickName[i].color = Color.red;
+            }
+            else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[1].UserId)
+            {
+                playersNickName[i].color = Color.blue;
+            }
+            else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[2].UserId)
+            {
+                playersNickName[i].color = Color.green;
+            }
+            else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[3].UserId)
+            {
+                playersNickName[i].color = Color.magenta;
+            }
             playersVictories[i].text = userScore[i].player.CustomProperties["Score"].ToString();
+        }
+        
+        if(userScore.Count == 2)
+        {
+            playersHelmet[2].gameObject.SetActive(false);
+            playersNickName[2].gameObject.SetActive(false);
+            playersVictories[2].gameObject.SetActive(false);
+            playersPositionText[1].SetActive(false);
+            playersHelmet[3].gameObject.SetActive(false);
+            playersNickName[3].gameObject.SetActive(false);
+            playersVictories[3].gameObject.SetActive(false);
+            playersPositionText[2].SetActive(false);
+        }
+        if(userScore.Count == 3)
+        {
+            playersHelmet[3].gameObject.SetActive(false);
+            playersNickName[3].gameObject.SetActive(false);
+            playersVictories[3].gameObject.SetActive(false);
+            playersPositionText[2].SetActive(false);
         }
     }
 
@@ -60,6 +99,17 @@ public class MatchEndController : MonoBehaviour
     {
         yield return null;
         photonView.RPC("ActivateLoadingIndicator", RpcTarget.All);
+
+        if(PhotonNetwork.IsMasterClient)
+            PlayerPrefs.SetInt("Rounds", 0);
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("Score", 0);
+            player.SetCustomProperties(hash);
+        }
+
         yield return new WaitForSeconds(6);
         PhotonNetwork.LoadLevel(Random.Range(2, 5));
     }

@@ -408,6 +408,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   playerPositions: []
   playerText: {fileID: 3473999776677726155}
+  playerBody: {fileID: 3473999778238725488}
   playerHelmet: {fileID: 3473999776584438126}
   playerLeftButton: {fileID: 3473999776559764624}
   playerRightButton: {fileID: 3473999777263063898}

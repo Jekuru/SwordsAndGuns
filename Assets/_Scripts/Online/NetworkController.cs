@@ -58,6 +58,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
             }
         }
         UserStatus = PhotonNetwork.NetworkClientState;
+        
     }
 
     #region Botones
@@ -97,6 +98,16 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }   
     }
 
+    public void ButtonHostPrivate()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            playOnlineMenu.SetActive(false);
+            loadingScreen.SetActive(true);
+            PrivateHost();
+        }
+    }
+
     public void ButtonJoinRoom()
     { 
         if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
@@ -132,8 +143,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         lobby.SetActive(false);
         selection.SetActive(true);
-        //PhotonView.Find(101).gameObject.SetActive(false); // Lobby menu
-        //PhotonView.Find(102).gameObject.SetActive(true); // Selection menu
     }
 
     public void ButtonStartOnlineGame()
@@ -260,8 +269,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
         {
-            GameObject button = GameObject.FindGameObjectWithTag("CommenceButton");
-            button.SetActive(true);
+            GameObject button = GameObject.FindGameObjectWithTag("RematchButton");
+            button.SetActive(false);
         }
     }
 
@@ -278,7 +287,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             MaxPlayers = 4,
             IsVisible = true,
-            IsOpen = true
+            IsOpen = true,
+            PublishUserId = true
         };
         randomRoomNumber = Random.Range(100000, 999999);
         PhotonNetwork.CreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
@@ -292,7 +302,23 @@ public class NetworkController : MonoBehaviourPunCallbacks
         {
             MaxPlayers = 4,
             IsVisible = true,
-            IsOpen = true
+            IsOpen = true,
+            PublishUserId = true
+        };
+        randomRoomNumber = Random.Range(100000, 999999);
+        PhotonNetwork.JoinOrCreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
+        roomNumber.text = randomRoomNumber.ToString();
+    }
+
+    void PrivateHost()
+    {
+        Debug.Log("Creando nueva sala...");
+        RoomOptions r = new RoomOptions
+        {
+            MaxPlayers = 4,
+            IsVisible = false,
+            IsOpen = true,
+            PublishUserId = true
         };
         randomRoomNumber = Random.Range(100000, 999999);
         PhotonNetwork.JoinOrCreateRoom(randomRoomNumber.ToString(), r, TypedLobby.Default);
@@ -317,6 +343,19 @@ public class NetworkController : MonoBehaviourPunCallbacks
             GameObject tempListing = Instantiate(playerListingPrefab, playersContainer);
             TMP_Text tempText = tempListing.transform.GetChild(0).GetComponent<TMP_Text>();
             tempText.text = player.NickName;
+            if(player == PhotonNetwork.PlayerList[0])
+            {
+                tempText.color = Color.red;
+            } else if(player == PhotonNetwork.PlayerList[1])
+            {
+                tempText.color = Color.blue;
+            } else if (player == PhotonNetwork.PlayerList[2])
+            {
+                tempText.color = Color.green;
+            } else if (player == PhotonNetwork.PlayerList[3])
+            {
+                tempText.color = Color.magenta;
+            }
         }
     }
 

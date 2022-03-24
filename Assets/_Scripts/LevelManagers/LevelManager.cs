@@ -30,6 +30,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TMP_Text[] playerScore;
 
     [Header("Carga")]
+    [SerializeField] private int previousMap;
+    [SerializeField] private int nextMap;
     [SerializeField] private GameObject loadingRing;
 
     private PhotonView photonView;
@@ -57,6 +59,7 @@ public class LevelManager : MonoBehaviour
             return;
 
         rounds = PlayerPrefs.GetInt("Rounds");
+        previousMap = PlayerPrefs.GetInt("PreviousMap", 0);
         StartTimer();
         photonView.RPC("CountPlayersAlive", RpcTarget.All);
     }
@@ -228,7 +231,16 @@ public class LevelManager : MonoBehaviour
                         StartCoroutine(FinishMatch());
                     }
                     if (!finish)
+                    {
+                        do
+                        {
+                            nextMap = Random.Range(2, 5);
+                        } while (nextMap == previousMap);
+                        previousMap = nextMap;
+                        PlayerPrefs.SetInt("PreviousMap", nextMap);
                         StartCoroutine(LoadNewMap());
+                    }
+                        
                 }
             }
             // Cargar el siguiente mapa de fondo mientras los jugadores ven la puntuación (5 secs?)
@@ -249,7 +261,8 @@ public class LevelManager : MonoBehaviour
         yield return null;
         loadingRing.SetActive(true);
         yield return new WaitForSeconds(6);
-        PhotonNetwork.LoadLevel(Random.Range(2, 5));
+
+        PhotonNetwork.LoadLevel(nextMap);
     }
 
     IEnumerator FinishMatch()
@@ -259,5 +272,4 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(8);
         PhotonNetwork.LoadLevel("MatchEnd");
     }
-
 }

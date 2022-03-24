@@ -151,7 +151,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0ce653a5e31ed8f458030671f082ad61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -388,6 +388,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ad76c6401e1f340b287599eb5cc3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 1812184006722872475}
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
+  bodyPosition: 0
   helmet: {fileID: 1812184007884786174}
   helmets:
   - {fileID: 21300000, guid: a3b9eb59c8d54784ea903ee04af5f52f, type: 3}

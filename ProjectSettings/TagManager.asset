@@ -10,7 +10,7 @@ TagManager:
   - Map
   - Canvas
   - PlayerPositions
-  - CommenceButton
+  - RematchButton
   layers:
   - Default
   - TransparentFX
