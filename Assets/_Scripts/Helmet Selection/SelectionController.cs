@@ -29,6 +29,7 @@ public class SelectionController : MonoBehaviour
                 Hashtable hash = new Hashtable();
                 hash.Add("Score", 0);
                 PhotonNetwork.PlayerList[i].SetCustomProperties(hash);
+                PlayerPrefs.SetInt("Rounds", 0);
             }
             PhotonNetwork.LoadLevel(Random.Range(2, 4));
         }

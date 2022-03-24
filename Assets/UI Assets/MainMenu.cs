@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
 
-    public TMPro.TMP_Dropdown resolutionDrop;
+    public TMP_Dropdown resolutionDrop;
     Resolution[] resolutions;
-    public TMPro.TMP_Dropdown fpsDrop;
+    public TMP_Dropdown fpsDrop;
     public AudioMixer audioMixer;
 
     void Start()
@@ -35,7 +36,7 @@ public class MainMenu : MonoBehaviour
         resolutionDrop.value = currentResolutionIndex;
         resolutionDrop.RefreshShownValue();
 
-        int fpsIndex = fpsDrop.GetComponent<Dropdown>().value;
+        int fpsIndex = fpsDrop.value;
 
     }
 

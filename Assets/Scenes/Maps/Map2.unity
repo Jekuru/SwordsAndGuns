@@ -3259,9 +3259,9 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1587822411196800132, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}
-      propertyPath: spawnPoints.Array.size
-      value: 4
+    - target: {fileID: 335935453, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1587822411196800132, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}
       propertyPath: spawnPoints.Array.data[0]
@@ -3326,6 +3326,10 @@ PrefabInstance:
     - target: {fileID: 1587822411196800134, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}
       propertyPath: m_Name
       value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587822411871512954, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e55d578829de894cb918a097d12dd3b, type: 3}

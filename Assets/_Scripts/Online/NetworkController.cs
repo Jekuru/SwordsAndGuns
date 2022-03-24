@@ -257,6 +257,12 @@ public class NetworkController : MonoBehaviourPunCallbacks
         ListPlayers();
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
             commenceButton.gameObject.SetActive(true);
+
+        if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
+        {
+            GameObject button = GameObject.FindGameObjectWithTag("CommenceButton");
+            button.SetActive(true);
+        }
     }
 
     public override void OnJoinedLobby()
