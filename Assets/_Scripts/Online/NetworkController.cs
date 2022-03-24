@@ -37,6 +37,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         DontDestroyOnLoad(this.gameObject);
     }
 

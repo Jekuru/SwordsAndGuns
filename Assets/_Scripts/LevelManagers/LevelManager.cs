@@ -31,7 +31,10 @@ public class LevelManager : MonoBehaviour
 
     private PhotonView photonView;
 
-    public int playerCount;
+    private bool loadLevel = false;
+    private bool bScore = false;
+
+    [SerializeField] private int rounds;
 
     private void Awake()
     {
@@ -46,7 +49,6 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        playerCount = players.Count;
         if (!PhotonNetwork.IsMasterClient && !photonView.IsMine)
             return;
 
@@ -136,9 +138,6 @@ public class LevelManager : MonoBehaviour
     [PunRPC]
     private void FinishRound()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
-
         // Cargar la leaderboard con info, ocultar donde no hay jugadores
             switch (PhotonNetwork.PlayerList.Length)
             {
@@ -186,34 +185,53 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            if (playerAlive == PhotonNetwork.PlayerList[i])
+            if (playerAlive == PhotonNetwork.PlayerList[i] && !bScore)
             {
+                bScore = true;
                 // Sumarle el punto y conservarlo hasta el final de la partida
                 Debug.Log("Sumar punto en Player Custom Properties");
                 Hashtable hash = new Hashtable();
-                hash.Add("Score", +1);
+                int score = (int)playerAlive.CustomProperties["Score"];
+                score = score + 1;
+                hash.Add("Score", score);
                 playerAlive.SetCustomProperties(hash);
 
                 // Cambiar resultado en el leaderboard
-                SumPoint(i);
+                StartCoroutine(SumPoint(i)); 
             }
         }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            
+            PlayerPrefs.SetInt("Rounds", ); 
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                
+            }
+            if (!loadLevel)
+            {
+                loadLevel = true;
+                StartCoroutine(LoadNewMap());
+            }
+                
+            
+        }
         // Cargar el siguiente mapa de fondo mientras los jugadores ven la puntuación (5 secs?)
-        LoadNewMap();
     }
 
     IEnumerator SumPoint(int player)
     {
-        yield return new WaitForSeconds(2);
+        yield return null;
+        yield return new WaitForSeconds(4);
         Debug.Log("Sumar punto en la leaderboard");
         playerScore[player].text = playerAlive.CustomProperties["Score"].ToString();
     }
 
     IEnumerator LoadNewMap()
     {
-        yield return new WaitForSeconds(5);
-        Debug.Log("Cargar nuevo mapa...");
+        yield return new WaitForSeconds(8);
+        yield return null;
         PhotonNetwork.LoadLevel(Random.Range(2, 5));
     }
 
