@@ -62,14 +62,13 @@ public class NetworkController : MonoBehaviourPunCallbacks
             }
         }
         UserStatus = PhotonNetwork.NetworkClientState;
-        
     }
 
     #region Botones
     public void ButtonPlayLocale()
     {
-        PhotonNetwork.Disconnect();
         PhotonNetwork.OfflineMode = true;
+        PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("MainTestingScene");
     }
 
@@ -142,13 +141,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("CharSelection");
     }
 
-    [PunRPC]
-    void SendLoadSelectionView()
-    {
-        lobby.SetActive(false);
-        selection.SetActive(true);
-    }
-
     public void ButtonStartOnlineGame()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -156,34 +148,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
             StartCoroutine(LoadScene());
         }
-    }
-
-    public void ButtonLeftRound()
-    {
-        if(rounds == 1)
-        {
-            rounds = 10;
-            roundsText.text = rounds.ToString();
-        } else
-        {
-            rounds--;
-            roundsText.text = rounds.ToString();
-        }
-        PlayerPrefs.SetInt("Rounds", rounds);
-    }
-
-    public void ButtonRightRound()
-    {
-        if(rounds == 10)
-        {
-            rounds = 1;
-            roundsText.text = rounds.ToString();
-        } else
-        {
-            rounds++;
-            roundsText.text = rounds.ToString();
-        }
-        PlayerPrefs.SetInt("Rounds", rounds);
     }
 
     #endregion
@@ -230,7 +194,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " disconnected from server " + cause);
 
-        serverText.text = "Conectando...";
+        if(SceneManagerHelper.ActiveSceneName == "Menu")
+            serverText.text = "Conectando...";
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -276,8 +241,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        leftRoundButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        rightRoundButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+
+        if(PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate("LobbyController", gameObject.transform.position, Quaternion.identity);
 
         lobby.SetActive(true);
         loadingScreen.SetActive(false);
@@ -301,8 +267,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         ListPlayers();
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
             commenceButton.gameObject.SetActive(true);
-            leftRoundButton.gameObject.SetActive(true);
-            rightRoundButton.gameObject.SetActive(true);
 
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
         {

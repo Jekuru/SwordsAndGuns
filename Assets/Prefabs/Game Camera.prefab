@@ -114,4 +114,4 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -32}
   smoothTime: 0.5
   minZoom: 50
-  maxZoom: 40
+  maxZoom: 25

@@ -125,12 +125,24 @@ public class SpawnerController : MonoBehaviour
             if (collision.gameObject.GetComponent<Weapon>().currentWeapon == Weapon.WeaponTypes.none)
             {
                 weaponController.WeaponChange((int)currentWeapon);
+                photonView.RPC("PickedUp", RpcTarget.All);
+                /*
                 currentWeapon = WeaponTypes.none;
                 weaponSpawner.SetActive(false);
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 isActive = false;
-                timer = 0f;
+                timer = 0f;^*/
             }
         }
+    }
+
+    [PunRPC]
+    void PickedUp()
+    {
+        currentWeapon = WeaponTypes.none;
+        weaponSpawner.SetActive(false);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        isActive = false;
+        timer = 0f;
     }
 }

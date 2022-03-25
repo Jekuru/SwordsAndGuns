@@ -8,7 +8,7 @@ using Photon.Pun;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class MatchEndController : MonoBehaviour
+public class MatchEndController : MonoBehaviourPunCallbacks
 {
     [Header("Datos leaderboard")]
     [SerializeField] private Image[] playersHelmet;
@@ -120,6 +120,11 @@ public class MatchEndController : MonoBehaviour
     public void ExitButton()
     {
         PhotonNetwork.Disconnect();
+
+    }
+
+    public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
+    {
         GameObject networkController = GameObject.FindGameObjectWithTag("NetworkController");
         Destroy(networkController);
         SceneManager.LoadScene("Menu");

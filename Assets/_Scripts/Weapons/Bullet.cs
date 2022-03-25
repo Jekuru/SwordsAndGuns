@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Bullet : MonoBehaviour
 {
@@ -8,7 +9,15 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private Rigidbody2D rBody;
     [SerializeField] private float travelTime;
+    [SerializeField] private GameObject targetHit;
     public PhysicsMaterial2D stickyMat;
+
+    private PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +36,10 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Detection();
+        BulletDetection();
     }
 
-    private void Detection()
+    private void BulletDetection()
     {
         LayerMask layers = LayerMask.GetMask("Player", "Ground");
 
@@ -43,18 +52,27 @@ public class Bullet : MonoBehaviour
         }
         else if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            hit.collider.GetComponent<PlayerStats>().healthPoints--;
-            if(hit.collider.GetComponent<PlayerStats>().healthPoints <= 0)
-            {
-                hit.collider.GetComponent<Rigidbody2D>().AddForce(rBody.velocity * 0.4f, ForceMode2D.Impulse);
-                hit.collider.GetComponent<Rigidbody2D>().AddTorque(-rBody.velocity.x * 8);
-                hit.collider.GetComponent<Rigidbody2D>().freezeRotation = false;
+            targetHit = hit.collider.gameObject;
 
-                //hit.collider.GetComponent<CapsuleCollider2D>().enabled = false;
-                hit.collider.tag = "Death";
-            }
+            photonView.RPC("ShareTargetHit", RpcTarget.All);
+            //hit.collider.GetComponent<PlayerStats>().healthPoints--;
+
 
             Destroy(gameObject);
+        }
+    }
+
+    [PunRPC]
+    void ShareTargetHit()
+    {
+        targetHit.GetComponent<PlayerStats>().healthPoints--;
+        if (targetHit.GetComponent<PlayerStats>().healthPoints <= 0)
+        {
+            targetHit.GetComponent<Rigidbody2D>().AddForce(rBody.velocity * 0.4f, ForceMode2D.Impulse);
+            targetHit.GetComponent<Rigidbody2D>().AddTorque(-rBody.velocity.x * 8);
+            targetHit.GetComponent<Rigidbody2D>().freezeRotation = false;
+
+            targetHit.tag = "Death";
         }
     }
 }

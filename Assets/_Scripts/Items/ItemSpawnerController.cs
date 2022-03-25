@@ -122,10 +122,16 @@ public class ItemSpawnerController : MonoBehaviour
                 return;
             }
 
-            itemSpawner.SetActive(false);
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            isActive = false;
-            timer = 0f;
+            photonView.RPC("PickedUpItem", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void PickedUpItem()
+    {
+        itemSpawner.SetActive(false);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        isActive = false;
+        timer = 0f;
     }
 }

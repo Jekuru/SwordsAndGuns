@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -18,9 +17,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject laserBeamPrefab; // Proyectil con Line Renderer para la raygun
     [SerializeField] private GameObject ThrowedWeapon;
     public SpriteRenderer currentWeaponSprite; // Sprite actual del arma equipada
-
-    // Sprite del arma catual
-
 
     // Munición
     [SerializeField] private int ammo; // Munición actual del arma.
@@ -54,6 +50,9 @@ public class Weapon : MonoBehaviour
     }
     // Arma equipada actualmente
     public WeaponTypes currentWeapon; // Arma actual
+
+    // Objetivo impactado por la Raygun
+    private GameObject raygunTarget;
 
     public PhotonView photonView;
 
@@ -94,37 +93,6 @@ public class Weapon : MonoBehaviour
             Debug.Log("Soltando arma");
 
             photonView.RPC("ThrowGun", RpcTarget.All);
-        }
-
-        // TODO: PRUEBAS CAMBIO DE ARMA Y SPRITE, ELIMINAR CUANDO HAYA INTERACCIONES CON EL SPAWNER
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
-            currentWeapon = WeaponTypes.sword;
-            RenderSprite();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentWeapon = WeaponTypes.pistol;
-            RenderSprite();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentWeapon = WeaponTypes.shotgun;
-            RenderSprite();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentWeapon = WeaponTypes.sniper;
-            RenderSprite();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            currentWeapon = WeaponTypes.raygun;
-            RenderSprite();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            currentWeapon = WeaponTypes.none;
-            RenderSprite();
         }
     }
 
@@ -384,15 +352,22 @@ public class Weapon : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
-                PlayerStats playerStats = hit.transform.GetComponent<PlayerStats>();
-                playerStats.healthPoints--;
-                if (hit.transform.GetComponent<PlayerStats>())
-                {
-                    hit.transform.GetComponent<PlayerStats>().isDesintegration = true;
-                }
-                Debug.Log(hit.collider.gameObject.name + " impactado por raygun.");
+                raygunTarget = hit.collider.gameObject;
+                photonView.RPC("ShareRaygunHit", RpcTarget.All);
             }
         }
+    }
+
+    [PunRPC]
+    void ShareRaygunHit()
+    {
+        PlayerStats playerStats = raygunTarget.transform.GetComponent<PlayerStats>();
+        playerStats.healthPoints--;
+        if (raygunTarget.transform.GetComponent<PlayerStats>())
+        {
+            raygunTarget.transform.GetComponent<PlayerStats>().isDesintegration = true;
+        }
+        Debug.Log(raygunTarget.name + " impactado por raygun.");
     }
 
     #endregion

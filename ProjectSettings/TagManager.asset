@@ -12,6 +12,12 @@ TagManager:
   - PlayerPositions
   - RematchButton
   - NetworkController
+  - LobbyCanvas
+  - RoundsSelectorPosition
+  - RoundText
+  - LRoundButton
+  - RRoundButton
+  - PlayerPrefs
   layers:
   - Default
   - TransparentFX

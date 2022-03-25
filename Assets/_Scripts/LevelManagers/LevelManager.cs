@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviourPunCallbacks
 {
     [Header("Jugadores con vida")]
     [SerializeField] private List<PlayerStats> players;
@@ -33,14 +32,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int previousMap;
     [SerializeField] private int nextMap;
     [SerializeField] private GameObject loadingRing;
-
-    private PhotonView photonView;
-
     private bool loadLevel = false;
-    private bool bScore = false;
+    [SerializeField] private bool loading = false;
 
+    private bool bScore = false;
     [SerializeField] private int rounds;
     private bool bRounds = false;
+
+    private PhotonView photonView;
 
     private void Awake()
     {
@@ -61,7 +60,8 @@ public class LevelManager : MonoBehaviour
         rounds = PlayerPrefs.GetInt("Rounds");
         previousMap = PlayerPrefs.GetInt("PreviousMap", 0);
         StartTimer();
-        photonView.RPC("CountPlayersAlive", RpcTarget.All);
+        if(!loading)
+            photonView.RPC("CountPlayersAlive", RpcTarget.All);
     }
 
     // Start is called before the first frame update
@@ -86,6 +86,20 @@ public class LevelManager : MonoBehaviour
         if (timeStart > maxTimeStart)
         {
             photonView.RPC("DeadCheck", RpcTarget.All);
+            if (PhotonNetwork.PlayerList.Length == 1)
+            {
+                Debug.Log("Todos los jugadores se han desconectado");
+                if (!loadLevel)
+                {
+                    loadLevel = true;
+                    PhotonNetwork.LeaveRoom();
+                    PhotonNetwork.LeaveLobby();
+                    PhotonNetwork.Disconnect();
+                    GameObject networkController = GameObject.FindGameObjectWithTag("NetworkController");
+                    Destroy(networkController);
+                    PhotonNetwork.LoadLevel("Menu");
+                }
+            }
         }
     }
 
@@ -117,7 +131,7 @@ public class LevelManager : MonoBehaviour
                     Debug.Log("El jugador vivo es " + playerAlive.NickName);
                 }
             }
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length > 1)
             {
                 Debug.Log("Finalizar ronda...");
                 photonView.RPC("FinishRound", RpcTarget.All);
@@ -219,13 +233,14 @@ public class LevelManager : MonoBehaviour
                 if (!loadLevel)
                 {
                     loadLevel = true;
+                    loading = true;
                     if (!bRounds)
                     {
                         rounds = PlayerPrefs.GetInt("Rounds");
                         rounds++;
                         PlayerPrefs.SetInt("Rounds", rounds);
                     }
-                    if (rounds >= 5)
+                    if (rounds >= PlayerPrefs.GetInt("MaxRounds", 5))
                     {
                         finish = true;
                         StartCoroutine(FinishMatch());
