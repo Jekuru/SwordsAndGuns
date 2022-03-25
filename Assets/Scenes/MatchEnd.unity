@@ -2218,6 +2218,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ba2c2b6a2bdabdd4f93ebeac95289000, type: 3}
   - {fileID: 21300000, guid: e950f3b0ed23a2e44900cb118c830184, type: 3}
   rematchButton: {fileID: 485682427}
+  exitButton: {fileID: 2022202335}
   loadingRing: {fileID: 1045718898}
 --- !u!114 &1333887894
 MonoBehaviour:

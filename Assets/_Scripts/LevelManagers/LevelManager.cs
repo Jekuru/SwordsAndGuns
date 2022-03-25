@@ -111,7 +111,7 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Solo uno con vida!");
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) // Buscar quien queda vivo
             {
-                if (players[0].name == PhotonNetwork.PlayerList[i].NickName)
+                if (players[0].name == PhotonNetwork.PlayerList[i].UserId)
                 {
                     playerAlive = PhotonNetwork.PlayerList[i]; // Jugador vivo
                     Debug.Log("El jugador vivo es " + playerAlive.NickName);

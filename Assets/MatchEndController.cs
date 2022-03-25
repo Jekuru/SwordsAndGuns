@@ -20,6 +20,7 @@ public class MatchEndController : MonoBehaviour
     [SerializeField] private Sprite[] helmets;
 
     [SerializeField] private GameObject rematchButton;
+    [SerializeField] private GameObject exitButton;
 
     [SerializeField] private GameObject loadingRing;
 
@@ -28,11 +29,6 @@ public class MatchEndController : MonoBehaviour
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
-    }
-
-    private void Update()
-    {
-
     }
 
     // Start is called before the first frame update
@@ -118,11 +114,14 @@ public class MatchEndController : MonoBehaviour
     void ActivateLoadingIndicator()
     {
         loadingRing.SetActive(true);
+        exitButton.SetActive(false);
     }
 
     public void ExitButton()
     {
         PhotonNetwork.Disconnect();
+        GameObject networkController = GameObject.FindGameObjectWithTag("NetworkController");
+        Destroy(networkController);
         SceneManager.LoadScene("Menu");
     }
 }
