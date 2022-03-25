@@ -39,7 +39,10 @@ public class Weapon : MonoBehaviour
 
     // A partir de aquí, variables públicas. ¡No cambiar a private!
     public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
+    public AudioSource audioSource;// Fuente audio de las armas
+    public List<AudioClip> weaponSounds;
 
+    
     // Armas
     public enum WeaponTypes // TIPOS DE ARMA, INTRODUCIR AQUÍ EL NOMBRE DE LAS NUEVAS ARMAS
     {
@@ -266,6 +269,8 @@ public class Weapon : MonoBehaviour
         spread = 0;
 
         meleeAttack = true;
+        
+        audioSource.PlayOneShot(weaponSounds[0]);
     }
 
     /**
@@ -282,10 +287,13 @@ public class Weapon : MonoBehaviour
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
         Shoot(firePoint.position, firePoint.rotation * spread);
 
+
         if (ammo >= maxAmmo)
         {
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
+
+        audioSource.PlayOneShot(weaponSounds[1]);
     }
 
     /**
@@ -311,6 +319,8 @@ public class Weapon : MonoBehaviour
         {
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
+
+        audioSource.PlayOneShot(weaponSounds[2]);
     }
 
     /**
@@ -332,6 +342,8 @@ public class Weapon : MonoBehaviour
         {
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
+
+        audioSource.PlayOneShot(weaponSounds[3]);
     }
 
     /**
@@ -352,6 +364,8 @@ public class Weapon : MonoBehaviour
         }
 
         photonView.RPC("RaygunShoot", RpcTarget.All);
+
+        audioSource.PlayOneShot(weaponSounds[4]);
     }
 
     [PunRPC]
