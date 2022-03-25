@@ -25,6 +25,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playersContainer;
     [SerializeField] private GameObject playerListingPrefab;
     [SerializeField] private Button commenceButton;
+    [SerializeField] private Button leftRoundButton;
+    [SerializeField] private Button rightRoundButton;
+    [SerializeField] private TMP_Text roundsText;
+    [SerializeField] private int rounds = 5;
     [Header("Selection elements")]
     [SerializeField] private GameObject selection;
 
@@ -153,6 +157,35 @@ public class NetworkController : MonoBehaviourPunCallbacks
             StartCoroutine(LoadScene());
         }
     }
+
+    public void ButtonLeftRound()
+    {
+        if(rounds == 1)
+        {
+            rounds = 10;
+            roundsText.text = rounds.ToString();
+        } else
+        {
+            rounds--;
+            roundsText.text = rounds.ToString();
+        }
+        PlayerPrefs.SetInt("Rounds", rounds);
+    }
+
+    public void ButtonRightRound()
+    {
+        if(rounds == 10)
+        {
+            rounds = 1;
+            roundsText.text = rounds.ToString();
+        } else
+        {
+            rounds++;
+            roundsText.text = rounds.ToString();
+        }
+        PlayerPrefs.SetInt("Rounds", rounds);
+    }
+
     #endregion
 
     IEnumerator LoadScene()
@@ -243,6 +276,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        leftRoundButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        rightRoundButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
         lobby.SetActive(true);
         loadingScreen.SetActive(false);
@@ -266,6 +301,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         ListPlayers();
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
             commenceButton.gameObject.SetActive(true);
+            leftRoundButton.gameObject.SetActive(true);
+            rightRoundButton.gameObject.SetActive(true);
 
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
         {
