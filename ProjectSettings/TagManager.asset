@@ -18,6 +18,7 @@ TagManager:
   - LRoundButton
   - RRoundButton
   - PlayerPrefs
+  - VirtualController
   layers:
   - Default
   - TransparentFX

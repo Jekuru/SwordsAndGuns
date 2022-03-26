@@ -58,8 +58,19 @@ public class Jump : MonoBehaviour
         if (!photonView.IsMine)
             return;
 
-         JumpChecks();
+        JumpChecks();
+    }
 
+    public void VirtualJumpButton()
+    {
+        isJumping |= true;
+        holdingJump |= true;
+
+        float holding = Time.deltaTime;
+        Debug.Log("Manteniendo salto virtual: " + holding);
+
+        // SI SE SUELTA LA TECLA DE SALTO...
+        
     }
 
     private void JumpInputs()

@@ -8,6 +8,7 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Animator animatorController;
     [SerializeField] private Weapon weaponController;
     [SerializeField] private InputController input = null;
+    [SerializeField] private Joystick joystick;
 
     private PhotonView photonView;
 
@@ -33,7 +34,7 @@ public class AnimationController : MonoBehaviour
 
     private void walkAnimation()
     {
-        if(input.RetrieveMoveInput() != 0)
+        if(input.RetrieveMoveInput() != 0 || joystick.Horizontal != 0)
         {
             animatorController.SetBool("isMoving", true);
         } else

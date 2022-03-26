@@ -6650,7 +6650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5425506027855284280, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
       propertyPath: maxZoom
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5425506027855284286, guid: e1426dfbae7daf74397b7189824c2243, type: 3}
       propertyPath: m_BackGroundColor.b

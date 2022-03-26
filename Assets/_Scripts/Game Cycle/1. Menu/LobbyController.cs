@@ -6,7 +6,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
 
-public class LobbyController : MonoBehaviour
+public class LobbyController : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject lobbyCanvas;
     [SerializeField] private GameObject roundSelectorPosition;
@@ -85,5 +85,11 @@ public class LobbyController : MonoBehaviour
     {
         roundsText.text = rounds.ToString();
         PlayerPrefs.SetInt("MaxRounds", rounds);
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            photonView.RPC("SendRounds", RpcTarget.All, rounds);
     }
 }

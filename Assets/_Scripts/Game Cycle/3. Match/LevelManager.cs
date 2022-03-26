@@ -249,7 +249,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
                     {
                         do
                         {
-                            nextMap = Random.Range(2, 5);
+                            nextMap = Random.Range(2, 6);
                         } while (nextMap == previousMap);
                         previousMap = nextMap;
                         PlayerPrefs.SetInt("PreviousMap", nextMap);

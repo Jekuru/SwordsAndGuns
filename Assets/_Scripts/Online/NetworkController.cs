@@ -13,6 +13,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerPreferences playerPreferences;
 
     // *** UI *** //
+    [Header("Main elements")]
+    [SerializeField] private GameObject settingsButton;
     [Header("Lobby elements")]
     [SerializeField] private GameObject playOnlineMenu;
     [SerializeField] private TMP_Text serverText;
@@ -25,10 +27,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playersContainer;
     [SerializeField] private GameObject playerListingPrefab;
     [SerializeField] private Button commenceButton;
-    [SerializeField] private Button leftRoundButton;
-    [SerializeField] private Button rightRoundButton;
-    [SerializeField] private TMP_Text roundsText;
-    [SerializeField] private int rounds = 5;
     [Header("Selection elements")]
     [SerializeField] private GameObject selection;
 
@@ -41,6 +39,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+            settingsButton.SetActive(false);
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         PhotonNetwork.AutomaticallySyncScene = true;
         DontDestroyOnLoad(this.gameObject);
     }
@@ -265,14 +268,24 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         ClearPlayerListings();
         ListPlayers();
+        
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
+        {
             commenceButton.gameObject.SetActive(true);
+            PhotonNetwork.Instantiate("LobbyController", gameObject.transform.position, Quaternion.identity);
+        }
+            
 
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
         {
             GameObject button = GameObject.FindGameObjectWithTag("RematchButton");
             button.SetActive(false);
         }
+        
     }
 
     public override void OnJoinedLobby()

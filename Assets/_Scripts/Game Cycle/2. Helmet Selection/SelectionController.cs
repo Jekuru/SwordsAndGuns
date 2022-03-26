@@ -31,7 +31,7 @@ public class SelectionController : MonoBehaviour
                 PhotonNetwork.PlayerList[i].SetCustomProperties(hash);
                 PlayerPrefs.SetInt("Rounds", 0);
             }
-            int firstMap = Random.Range(2, 4);
+            int firstMap = Random.Range(2, 6);
             PlayerPrefs.SetInt("PreviousMap", firstMap);
             PhotonNetwork.LoadLevel(firstMap);
         }

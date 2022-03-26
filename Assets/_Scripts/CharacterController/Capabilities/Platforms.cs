@@ -8,6 +8,7 @@ public class Platforms : MonoBehaviour
     private Controller controller;
     private GameObject platform; // Plataforma
     private CapsuleCollider2D playerCollider; // Collider2D del jugador
+    [SerializeField] private Joystick joystick;
 
     private PhotonView photonView;
 
@@ -30,7 +31,7 @@ public class Platforms : MonoBehaviour
     {
         if (!photonView.IsMine)
             return;
-        if (controller.input.RetrieveVerticalInput() == -1)
+        if (controller.input.RetrieveVerticalInput() == -1 || joystick.Vertical == -1)
         {
             if (platform != null)
             {

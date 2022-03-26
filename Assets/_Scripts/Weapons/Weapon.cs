@@ -54,6 +54,10 @@ public class Weapon : MonoBehaviour
     // Objetivo impactado por la Raygun
     private GameObject raygunTarget;
 
+    // Mando virtual para movil
+    private bool virtualShoot;
+    private bool virtualThrowGun;
+
     public PhotonView photonView;
 
     private void Awake()
@@ -84,13 +88,11 @@ public class Weapon : MonoBehaviour
         if (!photonView.IsMine)
             return;
 
-
+        // Tirar arma al pulsar el botón para tirar el arma
         if (controller.input.RetrieveThrowInput())
         {
             if (currentWeapon == WeaponTypes.none)
                 return;
-
-            Debug.Log("Soltando arma");
 
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
@@ -100,6 +102,8 @@ public class Weapon : MonoBehaviour
     {
         photonView.RPC("WeaponChangeOnline", RpcTarget.All, weapon);
     }
+
+
 
     [PunRPC]
     void WeaponChangeOnline(int weapon)
@@ -113,9 +117,10 @@ public class Weapon : MonoBehaviour
     */
     void WeaponTrigger()
     {
-        if (controller.input.RetrieveFireInput() && cdBool)
+        if ((controller.input.RetrieveFireInput() || virtualShoot) && cdBool)
         {
             cdBool = false;
+            virtualShoot = false;
             switch (currentWeapon)
             {
                 // NINGUNA
@@ -145,6 +150,21 @@ public class Weapon : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void VirtualShootButton()
+    {
+        virtualShoot = true;
+    }
+
+    public void VirtualThrowGunButton()
+    {
+        if (!photonView.IsMine)
+            return;
+
+        // Tirar arma al pulsar el botón para tirar el arma
+        controller.input.RetrieveThrowInput().Equals(true);
+
     }
 
     /**
@@ -212,7 +232,7 @@ public class Weapon : MonoBehaviour
      * Tirar arma
      */
     [PunRPC]
-    void ThrowGun()
+    public void ThrowGun()
     {
         ammo = 0;
         ThrowGunOnline();

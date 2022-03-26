@@ -18,6 +18,8 @@ public class Move : MonoBehaviour
     private float acceleration;
     public bool onGround;
 
+    [SerializeField] private Joystick joystick;
+
     private PhotonView photonView;
 
     // Start is called before the first frame update
@@ -51,7 +53,12 @@ public class Move : MonoBehaviour
 
     private void MoveInputs()
     {
-        direction.x = input.RetrieveMoveInput();
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+            direction.x = joystick.Horizontal;
+
+        if (SystemInfo.deviceType != DeviceType.Handheld)
+            direction.x = input.RetrieveMoveInput();
+
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - ground.GetFriction(), 0f);
     }
 
