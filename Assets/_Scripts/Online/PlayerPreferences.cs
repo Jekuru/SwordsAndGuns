@@ -32,16 +32,20 @@ public class PlayerPreferences : MonoBehaviour
         if (SceneManagerHelper.ActiveSceneName == "Menu" || onMain)
         {
             nameField = FindObjectOfType<TMP_InputField>();
+            if (nameField == null)
+                return;
             nameField.onValueChanged.AddListener(delegate { NameChange(); });
             nameField.onEndEdit.AddListener(delegate { NameChange(); });
-            //nameField = GameObject.Find("NameInputField").GetComponent<TMP_InputField>();
         }
 
     }
 
     public void NameChange()
     {
-        if(nameField.textComponent.text.Length >= 3)
+        if (nameField == null || nameField.gameObject.name != "NameInputField")
+            return;
+
+        if (nameField.textComponent.text.Length >= 3)
         {
             nickName = nameField.textComponent.text;
             PlayerPrefs.SetString("SavedNickname", nickName);

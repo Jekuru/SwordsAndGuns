@@ -619,6 +619,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
 --- !u!1001 &366145102
@@ -675,6 +683,10 @@ PrefabInstance:
     - target: {fileID: 6658996539661631456, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658996539661631457, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
+      propertyPath: spawnTime
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6658996539661631463, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_Name
@@ -785,6 +797,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
 --- !u!1001 &558062730
@@ -844,6 +864,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -907,6 +935,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
 --- !u!1001 &811661637
@@ -963,6 +999,10 @@ PrefabInstance:
     - target: {fileID: 6658996539661631456, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658996539661631457, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
+      propertyPath: spawnTime
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6658996539661631463, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_Name
@@ -1114,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6658996539661631457, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6658996539661631463, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_Name
       value: ItemSpawner (2)
@@ -1177,6 +1221,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[5]
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4200,6 +4268,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6658996539661631457, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6658996539661631463, guid: 1b024675663c8674eba62609ec8f49a3, type: 3}
       propertyPath: m_Name
       value: ItemSpawner (4)
@@ -4329,6 +4401,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877632206007629988, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877632206007629990, guid: 17386e2c936c67d4790815750419ca8b, type: 3}
+      propertyPath: enabledWeaponsb.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

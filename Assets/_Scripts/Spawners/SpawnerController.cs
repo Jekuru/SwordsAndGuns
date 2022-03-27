@@ -25,6 +25,8 @@ public class SpawnerController : MonoBehaviour
     // Arma equipada actualmente
     public WeaponTypes currentWeapon; // Arma actual
 
+    public bool[] enabledWeaponsb = { false, true, true, true, true, true };
+
     public bool isActive = true;
     public bool startRandom; // Indica si el primer spawn del arma es aleatorio o no.
 
@@ -42,8 +44,15 @@ public class SpawnerController : MonoBehaviour
 
         if (isActive && startRandom)
         {
-            WeaponTypes randomWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
-            photonView.RPC("StartRandom", RpcTarget.All, randomWeapon);
+            WeaponTypes selectedWeapon;
+            int randomNumber;
+            do
+            {
+                randomNumber = Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+                selectedWeapon = (WeaponTypes)randomNumber;
+            } while (!enabledWeaponsb[randomNumber]);
+            
+            photonView.RPC("StartRandom", RpcTarget.All, selectedWeapon);
         }
     }
 
@@ -60,8 +69,15 @@ public class SpawnerController : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > spawnTime)
             {
-                WeaponTypes randomWeapon = (WeaponTypes)Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
-                photonView.RPC("WeaponSpawner", RpcTarget.All, randomWeapon);
+                WeaponTypes selectedWeapon;
+                int randomNumber;
+                do
+                {
+                    randomNumber = Random.Range(1, System.Enum.GetValues(typeof(WeaponTypes)).Length);
+                    selectedWeapon = (WeaponTypes)randomNumber;
+                } while (!enabledWeaponsb[randomNumber]);
+
+                photonView.RPC("WeaponSpawner", RpcTarget.All, selectedWeapon);
             }
         }
     }

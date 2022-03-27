@@ -47,7 +47,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         PhotonNetwork.AutomaticallySyncScene = true;
-        //DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
             Debug.Log("In room");
             Debug.Log("Jugadores en la sala: " + PhotonNetwork.PlayerList.Length);
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1) // TODO: 1 por testeo, 2 es el valor que debería tener...
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= 2) // TODO: 1 por testeo, 2 es el valor que debería tener...
             {
                 commenceButton.interactable = true;
             }
@@ -165,8 +164,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
         playerPreferences.onMain = false;
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
             StartCoroutine(LoadScene());
         }
     }
@@ -185,6 +182,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [PunRPC]
     void LoadingSceneInfo()
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
         commenceButton.gameObject.SetActive(false);
         customText.text = "Comenzando partida...";
         customText.gameObject.SetActive(true);

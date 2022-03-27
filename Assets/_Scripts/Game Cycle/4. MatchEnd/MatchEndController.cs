@@ -12,6 +12,7 @@ public class MatchEndController : MonoBehaviourPunCallbacks
 {
     [Header("Datos leaderboard")]
     [SerializeField] private Image[] playersHelmet;
+    [SerializeField] private Image playerBody;
     [SerializeField] private TMP_Text[] playersNickName;
     [SerializeField] private TMP_Text[] playersVictories;
     [SerializeField] private GameObject[] playersPositionText;
@@ -49,18 +50,34 @@ public class MatchEndController : MonoBehaviourPunCallbacks
             if (userScore[i].player.UserId == PhotonNetwork.PlayerList[0].UserId)
             {
                 playersNickName[i].color = Color.red;
+                if(userScore.First().player == PhotonNetwork.PlayerList[0])
+                {
+                    playerBody.color = Color.red;
+                }
             }
             else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[1].UserId)
             {
                 playersNickName[i].color = Color.blue;
+                if (userScore.First().player == PhotonNetwork.PlayerList[1])
+                {
+                    playerBody.color = Color.blue;
+                }
             }
             else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[2].UserId)
             {
                 playersNickName[i].color = Color.green;
+                if (userScore.First().player == PhotonNetwork.PlayerList[2])
+                {
+                    playerBody.color = Color.green;
+                }
             }
             else if (userScore[i].player.UserId == PhotonNetwork.PlayerList[3].UserId)
             {
                 playersNickName[i].color = Color.magenta;
+                if (userScore.First().player == PhotonNetwork.PlayerList[3])
+                {
+                    playerBody.color = Color.magenta;
+                }
             }
             playersVictories[i].text = userScore[i].player.CustomProperties["Score"].ToString();
         }

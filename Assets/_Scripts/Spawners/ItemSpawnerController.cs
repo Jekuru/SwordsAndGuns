@@ -23,6 +23,8 @@ public class ItemSpawnerController : MonoBehaviour
 
     public ItemTypes currentItem; // Arma actual
 
+    public bool[] enabledItems = { true, true };
+
     public bool isActive = true;
     public bool startRandom; // Indica si el primer spawn del objeto es aleatorio o no.
 
@@ -40,8 +42,15 @@ public class ItemSpawnerController : MonoBehaviour
 
         if (isActive && startRandom)
         {
-            ItemTypes randomItem = (ItemTypes)Random.Range(0, System.Enum.GetValues(typeof(ItemTypes)).Length);
-            photonView.RPC("StartRandomItem", RpcTarget.All, randomItem);
+            ItemTypes selectedItem;
+            int randomNumber;
+            do
+            {
+                randomNumber = Random.Range(0, System.Enum.GetValues(typeof(ItemTypes)).Length);
+                selectedItem = (ItemTypes)randomNumber;
+            } while (!enabledItems[randomNumber]);
+
+            photonView.RPC("StartRandomItem", RpcTarget.All, selectedItem);
         }
     }
 
@@ -58,8 +67,15 @@ public class ItemSpawnerController : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > spawnTime)
             {
-                ItemTypes randomItem = (ItemTypes)Random.Range(0, System.Enum.GetValues(typeof(ItemTypes)).Length);
-                photonView.RPC("ItemSpawner", RpcTarget.All, randomItem);
+                ItemTypes selectedItem;
+                int randomNumber;
+                do
+                {
+                    randomNumber = Random.Range(0, System.Enum.GetValues(typeof(ItemTypes)).Length);
+                    selectedItem = (ItemTypes)randomNumber;
+                } while (!enabledItems[randomNumber]);
+
+                photonView.RPC("StartRandomItem", RpcTarget.All, selectedItem);
             }
 
         }
