@@ -900,9 +900,77 @@ PrefabInstance:
     m_TransformParent: {fileID: 1812184006722872472}
     m_Modifications:
     - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1812184006722872545}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1812184006722872551}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1812184006722872545}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VirtualJumpButtonDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VirtualJumpButtonUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Jump, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Jump, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 375761024174740334, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 654599115498770079, guid: 55158cc6e542f8441a0142279b594372, type: 3}
       propertyPath: m_Name
       value: VirtualController
@@ -1000,6 +1068,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1812184006722872548}
     - target: {fileID: 5369151979881803092, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369151979881803092, guid: 55158cc6e542f8441a0142279b594372, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1812184006722872545}
@@ -1007,6 +1079,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1812184006722872548}
+    - target: {fileID: 9010706954698225238, guid: 55158cc6e542f8441a0142279b594372, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VirtualThrowGunButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55158cc6e542f8441a0142279b594372, type: 3}
 --- !u!1 &1674273571978414249 stripped

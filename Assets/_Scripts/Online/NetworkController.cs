@@ -26,6 +26,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
     [SerializeField] private int randomRoomNumber;
     [SerializeField] private Transform playersContainer;
     [SerializeField] private GameObject playerListingPrefab;
+    [SerializeField] private GameObject loadingGif;
+    [SerializeField] private TMP_Text customText;
     [SerializeField] private Button commenceButton;
     [Header("Selection elements")]
     [SerializeField] private GameObject selection;
@@ -45,11 +47,15 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         PhotonNetwork.AutomaticallySyncScene = true;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
     {
+        if (SceneManagerHelper.ActiveSceneName == "Menu")
+        {
+            playerPreferences = FindObjectOfType<PlayerPreferences>();
+        }
         if (PhotonNetwork.InRoom && SceneManagerHelper.ActiveSceneName == "Menu")
         {
             Debug.Log("In room");
@@ -70,6 +76,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     #region Botones
     public void ButtonPlayLocale()
     {
+        playerPreferences.onMain = false;
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("MainTestingScene");
@@ -77,8 +84,17 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ButtonConnectOnline()
     {
-        if(playerPreferences.nickName.Length < 3)
-            playerPreferences.nickName = "Player" + Random.Range(1, 999999);
+        playerPreferences.onMain = false;
+        if (PlayerPrefs.GetString("SavedNickname") != "" && PlayerPrefs.GetString("SavedNickname").Length >= 3)
+        {
+            playerPreferences.nickName = PlayerPrefs.GetString("SavedNickname");
+        }
+        else
+        {
+            if (playerPreferences.nickName.Length < 3)
+                playerPreferences.nickName = "Player" + Random.Range(1, 999999);
+        }
+
 
         PhotonNetwork.OfflineMode = false;
         PhotonNetwork.ConnectUsingSettings();
@@ -135,20 +151,22 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveLobby();
         PhotonNetwork.Disconnect();
+        playerPreferences.onMain = true;
     }
 
     public void ButtonCommence()
     {
         //playerPreferences.NameSave();
-        LoadScene();
-        PhotonNetwork.LoadLevel("CharSelection");
+        StartCoroutine(LoadScene());
     }
 
     public void ButtonStartOnlineGame()
     {
+        playerPreferences.onMain = false;
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
             StartCoroutine(LoadScene());
         }
     }
@@ -158,9 +176,19 @@ public class NetworkController : MonoBehaviourPunCallbacks
     IEnumerator LoadScene()
     {
         Debug.Log("Cargando escena de selección...");
+        photonView.RPC("LoadingSceneInfo", RpcTarget.All);
         yield return new WaitForSeconds(2);
 
         PhotonNetwork.LoadLevel("CharSelection");
+    }
+
+    [PunRPC]
+    void LoadingSceneInfo()
+    {
+        commenceButton.gameObject.SetActive(false);
+        customText.text = "Comenzando partida...";
+        customText.gameObject.SetActive(true);
+        loadingGif.gameObject.SetActive(true);
     }
 
     IEnumerator rejoinLobby()
@@ -168,6 +196,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(1);
         PhotonNetwork.JoinLobby();
     }
+
+
 
     public override void OnConnectedToMaster()
     {
@@ -244,6 +274,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
         roomNumber.text = PhotonNetwork.CurrentRoom.Name;
         commenceButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        customText.gameObject.SetActive(!PhotonNetwork.IsMasterClient);
 
         if(PhotonNetwork.IsMasterClient)
             PhotonNetwork.Instantiate("LobbyController", gameObject.transform.position, Quaternion.identity);
@@ -276,16 +307,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "Menu")
         {
             commenceButton.gameObject.SetActive(true);
-            PhotonNetwork.Instantiate("LobbyController", gameObject.transform.position, Quaternion.identity);
-        }
-            
+            customText.gameObject.SetActive(false);
 
-        if (PhotonNetwork.IsMasterClient && SceneManagerHelper.ActiveSceneName == "MatchEnd")
-        {
-            GameObject button = GameObject.FindGameObjectWithTag("RematchButton");
-            button.SetActive(false);
-        }
-        
+            PhotonNetwork.Instantiate("LobbyController", gameObject.transform.position, Quaternion.identity);
+        }        
     }
 
     public override void OnJoinedLobby()

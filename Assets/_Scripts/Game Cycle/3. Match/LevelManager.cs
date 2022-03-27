@@ -95,8 +95,6 @@ public class LevelManager : MonoBehaviourPunCallbacks
                     PhotonNetwork.LeaveRoom();
                     PhotonNetwork.LeaveLobby();
                     PhotonNetwork.Disconnect();
-                    GameObject networkController = GameObject.FindGameObjectWithTag("NetworkController");
-                    Destroy(networkController);
                     PhotonNetwork.LoadLevel("Menu");
                 }
             }

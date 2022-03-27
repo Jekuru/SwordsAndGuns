@@ -8,7 +8,6 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-
     public TMP_Dropdown resolutionDrop;
     Resolution[] resolutions;
     public TMP_Dropdown fpsDrop;

@@ -22,20 +22,19 @@ public class MatchEndController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject rematchButton;
     [SerializeField] private GameObject exitButton;
 
+    [SerializeField] private GameObject waitingForHostText;
+    [SerializeField] private GameObject playerLeftText;
     [SerializeField] private GameObject loadingRing;
-
-    private PhotonView photonView;
-
-    private void Awake()
-    {
-        photonView = GetComponent<PhotonView>();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
+        {
             rematchButton.SetActive(true);
+            waitingForHostText.SetActive(false);
+        }
+            
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
@@ -125,8 +124,13 @@ public class MatchEndController : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
-        GameObject networkController = GameObject.FindGameObjectWithTag("NetworkController");
-        Destroy(networkController);
         SceneManager.LoadScene("Menu");
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        playerLeftText.SetActive(true);
+        waitingForHostText.SetActive(false);
+        rematchButton.SetActive(false);
     }
 }

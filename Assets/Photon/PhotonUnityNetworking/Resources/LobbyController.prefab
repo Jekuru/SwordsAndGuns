@@ -32,8 +32,8 @@ RectTransform:
   m_Father: {fileID: 4346276633512036754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.04754863, y: 0.298}
-  m_AnchorMax: {x: 0.43682295, y: 0.6834691}
+  m_AnchorMin: {x: 0, y: 0.027593821}
+  m_AnchorMax: {x: 0.51782304, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 32
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -167,8 +167,8 @@ RectTransform:
   m_Father: {fileID: 4346276633512036754}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.47245133, y: 0.298}
-  m_AnchorMax: {x: 0.5672744, y: 0.5696377}
+  m_AnchorMin: {x: 0.57000005, y: 0.298}
+  m_AnchorMax: {x: 0.684, y: 0.675}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -299,8 +299,8 @@ RectTransform:
   m_Father: {fileID: 4346276633512036754}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8425487, y: 0.298}
-  m_AnchorMax: {x: 0.9373718, y: 0.6106041}
+  m_AnchorMin: {x: 0.88645136, y: 0.298}
+  m_AnchorMax: {x: 1, y: 0.675}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -430,8 +430,8 @@ RectTransform:
   m_Father: {fileID: 4346276633512036754}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.61527437, y: 0.22360414}
-  m_AnchorMax: {x: 0.796177, y: 0.6834691}
+  m_AnchorMin: {x: 0.684, y: 0.2603959}
+  m_AnchorMax: {x: 0.88645136, y: 0.7117918}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -463,7 +463,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: '5
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 938dfadbc0d4bfd47938e3f2f12e9823, type: 2}
   m_sharedMaterial: {fileID: 5896751876174556762, guid: 938dfadbc0d4bfd47938e3f2f12e9823, type: 2}

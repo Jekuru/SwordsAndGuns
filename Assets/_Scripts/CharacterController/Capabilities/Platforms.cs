@@ -31,7 +31,7 @@ public class Platforms : MonoBehaviour
     {
         if (!photonView.IsMine)
             return;
-        if (controller.input.RetrieveVerticalInput() == -1 || joystick.Vertical == -1)
+        if (controller.input.RetrieveVerticalInput() == -1 || joystick.Vertical <= -0.5)
         {
             if (platform != null)
             {

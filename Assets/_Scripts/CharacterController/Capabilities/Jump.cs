@@ -61,16 +61,17 @@ public class Jump : MonoBehaviour
         JumpChecks();
     }
 
-    public void VirtualJumpButton()
+    public void VirtualJumpButtonDown()
     {
         isJumping |= true;
         holdingJump |= true;
 
         float holding = Time.deltaTime;
-        Debug.Log("Manteniendo salto virtual: " + holding);
+    }
 
-        // SI SE SUELTA LA TECLA DE SALTO...
-        
+    public void VirtualJumpButtonUp()
+    {
+        holdingJump = false;
     }
 
     private void JumpInputs()

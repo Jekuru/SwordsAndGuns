@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Collections;
 
 [RequireComponent(typeof(Controller))]
 
@@ -37,6 +38,7 @@ public class Weapon : MonoBehaviour
     public bool meleeAttack; // Booleana para triggear animacion de ataque en el anim;
     public AudioSource audioSource;// Fuente audio de las armas
     public List<AudioClip> weaponSounds;
+    private int soundId;
 
     
     // Armas
@@ -56,7 +58,7 @@ public class Weapon : MonoBehaviour
 
     // Mando virtual para movil
     private bool virtualShoot;
-    private bool virtualThrowGun;
+    private bool virtualThrow;
 
     public PhotonView photonView;
 
@@ -77,32 +79,27 @@ public class Weapon : MonoBehaviour
             return;
 
         // TRIGGER para disparar el arma
-        WeaponTrigger();
+        WeaponTrigger(controller.input.RetrieveFireInput() || virtualShoot);
+        virtualShoot = false;
 
         // COOLDOWN entre disparos, frecuencia de disparo
         WeaponCooldown();
+
+        // TRIGGER, para soltar el arma
+        ThrowWeaponTrigger(controller.input.RetrieveThrowInput() || virtualThrow);
+        virtualThrow = false;
     }
 
     private void FixedUpdate()
     {
         if (!photonView.IsMine)
             return;
-
-        // Tirar arma al pulsar el botón para tirar el arma
-        if (controller.input.RetrieveThrowInput())
-        {
-            if (currentWeapon == WeaponTypes.none)
-                return;
-
-            photonView.RPC("ThrowGun", RpcTarget.All);
-        }
     }
 
     public void WeaponChange(int weapon)
     {
         photonView.RPC("WeaponChangeOnline", RpcTarget.All, weapon);
     }
-
 
 
     [PunRPC]
@@ -115,12 +112,15 @@ public class Weapon : MonoBehaviour
     /**
     * Ejecuta el comportamiento de un arma u otra al pulsar el botón de disparo
     */
-    void WeaponTrigger()
+    void WeaponTrigger(bool trigger)
     {
-        if ((controller.input.RetrieveFireInput() || virtualShoot) && cdBool)
+        if (!cdBool)
+            return;
+
+        if (trigger)
         {
             cdBool = false;
-            virtualShoot = false;
+            //virtualShoot = false;
             switch (currentWeapon)
             {
                 // NINGUNA
@@ -152,18 +152,28 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    void ThrowWeaponTrigger(bool trigger)
+    {
+        // Tirar arma al pulsar el botón para tirar el arma
+        if (trigger)
+        {
+            if (currentWeapon == WeaponTypes.none)
+                return;
+
+            photonView.RPC("ThrowGun", RpcTarget.All);
+        }
+    }
+
     public void VirtualShootButton()
     {
-        virtualShoot = true;
+        // Disparar al pulsar el botón de disparar a través del VirtualController
+        virtualShoot |= true;
     }
 
     public void VirtualThrowGunButton()
     {
-        if (!photonView.IsMine)
-            return;
-
-        // Tirar arma al pulsar el botón para tirar el arma
-        controller.input.RetrieveThrowInput().Equals(true);
+        // Tirar el arma al pulsar el botón de tirar el arma a través del VirtualController
+        virtualThrow |= true;
 
     }
 
@@ -235,8 +245,16 @@ public class Weapon : MonoBehaviour
     public void ThrowGun()
     {
         ammo = 0;
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is Throwing gun");
+        // StartCoroutine(ThrowGunCoroutine());
         ThrowGunOnline();
     }   
+
+    [PunRPC]
+    void PlaySound(int soundId)
+    {
+        audioSource.PlayOneShot(weaponSounds[soundId]);
+    }
 
     #region Comportamiento armas
     /**
@@ -255,10 +273,11 @@ public class Weapon : MonoBehaviour
     {
         fireRate = 0.5f;
         spread = 0;
-
-        meleeAttack = true;
+        soundId = 0;
         
-        audioSource.PlayOneShot(weaponSounds[0]);
+        meleeAttack = true;
+
+        photonView.RPC("PlaySound", RpcTarget.All, soundId);
     }
 
     /**
@@ -270,6 +289,7 @@ public class Weapon : MonoBehaviour
         ammo++;
         this.spread = 2.5f; // Dispersión en la pistola para simular disparos de poca precisión
         fireRate = 0.5f;
+        soundId = 1;
 
         float randomBullet = Random.Range(this.spread * -1, this.spread);
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
@@ -281,7 +301,7 @@ public class Weapon : MonoBehaviour
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
-        audioSource.PlayOneShot(weaponSounds[1]);
+        photonView.RPC("PlaySound", RpcTarget.All, soundId);
     }
 
     /**
@@ -294,6 +314,7 @@ public class Weapon : MonoBehaviour
         int pellets = 10; // Número de proyectiles que se instanciarán
         spread = 5f; // Dispersión reducida de 30 a 5 para que no sea tan facil acertar objetivos con este arma, (¿crear arma "Trabuco" de un solo disparo con dispersión 30?).
         fireRate = 1f;
+        soundId = 2;
 
         for (int i = 0; i < pellets; i++)
         {
@@ -308,7 +329,7 @@ public class Weapon : MonoBehaviour
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
-        audioSource.PlayOneShot(weaponSounds[2]);
+        photonView.RPC("PlaySound", RpcTarget.All, soundId);
     }
 
     /**
@@ -320,6 +341,7 @@ public class Weapon : MonoBehaviour
         ammo++;
         this.spread = 0.1f;
         fireRate = 1.5f;
+        soundId = 3;
 
         float randomBullet = Random.Range(this.spread * -1, this.spread);
         Quaternion spread = Quaternion.Euler(firePoint.rotation.x, firePoint.rotation.y, randomBullet);
@@ -331,7 +353,7 @@ public class Weapon : MonoBehaviour
             photonView.RPC("ThrowGun", RpcTarget.All);
         }
 
-        audioSource.PlayOneShot(weaponSounds[3]);
+        photonView.RPC("PlaySound", RpcTarget.All, soundId);
     }
 
     /**
@@ -343,6 +365,7 @@ public class Weapon : MonoBehaviour
         ammo++;
         spread = 0;
         fireRate = 2f;
+        soundId = 4;
 
         PhotonNetwork.Instantiate("LaserBeamOnline", firePoint.position, firePoint.rotation);
 
@@ -353,7 +376,7 @@ public class Weapon : MonoBehaviour
 
         photonView.RPC("RaygunShoot", RpcTarget.All);
 
-        audioSource.PlayOneShot(weaponSounds[4]);
+        photonView.RPC("PlaySound", RpcTarget.All, soundId);
     }
 
     [PunRPC]
